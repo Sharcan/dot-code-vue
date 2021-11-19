@@ -10,18 +10,9 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  },
-  sockets: {
-    connect: function () {
-      console.log('je suis connecté');
-    }
-  }
+  name: 'App'
 }
 </script>
 
