@@ -119,6 +119,8 @@
 
             disconnected: function (socketId) {
               console.log('disconnected : ', socketId);
+              const remoteCursor = this.remoteCursor.find((remoteCursor) => socketId === remoteCursor.socketId);
+              remoteCursor.cursor.hide();
               const remoteCursorIndex = this.remoteCursor.findIndex((remoteCursor) => socketId === remoteCursor.socketId);
               console.log(remoteCursorIndex);
               this.remoteCursor.splice(remoteCursorIndex, 1);
