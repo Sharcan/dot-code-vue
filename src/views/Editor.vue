@@ -104,7 +104,6 @@
           this.sharedCursorIde();
           this.onIdeAction();
           this.$socket.client.emit('monacoPage');
-
         },
 
         sockets: {
@@ -112,7 +111,7 @@
                 console.log('values: ', values);
                 values.otherUsers.forEach(user => {
                   console.log('otherUsers:', user)
-                  this.remoteCursorCreation({socketId: user, pseudo: 'test'});
+                  this.remoteCursorCreation(user);
                 });
                 this.socketId = values.socketId;
                 const pseudo = prompt('Pseudo :');
