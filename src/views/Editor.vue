@@ -33,7 +33,8 @@
                 output: null,
                 socketId: null,
                 localCursor: null,
-                remoteCursor: []
+                remoteCursor: [],
+                timeout: null
             }
         },
         watch: {
@@ -65,6 +66,7 @@
             },
 
             remoteCursorCreation(user) {
+              clearTimeout(this.timeout);
               console.log('remoteCursoCreation:', user)
               const newCursor = this.remoteCursorManager.addCursor(user.socketId,
                  '#' + Math.floor(Math.random()*16777215).toString(16), user.pseudo
@@ -72,6 +74,9 @@
               this.remoteCursor.push({socketId:user.socketId, cursor: newCursor});
 
               newCursor.setPosition({column:1, lineNumber: 1});
+              this.timeout = setTimeout(() => {
+                newCursor.hide();
+              }, 4000)
               console.log('remoteCursorList', this.remoteCursor)
             },
 
@@ -79,8 +84,15 @@
               this.$socket.client.emit('localCursorChange',
                   {socketId: this.socketId, position: this.editor.getPosition()}
               );
-            }
+            },
 
+            onIdeAction() {
+              this.editor.onKeyUp(() => {
+                this.$socket.client.emit('localCursorChange',
+                    {socketId: this.socketId, position: this.editor.getPosition()}
+                );
+              })
+            }
         },
         mounted() {
           this.editor = monaco.editor.create(document.getElementById("editor"), {
@@ -90,6 +102,7 @@
           });
 
           this.sharedCursorIde();
+          this.onIdeAction();
           this.$socket.client.emit('monacoPage');
 
         },
@@ -112,15 +125,20 @@
             },
 
             remoteCursorChange: function(values) {
+                clearTimeout(this.timeout)
                 console.log(values, this.remoteCursor);
                 const remoteCursor = this.remoteCursor.find((remoteCursor) => values.socketId === remoteCursor.socketId);
+                remoteCursor.cursor.show();
                 remoteCursor.cursor.setPosition(values.position);
+                this.timeout = setTimeout(() => {
+                  remoteCursor.cursor.hide();
+                }, 4000)
             },
 
             disconnected: function (socketId) {
               console.log('disconnected : ', socketId);
               const remoteCursor = this.remoteCursor.find((remoteCursor) => socketId === remoteCursor.socketId);
-              remoteCursor.cursor.hide();
+              remoteCursor.cursor.dispose();
               const remoteCursorIndex = this.remoteCursor.findIndex((remoteCursor) => socketId === remoteCursor.socketId);
               console.log(remoteCursorIndex);
               this.remoteCursor.splice(remoteCursorIndex, 1);
