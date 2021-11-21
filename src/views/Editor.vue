@@ -34,7 +34,10 @@
                 socketId: null,
                 localCursor: null,
                 remoteCursor: [],
-                timeout: null
+                timeout: null,
+                remoteCursorManager: null,
+                remoteSelectionManager: null,
+                remoteContentManager: null
             }
         },
         watch: {
@@ -65,19 +68,39 @@
               });
             },
 
+            sharedSelectionIde() {
+              this.remoteSelectionManager = new MonacoCollabExt.RemoteSelectionManager({
+                editor: this.editor
+              });
+            },
+
+            sharedContentIde(thisVue) {
+              this.remoteContentManager = new MonacoCollabExt.EditorContentManager({
+                editor: this.editor,
+                onInsert(index, text) {
+                  thisVue.$socket.client.emit('newTextInsert', {index: index, value: text});
+                },
+                onDelete(index, length) {
+                  thisVue.$socket.client.emit('newTextDelete', {index: index, length: length});
+                }
+              })
+            },
+
             remoteCursorCreation(user) {
               clearTimeout(this.timeout);
-              console.log('remoteCursoCreation:', user)
+              const color = '#' + Math.floor(Math.random()*16777215).toString(16);
               const newCursor = this.remoteCursorManager.addCursor(user.socketId,
-                 '#' + Math.floor(Math.random()*16777215).toString(16), user.pseudo
+                  color, user.pseudo
               )
               this.remoteCursor.push({socketId:user.socketId, cursor: newCursor});
-
               newCursor.setPosition({column:1, lineNumber: 1});
+
+              this.remoteSelectionManager.addSelection(user.socketId,
+                  color, user.pseudo);
+
               this.timeout = setTimeout(() => {
                 newCursor.hide();
-              }, 4000)
-              console.log('remoteCursorList', this.remoteCursor)
+              }, 4000);
             },
 
             onIdeClick() {
@@ -102,6 +125,8 @@
           });
 
           this.sharedCursorIde();
+          this.sharedSelectionIde();
+          this.sharedContentIde(this);
           this.onIdeAction();
           this.$socket.client.emit('monacoPage');
         },
@@ -124,20 +149,28 @@
             },
 
             remoteCursorChange: function(values) {
-                clearTimeout(this.timeout)
-                console.log(values, this.remoteCursor);
-                const remoteCursor = this.remoteCursor.find((remoteCursor) => values.socketId === remoteCursor.socketId);
-                remoteCursor.cursor.show();
-                remoteCursor.cursor.setPosition(values.position);
+                clearTimeout(this.timeout);
+                this.remoteCursorManager.setCursorPosition(values.socketId, values.position);
+                this.remoteCursorManager.showCursor(values.socketId);
                 this.timeout = setTimeout(() => {
-                  remoteCursor.cursor.hide();
-                }, 4000)
+                  this.remoteCursorManager.hideCursor(values.socketId);
+                }, 4000);
+            },
+
+            newTextInsertRemote: function (values) {
+              this.remoteContentManager.insert(values.index, values.value);
+              this.remoteContentManager.dispose();
+            },
+
+            newTextDeleteRemote: function (values) {
+              this.remoteContentManager.delete(values.index, values.length);
+              this.remoteContentManager.dispose();
             },
 
             disconnected: function (socketId) {
               console.log('disconnected : ', socketId);
               const remoteCursor = this.remoteCursor.find((remoteCursor) => socketId === remoteCursor.socketId);
-              remoteCursor.cursor.dispose();
+              this.remoteCursorManager.removeCursor(remoteCursor);
               const remoteCursorIndex = this.remoteCursor.findIndex((remoteCursor) => socketId === remoteCursor.socketId);
               console.log(remoteCursorIndex);
               this.remoteCursor.splice(remoteCursorIndex, 1);
