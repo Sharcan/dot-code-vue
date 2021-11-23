@@ -1,7 +1,7 @@
 <template>
     <div class="navbar">
         <img class="btn-moon" src="@/assets/images/btn-moon.svg" alt="Moon button">
-        <img class="title" src="@/assets/images/spacecode.svg" alt="SpaceCode">
+        <span class="navbar-title">SpaceCode</span>
         <img class="btn-astro" src="@/assets/images/btn-astro.svg" alt="Astro button">
     </div>
 </template>
@@ -22,7 +22,7 @@
         top: 0;
         left: 0;
         width: 100vw;
-        z-index: 200;
+        z-index: 999;
         background-color: #090B31;
     }
 
@@ -30,8 +30,9 @@
         height: 40%;
         margin-left: 40px;
     }
-    .title {
-        height: 45%;
+    .navbar-title {
+        font-family: 'Geminis';
+        font-size: 2rem;
     }
     .btn-astro {
         height: 40%;

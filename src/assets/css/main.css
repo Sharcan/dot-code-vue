@@ -1,6 +1,32 @@
+@font-face {
+    font-family: 'Geminis';
+    src: url('../fonts/BD_Geminis/BD_Geminis.otf');
+    src: url('../fonts/BD_Geminis/BD_Geminis.ttf');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../fonts/Raleway/Raleway-VariableFont_wght.ttf');
+    src: url('../fonts/Raleway/Raleway-Italic-VariableFont_wght.ttf');
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: Avenir, Helvetica, Arial, sans-serif;
     background-color: #090B31;
+}
+
+.geminis {
+    font-family: 'Geminis';
+}
+
+.text-right {
+    text-align: right;
+}
+.text-left {
+    text-align: left;
+}
+.text-center {
+    text-align: center;
 }
