@@ -144,7 +144,6 @@
             },
 
             newUserRemote: function(user) {
-                console.log('user: ', user);
                 this.remoteCursorCreation(user);
             },
 
@@ -168,11 +167,9 @@
             },
 
             disconnected: function (socketId) {
-              console.log('disconnected : ', socketId);
               const remoteCursor = this.remoteCursor.find((remoteCursor) => socketId === remoteCursor.socketId);
               this.remoteCursorManager.removeCursor(remoteCursor);
               const remoteCursorIndex = this.remoteCursor.findIndex((remoteCursor) => socketId === remoteCursor.socketId);
-              console.log(remoteCursorIndex);
               this.remoteCursor.splice(remoteCursorIndex, 1);
             }
         }
