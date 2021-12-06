@@ -8,14 +8,13 @@
     export default {
         name: 'SpaceButton',
         props: [
-            'text'
+            'text',
         ]
     }
 </script>
 
 <style scoped>
     .button {
-        width: 100%;
         text-align: center;
         background-color: #090B31;
         border-radius: 30px;

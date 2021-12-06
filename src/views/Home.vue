@@ -1,7 +1,7 @@
 <template>
-    <PresentationLayout>
+    <HomeLayout>
       <template #content>
-        <div class="part-1">
+        <div class="title-part">
           <div class="title-container">
             <h1 class="main-title geminis">Welcome<br>on board !</h1>
             <div class="buttons">
@@ -39,26 +39,43 @@
           </div>
           <div class="bg-planet-egg"></div>
         </div>
+
+        <div class="button-part">
+          <img src="@/assets/images/splash.png" alt="Splash" class="splash">
+          <img src="@/assets/images/diamond.png" alt="Diamond" class="diamond">
+          <div class="button-text">
+            <h3 class="geminis button-title">Prêt à rejoindre l'aventure ?</h3>
+            <h4 class="geminis button-title">L'espace a besoin de toi !</h4>
+            <SpaceButton text="Se créer un compte" class="bottom-btn" />
+          </div>
+        </div>
+
+        <div class="footer">
+          <img src="@/assets/images/dotcode.png" alt="Dotcode" class="footer-img">
+          <div class="geminis footer-txt-1">Made with love by l'équipe 12</div>
+          <div class="geminis footer-txt-2">2021, Dotcode</div>
+        </div>
+
       </template>
-    </PresentationLayout>
+    </HomeLayout>
 </template>
 
 <script>
-  import PresentationLayout from '@/layouts/PresentationLayout'
+  import HomeLayout from '@/layouts/HomeLayout'
   import SpaceButton from '@/components/SpaceButton'
 
   export default {
     name: 'Home',
     components: {
-      PresentationLayout,
+      HomeLayout,
       SpaceButton
     }
   }
 </script>
 
 <style>
-  /* Part 1 */
-  .part-1 {
+  /* Title part */
+  .title-part {
     position: relative;
     height: 88vh;
   }
@@ -149,6 +166,61 @@
     background-size: contain;
     background-repeat: no-repeat;
     z-index: -1;
+  }
+
+  .button-part {
+    height: 33vh;
+    width: 100%;
+    margin-top: 150px;
+    background-color: #fff;
+    border-radius: 150px;
+    position: relative;
+    z-index: -1;
+  }
+  .splash {
+    width: 200px;
+    position: absolute;
+    top: -15px;
+    left: 0;
+  }
+  .diamond {
+    width: 250px;
+    position: absolute;
+    bottom: -100px;
+    right: -30px;
+  }
+  .button-text {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .button-title {
+    color: #090B31;
+  }
+  .button-text h3 {
+    font-size: 3.3rem;
+    margin-bottom: 0;
+  }
+  .button-text h4 {
+    font-size: 2rem;
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+  .bottom-btn {
+    width: 30%;
+  }
+
+  .footer {
+    width: 100%;
+    text-align: center;
+  }
+  .footer-img {
+    margin-top: -15px;
+  }
+  .footer-txt-1 {
+    margin-top: 20px;
   }
 
 </style>

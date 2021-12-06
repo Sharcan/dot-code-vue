@@ -1,19 +1,22 @@
 <template>
     <div>
-        <Navbar></Navbar>
+        <Navbar />
         <div class="container">
             <slot name="content"></slot>
         </div>
+        <Footer />
     </div>
 </template>
 
 <script>
-    import Navbar from '@/layouts/partials/presentation-layout/Navbar'
+    import Navbar from '@/layouts/partials/home-layout/Navbar'
+    import Footer from '@/layouts/partials/home-layout/Footer'
 
     export default {
-        name: 'PresentationLayout',
+        name: 'HomeLayout',
         components: {
-            Navbar
+            Navbar,
+            Footer
         }
     }
 </script>
