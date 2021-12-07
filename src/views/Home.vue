@@ -201,6 +201,7 @@
 
     animation-name: diamond-movement;
     animation-duration: 5s;
+    animation-delay: 1s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
   }
@@ -225,6 +226,7 @@
 
      animation-name: diamond-movement;
      animation-duration: 5s;
+    animation-delay: 5s;
      animation-iteration-count: infinite;
      animation-timing-function: ease-in-out;
    }
