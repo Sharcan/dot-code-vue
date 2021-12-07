@@ -144,7 +144,7 @@
     color: rgb(212, 212, 212);
   }
 
-  /** NICO PART **/
+  /** Planet PART **/
   .planet-red-img {
     position: absolute;
     width: 25%;
@@ -228,42 +228,6 @@
      animation-iteration-count: infinite;
      animation-timing-function: ease-in-out;
    }
-  /** END NICO PART **/
-
-
-  .bg-planet-red {
-    position: absolute;
-    top: 60px;
-    right: 0;
-    height: 95%;
-    width: 45%;
-    background: url('~@/assets/images/bg-planet-red.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: -1;
-  }
-  .bg-planet-earth {
-    position: absolute;
-    top: 60px;
-    left: 0;
-    height: 95%;
-    width: 45%;
-    background: url('~@/assets/images/bg-planet-earth.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: -1;
-  }
-  .bg-planet-egg {
-    position: absolute;
-    top: 60px;
-    right: 0;
-    height: 95%;
-    width: 45%;
-    background: url('~@/assets/images/bg-planet-egg.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: -1;
-  }
 
   .button-part {
     height: 33vh;
