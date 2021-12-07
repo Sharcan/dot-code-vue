@@ -36,6 +36,7 @@
           <div>
             <img src="@/assets/images/diamond-2.png" alt="diamonds" class="diamond-img-earth">
             <img src="@/assets/images/planet-earth.png" alt="planet-earth" class="planet-earth-img">
+            <img src="@/assets/images/diamond-5.png" alt="diamonds" class="diamond-img-earth-2">
           </div>
         </div>
 
@@ -45,8 +46,9 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, magnam eum. Maiores, nesciunt culpa quae odit fugit repellendus, iure optio repudiandae voluptates tempore in repellat eum perspiciatis ea, minima quam enim qui impedit nostrum veritatis reiciendis suscipit inventore? Numquam accusantium, corrupti odio possimus iure molestiae autem quasi facere maiores consectetur doloribus praesentium, rerum quas modi! Labore dolorem asperiores rerum et molestias nobis eos? Totam, perspiciatis quo quibusdam illo qui iste doloremque ratione blanditiis suscipit beatae ab corrupti eaque nesciunt perferendis. Magnam est praesentium architecto aliquam voluptatum vero nihil nesciunt in maxime eligendi, unde rerum nulla dolorem eveniet sequi ea suscipit?</p>
           </div>
           <div>
+            <img src="@/assets/images/diamond-2.png" alt="diamonds" class="diamond-img-egg">
+            <img src="@/assets/images/diamond-3.png" alt="diamonds" class="diamond-img-egg-2">
             <img src="@/assets/images/planet-egg.png" alt="planet-egg" class="planet-egg-img">
-            <img src="@/assets/images/diamond.png" alt="diamonds" class="diamond-img-egg">
           </div>
         </div>
 
@@ -205,6 +207,19 @@
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
   }
+  .diamond-img-earth-2 {
+    position: absolute;
+    width: 8%;
+    left: 4%;
+    bottom: 4%;
+    transform: rotate(180deg);
+
+    animation-name: diamond-movement;
+    animation-duration: 5s;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
 
   .planet-egg-img {
     position: absolute;
@@ -216,20 +231,32 @@
     animation-duration: 120s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
-    animation-direction: alternate;
+    animation-direction: normal;
   }
   .diamond-img-egg {
      position: absolute;
      width: 10%;
      right: 3%;
-     bottom: 20px;
+     top: 10%;
 
      animation-name: diamond-movement;
      animation-duration: 5s;
-    animation-delay: 5s;
+     animation-delay: 5s;
      animation-iteration-count: infinite;
      animation-timing-function: ease-in-out;
-   }
+  }
+  .diamond-img-egg-2 {
+     position: absolute;
+     width: 7%;
+     right: 3%;
+     top: 40%;
+
+     animation-name: diamond-movement;
+     animation-duration: 5s;
+     animation-delay: 4s;
+     animation-iteration-count: infinite;
+     animation-timing-function: ease-in-out;
+  }
 
   .button-part {
     height: 33vh;
@@ -251,6 +278,11 @@
     position: absolute;
     bottom: -100px;
     right: -30px;
+
+    animation-name: diamond-movement;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
   }
   .button-text {
     width: 100%;
