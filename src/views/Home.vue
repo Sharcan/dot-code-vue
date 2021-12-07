@@ -6,7 +6,7 @@
             <h1 class="main-title geminis">Welcome<br>on board !</h1>
             <div class="buttons">
               <div class="btn-1">
-                <SpaceButton text="Jouer en ligne" />
+                <SpaceButton text="Jouer en ligne !" />
               </div>
               <div class="btn-2">
                 <SpaceButton text="Créer une partie privée" />
@@ -21,7 +21,11 @@
             <h2 class="geminis">Lorem Ipsum</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, magnam eum. Maiores, nesciunt culpa quae odit fugit repellendus, iure optio repudiandae voluptates tempore in repellat eum perspiciatis ea, minima quam enim qui impedit nostrum veritatis reiciendis suscipit inventore? Numquam accusantium, corrupti odio possimus iure molestiae autem quasi facere maiores consectetur doloribus praesentium, rerum quas modi! Labore dolorem asperiores rerum et molestias nobis eos? Totam, perspiciatis quo quibusdam illo qui iste doloremque ratione blanditiis suscipit beatae ab corrupti eaque nesciunt perferendis. Magnam est praesentium architecto aliquam voluptatum vero nihil nesciunt in maxime eligendi, unde rerum nulla dolorem eveniet sequi ea suscipit?</p>
           </div>
-          <div class="bg-planet-red"></div>
+          <div>
+            <img src="@/assets/images/planet-red.png" alt="planet-red" class="planet-red-img">
+            <img src="@/assets/images/diamond.png" alt="diamonds" class="diamond-img">
+            <img src="@/assets/images/diamond-2.png" alt="diamonds" class="diamond-img-2">
+          </div>
         </div>
 
         <div class="text-part text-part-right">
@@ -29,7 +33,10 @@
             <h2 class="geminis">Lorem Ipsum</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, magnam eum. Maiores, nesciunt culpa quae odit fugit repellendus, iure optio repudiandae voluptates tempore in repellat eum perspiciatis ea, minima quam enim qui impedit nostrum veritatis reiciendis suscipit inventore? Numquam accusantium, corrupti odio possimus iure molestiae autem quasi facere maiores consectetur doloribus praesentium, rerum quas modi! Labore dolorem asperiores rerum et molestias nobis eos? Totam, perspiciatis quo quibusdam illo qui iste doloremque ratione blanditiis suscipit beatae ab corrupti eaque nesciunt perferendis. Magnam est praesentium architecto aliquam voluptatum vero nihil nesciunt in maxime eligendi, unde rerum nulla dolorem eveniet sequi ea suscipit?</p>
           </div>
-          <div class="bg-planet-earth"></div>
+          <div>
+            <img src="@/assets/images/diamond-2.png" alt="diamonds" class="diamond-img-earth">
+            <img src="@/assets/images/planet-earth.png" alt="planet-earth" class="planet-earth-img">
+          </div>
         </div>
 
         <div class="text-part">
@@ -37,7 +44,10 @@
             <h2 class="geminis">Lorem Ipsum</h2>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis, magnam eum. Maiores, nesciunt culpa quae odit fugit repellendus, iure optio repudiandae voluptates tempore in repellat eum perspiciatis ea, minima quam enim qui impedit nostrum veritatis reiciendis suscipit inventore? Numquam accusantium, corrupti odio possimus iure molestiae autem quasi facere maiores consectetur doloribus praesentium, rerum quas modi! Labore dolorem asperiores rerum et molestias nobis eos? Totam, perspiciatis quo quibusdam illo qui iste doloremque ratione blanditiis suscipit beatae ab corrupti eaque nesciunt perferendis. Magnam est praesentium architecto aliquam voluptatum vero nihil nesciunt in maxime eligendi, unde rerum nulla dolorem eveniet sequi ea suscipit?</p>
           </div>
-          <div class="bg-planet-egg"></div>
+          <div>
+            <img src="@/assets/images/planet-egg.png" alt="planet-egg" class="planet-egg-img">
+            <img src="@/assets/images/diamond.png" alt="diamonds" class="diamond-img-egg">
+          </div>
         </div>
 
         <div class="button-part">
@@ -55,7 +65,6 @@
           <div class="geminis footer-txt-1">Made with love by l'équipe 12</div>
           <div class="geminis footer-txt-2">2021, Dotcode</div>
         </div>
-
       </template>
     </HomeLayout>
 </template>
@@ -134,6 +143,94 @@
     font-size: 0.9rem;
     color: rgb(212, 212, 212);
   }
+
+  /** NICO PART **/
+  .planet-red-img {
+    position: absolute;
+    width: 25%;
+    right: 10%;
+    bottom: 50px;
+
+    animation-name: planet-movement;
+    animation-duration: 120s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+  .diamond-img {
+    position: absolute;
+    width: 10%;
+    right: 3%;
+    bottom: 20px;
+
+    animation-name: diamond-movement;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+  .diamond-img-2 {
+    position: absolute;
+    width: 10%;
+    right: 35%;
+    bottom: 200px;
+
+    animation-name: diamond-movement;
+    animation-duration: 5s;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  .planet-earth-img {
+    position: absolute;
+    width: 25%;
+    left: 10%;
+    top: 15%;
+
+    animation-name: planet-movement;
+    animation-duration: 120s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: reverse;
+  }
+  .diamond-img-earth {
+    position: absolute;
+    width: 8%;
+    left: 30%;
+    top: 8%;
+    transform: rotate(180deg);
+
+    animation-name: diamond-movement;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  .planet-egg-img {
+    position: absolute;
+    width: 25%;
+    right: 10%;
+    bottom: 50px;
+
+    animation-name: planet-movement;
+    animation-duration: 120s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+  }
+  .diamond-img-egg {
+     position: absolute;
+     width: 10%;
+     right: 3%;
+     bottom: 20px;
+
+     animation-name: diamond-movement;
+     animation-duration: 5s;
+     animation-iteration-count: infinite;
+     animation-timing-function: ease-in-out;
+   }
+  /** END NICO PART **/
+
+
   .bg-planet-red {
     position: absolute;
     top: 60px;
@@ -221,6 +318,33 @@
   }
   .footer-txt-1 {
     margin-top: 20px;
+  }
+
+
+
+
+  @keyframes planet-movement {
+    0% {
+      transform: rotate(0) translate(0, 0);
+    }
+    50% {
+      transform: rotate(180deg) translate(50px, -40px);
+    }
+    100% {
+      transform: rotate(360deg) translate(0,0);
+    }
+  }
+
+  @keyframes diamond-movement {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(30px);
+    }
+    100% {
+      transform: translateY(0);
+    }
   }
 
 </style>

@@ -21,10 +21,13 @@
         font-weight: 700;
         padding: 12px 0;
         box-shadow: 0px 0px 50px 5px rgba(48,181,255,0.8);
+        transition: 0.25s;
+        cursor: pointer;
     }
     .button:hover {
         background-color: #fff;
         color: #4D2A9C;
         cursor: pointer;
+        transition: 0.25s;
     }
 </style>
