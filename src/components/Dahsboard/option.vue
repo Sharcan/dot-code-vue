@@ -16,5 +16,6 @@ export default {
 #options {
   width: 332px;
   height: 1170px;
+  
 }
 </style>
