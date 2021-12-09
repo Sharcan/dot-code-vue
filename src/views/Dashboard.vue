@@ -1,34 +1,33 @@
 <template>
   <div class="Dashboard">
     <div class="DashInfo">
-      <MainDashboard class="Main"/>
+      <MainDashboard class="Main" />
       <div class="progression">
         <Evolution />
         <Progression class="progression1" />
         <Progression />
       </div>
       <div class="evolution">
-        <Titres class="Titre"/>
+        <Titres class="Titre" />
         <Badges />
       </div>
     </div>
     <div class="tournoisInfo">
-      <Tournois/>
+      <Tournois />
     </div>
-      
   </div>
 </template>
 
 <script>
-import MainDashboard from '../components/Dahsboard/MainDashboard.vue'
-import Evolution from '../components/Dahsboard/Evolution.vue'
-import Progression from '../components/Dahsboard/Progression.vue'
-import Titres from '../components/Dahsboard/Titres.vue'
-import Badges from '../components/Dahsboard/Badges.vue'
-import Tournois from '../components/Dahsboard/Tournois.vue'
+import MainDashboard from "../components/Dahsboard/MainDashboard.vue";
+import Evolution from "../components/Dahsboard/Evolution.vue";
+import Progression from "../components/Dahsboard/Progression.vue";
+import Titres from "../components/Dahsboard/Titres.vue";
+import Badges from "../components/Dahsboard/Badges.vue";
+import Tournois from "../components/Dahsboard/Tournois.vue";
 
 export default {
-  name: 'Dashboard',
+  name: "Dashboard",
   components: {
     MainDashboard,
     Evolution,
@@ -36,8 +35,8 @@ export default {
     Titres,
     Badges,
     Tournois,
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
