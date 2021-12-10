@@ -21,6 +21,7 @@
 import SpaceButton from '../SpaceButton.vue';
 import axios from 'axios';
 import { API_URL } from '@/config/environment';
+import router from "../../router";
 
 export default {
   components: { SpaceButton },
@@ -36,7 +37,8 @@ export default {
           API_URL + '/room/' + this.pin,
         ).then(
           (response) => {
-            console.log(response.data);
+            console.log(response)
+            router.push({ path: `/game/${response.data.pin}/room-pseudo`})
           } 
         ).catch(
           (error) => {

@@ -76,6 +76,7 @@
   import SpaceButton from '@/components/SpaceButton'
   import axios from 'axios';
   import { API_URL } from '@/config/environment';
+  import router from "../router";
 
   export default {
     name: 'Home',
@@ -89,7 +90,7 @@
           API_URL + '/room',
         ).then(
           (response) => {
-            console.log(response.data);
+            router.push({ path: `/game/${response.data.pin}/room-pseudo`})
           } 
         ).catch(
           (error) => {
