@@ -11,17 +11,16 @@
         placeholder="ID Room"
       />
     </div>
-    <router-link :to="{path: '/'}">
-      <div class="button-cancel">Annuler</div>
-    </router-link>
-    <router-link :to="{path: '/RoomPseudo'}">
-      <div class="button-confirm">Rejoindre la partie</div>
-    </router-link>
+    <SpaceButton text="Annuler"  link="/" class="button-cancel"/>
+    <SpaceButton text="Confirmer"  link="RoomPseudo" class="button-confirm"/>
+    
   </div>
 </template>
 
 <script>
+import SpaceButton from '../SpaceButton.vue';
 export default {
+  components: { SpaceButton },
   name: "Connection",
 };
 </script>
@@ -66,29 +65,22 @@ export default {
 }
 
 .button-confirm, .button-cancel {
-  text-align: center;
   width: 25%;
-  background-color: #090b31;
-  color: white;
-  border-radius: 30px;
-  font-weight: 700;
-  padding: 12px 0;
   float: right;
   margin-top: -5%;
   margin-right: 5%;
-  box-shadow: 0px 0px 50px 5px rgba(48, 181, 255, 0.8);
-  transition: 0.25s;
   cursor: pointer;
+  color: white;
 }
 
 .button-confirm{
     float: right;
-    margin-right: 5%;
+    margin-right: 15%;
 }
 
 .button-cancel {
     float: left;
-    margin-left: 5%;
+    margin-left: 15%;
 }
 .button-confirm:hover, .button-cancel:hover {
   background-color: #fff;

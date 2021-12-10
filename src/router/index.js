@@ -13,12 +13,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/RoomConnection',
+    path: '/room-connection',
     name: 'RoomConnection',
     component: RoomConnection
   },
   {
-    path: '/RoomPseudo',
+    path: '/room-pseudo',
     name: 'RoomPseudo',
     component: RoomPseudo
   },

@@ -1,5 +1,5 @@
 <template>
-<router-link :to="{ path: 'RoomConnection' }">
+<router-link :to="{ path: link }">
     <div class="button">
         {{ text.toUpperCase() }} 
     </div>
