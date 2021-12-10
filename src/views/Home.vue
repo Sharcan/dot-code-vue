@@ -9,7 +9,7 @@
                 <SpaceButton text="Jouer en ligne !" link="RoomConnection"/>
               </div>
               <div class="btn-2">
-                <SpaceButton text="Créer une partie privée" />
+                <SpaceButton text="Créer une partie privée" link="#"/>
               </div>
             </div>
           </div>
