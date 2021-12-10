@@ -14,16 +14,12 @@ const routes = [
     component: Home
   },
   {
-<<<<<<< HEAD
-    path: '/room-connection',
-=======
     path: '/multi-errors',
     name: 'MultiErrors',
     component: MultiErrors,
   },
   {
-    path: '/RoomConnection',
->>>>>>> 15555128b806c7fdd2c86f9e9fd8bb98cc14fa22
+    path: '/room-connection',
     name: 'RoomConnection',
     component: RoomConnection
   },
