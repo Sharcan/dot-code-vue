@@ -1,9 +1,9 @@
 <template>
-    <router-link :to="{ path: 'RoomConnection' }">
-        <div class="button" :class="{'btn-small': width == 'small'}">
-            {{ text.toUpperCase() }}
-        </div>
-    </router-link>
+<router-link :to="{ name: link }">
+    <div class="button">
+        {{ text.toUpperCase() }} 
+    </div>
+</router-link>
 </template>
 
 <script>
@@ -38,5 +38,9 @@
     .btn-small {
         padding: 3px 0;
         font-size: 1rem;
+    }
+    a {
+    color: white;
+    text-decoration: none;
     }
 </style>
