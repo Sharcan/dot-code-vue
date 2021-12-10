@@ -9,7 +9,7 @@
                 <SpaceButton text="Jouer en ligne !" link="RoomConnection"/>
               </div>
               <div class="btn-2">
-                <SpaceButton text="Créer une partie privée" link="#"/>
+                <SpaceButton text="Créer une partie privée" @click.native="createRoom"/>
               </div>
             </div>
           </div>
@@ -74,12 +74,25 @@
 <script>
   import HomeLayout from '@/layouts/HomeLayout'
   import SpaceButton from '@/components/SpaceButton'
+  import axios from 'axios';
+  import { API_URL } from '@/config/environment';
 
   export default {
     name: 'Home',
     components: {
       HomeLayout,
       SpaceButton
+    },
+    methods: {
+      createRoom() {
+        axios.post(
+          API_URL + '/room',
+        ).then(
+          (response) => {
+            console.log(response);
+          } 
+        )
+      }
     }
   }
 </script>
