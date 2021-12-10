@@ -39,4 +39,8 @@
         padding: 3px 0;
         font-size: 1rem;
     }
+    a {
+    color: white;
+    text-decoration: none;
+    }
 </style>

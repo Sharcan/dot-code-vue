@@ -11,7 +11,7 @@
         placeholder="ID Room"
       />
     </div>
-    <SpaceButton text="Annuler"  link="/" class="button-cancel"/>
+    <SpaceButton text="Annuler"  link="Home" class="button-cancel"/>
     <SpaceButton text="Confirmer"  link="RoomPseudo" class="button-confirm"/>
     
   </div>
@@ -41,6 +41,7 @@ export default {
   font-size: 50px;
   text-shadow: #30b5ff 1px 0 50px;
   margin-bottom: 20px;
+  margin-top: 3%;
   height: 50px;
 }
 .input {

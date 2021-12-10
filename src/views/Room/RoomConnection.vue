@@ -31,7 +31,7 @@ export default {
 }
 
 .connect-pannel {
-    margin-top: -10%;
+  margin-top: -10%;
 }
 
 .bottom-img img{
@@ -44,5 +44,10 @@ export default {
 
 .go-create {
     margin-top: -4%;
+}
+
+a {
+    color: white;
+    text-decoration: none;
 }
 </style>
