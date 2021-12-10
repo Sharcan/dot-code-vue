@@ -1,7 +1,9 @@
 <template>
+<router-link :to="{ path: 'RoomConnection' }">
     <div class="button">
-        {{ text.toUpperCase() }}
+        {{ text.toUpperCase() }} 
     </div>
+</router-link>
 </template>
 
 <script>
@@ -9,6 +11,7 @@
         name: 'SpaceButton',
         props: [
             'text',
+            'link'
         ]
     }
 </script>
@@ -30,4 +33,6 @@
         cursor: pointer;
         transition: 0.25s;
     }
+
+
 </style>
