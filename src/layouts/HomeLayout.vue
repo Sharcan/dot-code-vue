@@ -1,7 +1,7 @@
 <template>
     <div class="body">
         <Navbar />
-        <div class="container">
+        <div class="home-container">
             <slot name="content"></slot>
         </div>
         <Footer />
@@ -22,7 +22,7 @@
 </script>
 
 <style scoped>
-    .container {
+    .home-container {
         margin-top: 12vh;
         padding: 0 100px;
     }

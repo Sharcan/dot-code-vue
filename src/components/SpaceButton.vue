@@ -11,6 +11,7 @@
         name: 'SpaceButton',
         props: [
             'text',
+            'width',
             'link'
         ]
     }
@@ -26,6 +27,7 @@
         box-shadow: 0px 0px 50px 5px rgba(48,181,255,0.8);
         transition: 0.25s;
         cursor: pointer;
+        color: #fff;
     }
     .button:hover {
         background-color: #fff;
@@ -33,6 +35,8 @@
         cursor: pointer;
         transition: 0.25s;
     }
-
-
+    .btn-small {
+        padding: 3px 0;
+        font-size: 1rem;
+    }
 </style>
