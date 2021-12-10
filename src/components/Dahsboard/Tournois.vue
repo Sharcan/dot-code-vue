@@ -5,7 +5,7 @@
       En cours
     </h3>
     <div class="img">
-      <img src="../../assets/images/SpaceCode_illu08.png" alt="" srcset="" />
+      <img src="@/assets/images/SpaceCode_illu08.png" alt="" srcset="" />
     </div>
     <h3 class="title2 geminis text-center">mars attack !</h3>
     <p class="sub-date text-center">Du 20/12/2021 au 05/01/2022</p>
@@ -93,8 +93,7 @@ img {
   color: black;
   margin-left: 70px;
 
-  box-shadow: 0vw 0vw 0.25vw #30b5ff, 0vw 0vw 0.25vw #30b5ff,
-    0vw 0vw 0.1vw #30b5ff, 0vw 0vw 0.1vw #30b5ff, 0vw 0vw 1vw #30b5ff;
+  box-shadow: 0px 0px 50px 5px rgba(48,181,255,0.8);
   border-radius: 50px;
   border: none;
   font-size: 30px;
@@ -102,6 +101,8 @@ img {
 }
 .go:hover {
   cursor: pointer;
-  background: #30b5ff;
+  background-color: #090B31;
+  color: white;
+  border: none;
 }
 </style>

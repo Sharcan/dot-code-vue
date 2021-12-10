@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import MainDashboard from "../components/Dahsboard/MainDashboard.vue";
-import Evolution from "../components/Dahsboard/Evolution.vue";
-import Progression from "../components/Dahsboard/Progression.vue";
-import Titres from "../components/Dahsboard/Titres.vue";
-import Badges from "../components/Dahsboard/Badges.vue";
-import Tournois from "../components/Dahsboard/Tournois.vue";
+import MainDashboard from "@/components/Dahsboard/MainDashboard.vue";
+import Evolution from "@/components/Dahsboard/Evolution.vue";
+import Progression from "@/components/Dahsboard/Progression.vue";
+import Titres from "@/components/Dahsboard/Titres.vue";
+import Badges from "@/components/Dahsboard/Badges.vue";
+import Tournois from "@/components/Dahsboard/Tournois.vue";
 
 export default {
   name: "Dashboard",

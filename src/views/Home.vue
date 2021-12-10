@@ -3,7 +3,7 @@
       <template #content>
         <div class="title-part">
           <div class="title-container">
-            <h1 class="main-title geminis">Welcome<br>on board !</h1>
+            <h1 class="main-title geminis text-center">Welcome<br>on board !</h1>
             <div class="buttons">
               <div class="btn-1">
                 <SpaceButton text="Jouer en ligne !" />
