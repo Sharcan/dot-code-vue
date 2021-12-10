@@ -89,8 +89,12 @@
           API_URL + '/room',
         ).then(
           (response) => {
-            console.log(response);
+            console.log(response.data);
           } 
+        ).catch(
+          (error) => {
+            console.warn(error);
+          }
         )
       }
     }

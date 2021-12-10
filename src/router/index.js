@@ -19,14 +19,20 @@ const routes = [
     component: MultiErrors,
   },
   {
-    path: '/room-connection',
-    name: 'RoomConnection',
-    component: RoomConnection
-  },
-  {
-    path: '/room-pseudo',
-    name: 'RoomPseudo',
-    component: RoomPseudo
+    path: '/game',
+    name: 'Game',
+    children: [
+      {
+        path: 'room-connection',
+        name: 'RoomConnection',
+        component: RoomConnection
+      },
+      {
+        path: 'room-pseudo',
+        name: 'RoomPseudo',
+        component: RoomPseudo
+      },
+    ]
   },
   {
     path: '/about',

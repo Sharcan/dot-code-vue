@@ -9,19 +9,42 @@
         id="id-input"
         class="id-input"
         placeholder="ID Room"
+        v-model="pin"
       />
     </div>
     <SpaceButton text="Annuler"  link="Home" class="button-cancel"/>
-    <SpaceButton text="Confirmer"  link="RoomPseudo" class="button-confirm"/>
-    
+    <SpaceButton text="Confirmer" class="button-confirm" @click.native="createRoom"/>
   </div>
 </template>
 
 <script>
 import SpaceButton from '../SpaceButton.vue';
+import axios from 'axios';
+import { API_URL } from '@/config/environment';
+
 export default {
   components: { SpaceButton },
   name: "Connection",
+  data() {
+    return {
+      pin: ''
+    }
+  },
+  methods: {
+    createRoom() {
+        axios.post(
+          API_URL + '/room/' + this.pin,
+        ).then(
+          (response) => {
+            console.log(response.data);
+          } 
+        ).catch(
+          (error) => {
+            console.warn(error);
+          }
+        )
+      }
+  }
 };
 </script>
 
