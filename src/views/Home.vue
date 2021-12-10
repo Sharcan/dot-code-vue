@@ -6,7 +6,7 @@
             <h1 class="main-title geminis">Welcome<br>on board !</h1>
             <div class="buttons">
               <div class="btn-1">
-                <SpaceButton text="Jouer en ligne !" />
+                <SpaceButton text="Jouer en ligne !" link="RoomConnection"/>
               </div>
               <div class="btn-2">
                 <SpaceButton text="Créer une partie privée" />

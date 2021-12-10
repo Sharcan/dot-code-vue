@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import MultiErrors from '../views/games/MultiErrors'
+import RoomConnection from '../views/Room/RoomConnection'
+import RoomPseudo from '../views/Room/RoomPseudo'
 
 Vue.use(VueRouter)
 
@@ -14,7 +16,17 @@ const routes = [
   {
     path: '/multi-errors',
     name: 'MultiErrors',
-    component: MultiErrors
+    component: MultiErrors,
+  },
+  {
+    path: '/RoomConnection',
+    name: 'RoomConnection',
+    component: RoomConnection
+  },
+  {
+    path: '/RoomPseudo',
+    name: 'RoomPseudo',
+    component: RoomPseudo
   },
   {
     path: '/about',

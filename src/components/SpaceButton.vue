@@ -1,7 +1,9 @@
 <template>
-    <div class="button" :class="{'btn-small': width == 'small'}">
-        {{ text.toUpperCase() }}
-    </div>
+    <router-link :to="{ path: 'RoomConnection' }">
+        <div class="button" :class="{'btn-small': width == 'small'}">
+            {{ text.toUpperCase() }}
+        </div>
+    </router-link>
 </template>
 
 <script>
@@ -9,7 +11,8 @@
         name: 'SpaceButton',
         props: [
             'text',
-            'width'
+            'width',
+            'link'
         ]
     }
 </script>
