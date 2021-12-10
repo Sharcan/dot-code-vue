@@ -1,5 +1,5 @@
 <template>
-    <div class="button">
+    <div class="button" :class="{'btn-small': width == 'small'}">
         {{ text.toUpperCase() }}
     </div>
 </template>
@@ -9,6 +9,7 @@
         name: 'SpaceButton',
         props: [
             'text',
+            'width'
         ]
     }
 </script>
@@ -23,11 +24,16 @@
         box-shadow: 0px 0px 50px 5px rgba(48,181,255,0.8);
         transition: 0.25s;
         cursor: pointer;
+        color: #fff;
     }
     .button:hover {
         background-color: #fff;
         color: #4D2A9C;
         cursor: pointer;
         transition: 0.25s;
+    }
+    .btn-small {
+        padding: 3px 0;
+        font-size: 1rem;
     }
 </style>

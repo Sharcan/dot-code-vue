@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '../views/Home'
+import MultiErrors from '../views/games/MultiErrors'
 
 Vue.use(VueRouter)
 
@@ -9,6 +10,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/multi-errors',
+    name: 'MultiErrors',
+    component: MultiErrors
   },
   {
     path: '/about',
