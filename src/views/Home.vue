@@ -74,8 +74,6 @@
 <script>
   import HomeLayout from '@/layouts/HomeLayout'
   import SpaceButton from '@/components/SpaceButton'
-  import axios from 'axios';
-  import { API_URL } from '@/config/environment';
   import router from "../router";
 
   export default {
@@ -86,17 +84,9 @@
     },
     methods: {
       createRoom() {
-        axios.post(
-          API_URL + '/room',
-        ).then(
-          (response) => {
-            router.push({ path: `/game/${response.data.pin}/room-pseudo`})
-          } 
-        ).catch(
-          (error) => {
-            console.warn(error);
-          }
-        )
+        this.$socket.client.emit('newRoomCreation', (response) => {
+          router.push({ path: `/game/${response.pin}/room-pseudo`})
+        });
       }
     }
   }
