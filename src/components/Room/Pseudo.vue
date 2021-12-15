@@ -26,6 +26,11 @@ export default {
     newUser() {
       this.$socket.client.emit('newUser', {pin: this.$route.params.pin, username: this.username, team: this.team});
     }
+  },
+  sockets: {
+    newUser: function(values) {
+      console.log('Hey i\'m a new user and my username is : ' + values.username);
+    }
   }
 };
 
