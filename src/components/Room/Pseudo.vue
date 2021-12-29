@@ -1,14 +1,39 @@
 <template>
   <div id="Pseudo">
     <h1 class="geminis text-center main-title">Entre ton Nom</h1>
-    <input type="text" placeholder="Pseudo" class="pseudo-input" />
+    <input type="text" placeholder="Pseudo" class="pseudo-input" v-model="username"/>
+    <select name="teamSelect" id="teamSelect" v-model="team">
+      <option value="equipe_1">Equipe 1</option>
+      <option value="equipe_2">Equipe 2</option>
+    </select>
+    <SpaceButton text="Continuer" @click.native="newUser" v-model="username"/>
   </div>
 </template>
 
 <script>
+import SpaceButton from '../SpaceButton.vue';
+
 export default {
+  components: { SpaceButton },
   name: "Pseudo",
+  data() {
+    return {
+      username: '',
+      team: null
+    }
+  },
+  methods: {
+    newUser() {
+      this.$socket.client.emit('newUser', {pin: this.$route.params.pin, username: this.username, team: this.team});
+    }
+  },
+  sockets: {
+    newUser: function(values) {
+      console.log('Hey i\'m a new user and my username is : ' + values.username);
+    }
+  }
 };
+
 </script>
 
 <style scoped>

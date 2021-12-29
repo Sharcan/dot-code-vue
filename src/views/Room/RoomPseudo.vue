@@ -9,6 +9,7 @@
 
 <script>
 import Pseudo from '@/components/Room/Pseudo.vue';
+
 export default {
   components: { Pseudo },
     name: 'RoomPseudo'

@@ -9,7 +9,7 @@
                 <SpaceButton text="Jouer en ligne !" link="RoomConnection"/>
               </div>
               <div class="btn-2">
-                <SpaceButton text="Créer une partie privée" link="#"/>
+                <SpaceButton text="Créer une partie privée" @click.native="createRoom"/>
               </div>
             </div>
           </div>
@@ -74,12 +74,20 @@
 <script>
   import HomeLayout from '@/layouts/HomeLayout'
   import SpaceButton from '@/components/SpaceButton'
+  import router from "../router";
 
   export default {
     name: 'Home',
     components: {
       HomeLayout,
       SpaceButton
+    },
+    methods: {
+      createRoom() {
+        this.$socket.client.emit('newRoomCreation', (response) => {
+          router.push({ path: `/game/${response.pin}/room-pseudo`})
+        });
+      }
     }
   }
 </script>

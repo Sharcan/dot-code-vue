@@ -9,19 +9,38 @@
         id="id-input"
         class="id-input"
         placeholder="ID Room"
+        v-model="pin"
       />
     </div>
     <SpaceButton text="Annuler"  link="Home" class="button-cancel"/>
-    <SpaceButton text="Confirmer"  link="RoomPseudo" class="button-confirm"/>
-    
+    <SpaceButton text="Confirmer" class="button-confirm" @click.native="roomConnection"/>
   </div>
 </template>
 
 <script>
 import SpaceButton from '../SpaceButton.vue';
+import router from "../../router";
+
 export default {
   components: { SpaceButton },
   name: "Connection",
+  data() {
+    return {
+      pin: ''
+    }
+  },
+  methods: {
+    roomConnection() {
+      this.$socket.client.emit('roomConnection', {pin: this.pin}, (response) => {
+        if (response.pin) {
+          console.log(response);
+          router.push({ path: `/game/${response.pin}/room-pseudo`})
+        } else if (response.error) {
+          console.error(response.error);
+        }
+      })
+    }
+  }
 };
 </script>
 
