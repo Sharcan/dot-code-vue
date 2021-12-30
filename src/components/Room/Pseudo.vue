@@ -30,6 +30,9 @@ export default {
   sockets: {
     newUser: function(values) {
       console.log('Hey i\'m a new user and my username is : ' + values.username);
+    },
+    userHasDisconnected: function(message) {
+      console.log(message);
     }
   }
 };
