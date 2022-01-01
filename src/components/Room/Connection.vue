@@ -11,6 +11,7 @@
         placeholder="ID Room"
         v-model="pin"
       />
+      <span class="error">{{ error }}</span>
     </div>
     <SpaceButton text="Annuler"  link="Home" class="button-cancel"/>
     <SpaceButton text="Confirmer" class="button-confirm" @click.native="roomConnection"/>
@@ -26,20 +27,23 @@ export default {
   name: "Connection",
   data() {
     return {
-      pin: ''
+      pin: '',
+      error: ''
     }
   },
   methods: {
     roomConnection() {
-      this.$socket.client.emit('roomConnection', {pin: this.pin}, (response) => {
-        if (response.pin) {
-          console.log(response);
-          router.push({ path: `/game/${response.pin}/room-pseudo`})
-        } else if (response.error) {
-          console.error(response.error);
+      this.$socket.client.emit('roomConnection', {pin: this.pin}, (res) => {
+        if (res.pin) {
+          router.push({ path: `/game/${res.pin}/room-pseudo`});
+        } else if (res.error) {
+          this.error = 'Cette room est introuvable';
         }
       })
     }
+  },
+  mounted() {
+    console.log(this.$socket);
   }
 };
 </script>
@@ -107,5 +111,8 @@ export default {
   color: #4d2a9c;
   cursor: pointer;
   transition: 0.25s;
+}
+.error {
+  color: red;
 }
 </style>

@@ -2,16 +2,18 @@
   <div id="Pseudo">
     <h1 class="geminis text-center main-title">Entre ton Nom</h1>
     <input type="text" placeholder="Pseudo" class="pseudo-input" v-model="username"/>
-    <select name="teamSelect" id="teamSelect" v-model="team">
+    <div>{{ error }}</div>
+    <!-- <select name="teamSelect" id="teamSelect" v-model="team">
       <option value="equipe_1">Equipe 1</option>
       <option value="equipe_2">Equipe 2</option>
-    </select>
-    <SpaceButton text="Continuer" @click.native="newUser" v-model="username"/>
+    </select> -->
+    <SpaceButton text="Continuer" @click.native="sendPseudo" />
   </div>
 </template>
 
 <script>
 import SpaceButton from '../SpaceButton.vue';
+import router from "../../router";
 
 export default {
   components: { SpaceButton },
@@ -19,12 +21,20 @@ export default {
   data() {
     return {
       username: '',
-      team: null
+      // team: null,
+      error: ''
     }
   },
   methods: {
-    newUser() {
-      this.$socket.client.emit('newUser', {pin: this.$route.params.pin, username: this.username, team: this.team});
+    sendPseudo() {
+      this.$socket.client.emit('sendPseudo', { pin: this.$route.params.pin, username: this.username }, (res) => {
+        console.log(res);
+        if(!res.error) {
+          router.push({ path: `/game/${this.$route.params.pin}/room-team`});
+        } else {
+          this.error = res.error;
+        }
+      });
     }
   },
   sockets: {

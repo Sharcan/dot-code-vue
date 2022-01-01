@@ -1,17 +1,19 @@
 <template>
     <div id="RoomPseudo">
         <div class="pseudo-pannel-input">
-            <pseudo />
+            <Team />
         </div>
     </div>
 </template>
 
 <script>
-import Pseudo from '@/components/Room/Pseudo.vue';
+import Team from '@/components/Room/Team.vue';
 
 export default {
-  components: { Pseudo },
-    name: 'RoomPseudo'
+    name: 'RoomTeam',
+    components: {
+        Team
+    }
 }
 </script>
 
