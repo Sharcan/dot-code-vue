@@ -17,18 +17,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/multi-errors',
-    name: 'MultiErrors',
-    component: MultiErrors,
-  },
-  {
     path: '/room-connection',
     name: 'RoomConnection',
     component: RoomConnection
   },
   {
     path: '/game/:pin',
-    name: 'Game',
     component: Game,
     children: [
       {
@@ -40,6 +34,11 @@ const routes = [
         path: 'room-team',
         name: 'RoomTeam',
         component: RoomTeam
+      },
+      {
+        path: '',
+        name: 'Game',
+        component: MultiErrors
       }
     ]
   },

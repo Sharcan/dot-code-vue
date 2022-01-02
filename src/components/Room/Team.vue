@@ -19,7 +19,7 @@
                 <button @click="joinTeam('team_2')">Rejoindre</button>
             </div>
         </div>
-        <button class="go">Je suis prêt</button>
+        <button @click="launchGame()">Lancer la partie</button>
     </div>
 </template>
 
@@ -39,14 +39,34 @@
             joinTeam(team) {
                 this.$socket.client.emit('joinTeam', {pin: this.$route.params.pin, team: team}, res => {
                     if(!res.error) {
-                        // Add user to team if not already in, and remove from other team
-                        if(team == 'team_1' && !this.team_1.find(member => member.socketId == res.user.socketId)) {
-                            this.team_1.push(res.user);
-                            this.team_2.splice(this.team_2.indexOf(this.team_2.find(member => member.socketId == res.user.socketId)));
-                        } else if(team == 'team_2' && !this.team_2.find(member => member.socketId == res.user.socketId)) {
-                            this.team_2.push(res.user);
-                            this.team_1.splice(this.team_1.indexOf(this.team_1.find(member => member.socketId == res.user.socketId)));
-                        }
+                        this.changeUserTeam(res.user, team);
+                    } else {
+                        console.log(res.error);
+                    }
+                });
+            },
+            changeUserTeam(user, team) {
+                // Add user to team and remove from other team
+                if(team == 'team_1') {
+                    this.team_1.push(user);
+                    let userPosition = this.team_2.indexOf(this.team_2.find(member => member.socketId == user.socketId));
+                    if(userPosition != -1) {
+                        this.team_2.splice(userPosition, 1);
+                    }
+                } else if(team == 'team_2') {
+                    this.team_2.push(user);
+                    let userPosition = this.team_1.indexOf(this.team_1.find(member => member.socketId == user.socketId));
+                    if(userPosition != -1) {
+                        this.team_1.splice(userPosition, 1);
+                    }
+                }
+            },
+            launchGame() {
+                this.$socket.client.emit('launchGame', {pin: this.$route.params.pin}, res => {
+                    if(!res.error) {
+                        router.push({ path: `/game/${this.$route.params.pin}`});
+                    } else {
+                        console.log(res.error);
                     }
                 });
             }
@@ -63,9 +83,17 @@
             })
         },
         sockets: {
-            newUserConnected: (user) => {
-                console.log('new user');
-                this.connectedUsers.push(user);
+            // New user connected to room
+            newUserConnected(params) {
+                this.connectedUsers.push(params.user);
+            },
+            // User join a team
+            userJoinTeam(params) {
+                this.changeUserTeam(params.user, params.team);
+            },
+            // Game is launching
+            launchGame() {
+                router.push({ path: `/game/${this.$route.params.pin}`});
             }
         }
     }

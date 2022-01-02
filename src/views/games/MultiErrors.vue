@@ -5,7 +5,7 @@
             <div class="game">
                 <div class="gamer">
                     <h3 class="geminis subtitle">Corrige le code</h3>
-                    <p class="explanation">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+                    <p class="explanation">Le script ci-dessous comporte une erreur cachée. Essaye de la corriger puis appuie sur "Tester" pour voir le résultat et passer à l'exercice suivant. Bonne chance !</p>
                     <div class="progression">
                         <span>Progression: 1/10</span>
                         <div class="progress mt-1">
