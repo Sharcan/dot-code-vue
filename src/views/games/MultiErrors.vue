@@ -13,7 +13,10 @@
                         </div>
                     </div>
                     <div id="editor-1"></div>
-                    <div class="button">TESTER</div>
+                    <div class="under">
+                        <div class="button" @click="executeCode">TESTER</div>
+                        <div class="output">{{ output }}</div>
+                    </div>
                 </div>
                 <div class="opponent">
                     <h3 class="geminis subtitle">Ton adversaire: Player 2</h3>
@@ -85,8 +88,9 @@
         },
         data() {
             return {
-                language: 'php',
+                language: 'javascript',
                 editorGamer: null,
+                editorOpponent: null,
                 output: null
             }
         },
@@ -100,20 +104,24 @@
                         code: monaco.editor.getModels()[0].getValue()
                     },
                     success: (res) => {
-                        this.output = res;
+                        if(res.error) {
+                            this.output = `Oups ! On dirait qu'il y a une erreur :(`;
+                        } else {
+                            this.output = res.result;
+                        }
                     }
                 })
             }
         },
         mounted() {
             this.editorGamer = monaco.editor.create(document.getElementById("editor-1"), {
-                value: "<?php \n\nfunction hello() {\n\techo 'Hello world !';\n} \nhello();",
-                language: "php",
+                value: "function hello() {\n\tconsole.log('Hello world !');\n} \nhello();",
+                language: this.language,
                 theme: 'vs-dark'
             });
             this.editorOpponent = monaco.editor.create(document.getElementById("editor-2"), {
-                value: "<?php \n\nfunction hello() {\n\techo 'Hello world !';\n} \nhello();",
-                language: "php",
+                value: "function hello() {\n\tconsole.log('Hello world !');\n} \nhello();",
+                language: this.language,
                 theme: 'vs-dark'
             });
         }
@@ -157,6 +165,12 @@
     .progress-bar {
         background-color: #44F5BA;
     }
+    .under {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+    }
     .button {
         text-align: center;
         background-color: #fff;
@@ -168,7 +182,7 @@
         cursor: pointer;
         color: #090B31;
         width: 20%;
-        margin-top: 20px;
+        margin-right: 20px;
     }
     .astronaut {
         width: 110%;
