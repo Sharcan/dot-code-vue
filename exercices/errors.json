@@ -1,0 +1,9 @@
+[
+    {
+        "code": "let a = 2; \nlet b = 3; \nfunction addition(c, d) { \n\treturn c + d; \n} \nconsole.log(addition(a, d))",
+        "expectedResult": 5,
+        "expectedCode": [
+            "function addition(c, d)"
+        ]
+    }
+]
