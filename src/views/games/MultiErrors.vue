@@ -82,6 +82,8 @@
     import * as monaco from 'monaco-editor'
     import $ from 'jquery'
     import exercices from '../../../exercices/errors'
+    import router from "../../router";
+    import * as MonacoCollabExt from "@convergencelabs/monaco-collab-ext";
 
     export default {
         name: 'MultiErrors',
@@ -97,11 +99,16 @@
                 output: null,
                 exercice_number: 0,
 
+                /** Variables pour du joueur et des différentes équipes */
                 connectedUsers: [],
                 team_1: [],
                 team_2: [],
                 user: null,
-                myTeam: null
+                myTeam: null,
+
+                /** Variables pour le partage des IDEs */
+                remoteCursorManagerGamer: null,
+                remoteCursorManagerOpponent: null
             }
         },
         methods: {
@@ -124,6 +131,53 @@
                     }
                 })
             },
+
+            /**
+             * On crée les différents curseurs pour les IDEs
+             */
+            createCursorsGamer() {
+                const teamGamer = this.myTeam == 'team_1' ? this.team_1 : this.team_2;
+                const teamOpponent = this.myTeam !== 'team_1' ? this.team_2 : this.team_1;
+                
+                teamGamer.forEach((user) => {
+                    // Early return pour ne pas créer de curseur pour le propre utilisateur
+                    if (user.socketId === this.user.socketId) {
+                        return;
+                    }
+                    // Création du curseur
+                    const newCursor = this.remoteCursorManagerGamer.addCursor(
+                        user.socketId,
+                        this.getRandomColor(),
+                        user.username
+                    );
+
+                    // Ajout du curseur pour le user
+                    user.cursor = newCursor;
+                    newCursor.setPosition({column: 1, lineNumber: 1});
+                });
+
+                // Création des curseur sur l'autre IDE
+                this.createCursorsOpponent(teamOpponent);
+            },
+
+            createCursorsOpponent(team) {
+                team.forEach((user) => {
+                    // Création du curseur
+                    const newCursor = this.remoteCursorManagerOpponent.addCursor(
+                        user.socketId,
+                        this.getRandomColor(),
+                        user.username
+                    );
+
+                    // ajout du curseur pour le user
+                    user.cursor = newCursor;
+                    newCursor.setPosition({column:1, lineNumber: 1});
+                });
+            },
+
+            getRandomColor() {
+                return '#' + Math.floor(Math.random()*16777215).toString(16);
+            }
         },
         mounted() {
             this.editorGamer = monaco.editor.create(document.getElementById("editor-1"), {
@@ -137,17 +191,33 @@
                 theme: 'vs-dark'
             });
 
+            /** Création de l'objet permettant de créer plusieurs curseurs pour l'IDE principal */
+            this.remoteCursorManagerGamer = new MonacoCollabExt.RemoteCursorManager({
+                editor: this.editorGamer,
+                tooltips: true,
+                tooltipDuration: 4
+            });
+
+            /** Création de l'objet permettant de créer plusieurs curseurs pour l'IDE secondaire */
+            this.remoteCursorManagerOpponent = new MonacoCollabExt.RemoteCursorManager({
+                editor: this.editorOpponent,
+                tooltips: true,
+                tooltipDuration: 4
+            });
 
             this.$socket.client.emit('getConnectedUsers', {pin: this.$route.params.pin}, res => {
                 if(res.error) {
                     router.push({ path: `/room-connection`});
-                } else {
-                    this.connectedUsers = res.room.connectedUsers;
-                    this.team_1 = res.room.team_1;
-                    this.team_2 = res.room.team_2;
-                    this.user = res.user;
-                    this.myTeam = res.user.team;
-                }
+                    return;
+                } 
+
+                this.connectedUsers = res.room.connectedUsers;
+                this.team_1 = res.room.team_1;
+                this.team_2 = res.room.team_2;
+                this.user = res.user;
+                this.myTeam = res.user.team;
+
+                this.createCursorsGamer();
             });
         }
     }
