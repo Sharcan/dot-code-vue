@@ -91,7 +91,13 @@
                 language: 'javascript',
                 editorGamer: null,
                 editorOpponent: null,
-                output: null
+                output: null,
+
+                connectedUsers: [],
+                team_1: [],
+                team_2: [],
+                user: null,
+                myTeam: null
             }
         },
         methods: {
@@ -111,7 +117,7 @@
                         }
                     }
                 })
-            }
+            },
         },
         mounted() {
             this.editorGamer = monaco.editor.create(document.getElementById("editor-1"), {
@@ -123,6 +129,19 @@
                 value: "function hello() {\n\tconsole.log('Hello world !');\n} \nhello();",
                 language: this.language,
                 theme: 'vs-dark'
+            });
+
+
+            this.$socket.client.emit('getConnectedUsers', {pin: this.$route.params.pin}, res => {
+                if(res.error) {
+                    router.push({ path: `/room-connection`});
+                } else {
+                    this.connectedUsers = res.room.connectedUsers;
+                    this.team_1 = res.room.team_1;
+                    this.team_2 = res.room.team_2; 
+                    this.user = res.user;
+                    this.myTeam = res.user.team;
+                }
             });
         }
     }

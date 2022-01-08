@@ -76,9 +76,9 @@
                 if(res.error) {
                     router.push({ path: `/room-connection`});
                 } else {
-                    this.connectedUsers = res.connectedUsers;
-                    this.team_1 = res.team_1;
-                    this.team_2 = res.team_2; 
+                    this.connectedUsers = res.room.connectedUsers;
+                    this.team_1 = res.room.team_1;
+                    this.team_2 = res.room.team_2; 
                 }
             })
         },
