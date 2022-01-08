@@ -5,7 +5,9 @@
             <div class="game">
                 <div class="gamer">
                     <h3 class="geminis subtitle">Corrige le code</h3>
-                    <p class="explanation">Le script ci-dessous comporte une erreur cachée. Essaye de la corriger puis appuie sur "Tester" pour voir le résultat et passer à l'exercice suivant. Bonne chance !</p>
+                    <p class="explanation">
+                        Le script ci-dessous comporte une erreur cachée. Essaye de la corriger puis appuie sur "Tester" pour voir le résultat et passer à l'exercice suivant. Bonne chance !
+                    </p>
                     <div class="progression">
                         <span>Progression: 1/10</span>
                         <div class="progress mt-1">
@@ -79,6 +81,7 @@
     import SpaceButton from '@/components/SpaceButton'
     import * as monaco from 'monaco-editor'
     import $ from 'jquery'
+    import exercices from '../../../exercices/errors'
 
     export default {
         name: 'MultiErrors',
@@ -92,6 +95,7 @@
                 editorGamer: null,
                 editorOpponent: null,
                 output: null,
+                exercice_number: 0,
 
                 connectedUsers: [],
                 team_1: [],
@@ -107,13 +111,15 @@
                     method: 'POST',
                     data: {
                         language: this.language,
-                        code: monaco.editor.getModels()[0].getValue()
+                        code: monaco.editor.getModels()[0].getValue(),
+                        expectedResult: exercices[this.exercice_number].expectedResult,
+                        expectedCode: exercices[this.exercice_number].expectedCode
                     },
                     success: (res) => {
                         if(res.error) {
-                            this.output = `Oups ! On dirait qu'il y a une erreur :(`;
+                            this.output = res.error;
                         } else {
-                            this.output = res.result;
+                            this.output = res.output;
                         }
                     }
                 })
@@ -121,12 +127,12 @@
         },
         mounted() {
             this.editorGamer = monaco.editor.create(document.getElementById("editor-1"), {
-                value: "function hello() {\n\tconsole.log('Hello world !');\n} \nhello();",
+                value: exercices[this.exercice_number].code,
                 language: this.language,
                 theme: 'vs-dark'
             });
             this.editorOpponent = monaco.editor.create(document.getElementById("editor-2"), {
-                value: "function hello() {\n\tconsole.log('Hello world !');\n} \nhello();",
+                value: exercices[this.exercice_number].code,
                 language: this.language,
                 theme: 'vs-dark'
             });
@@ -138,7 +144,7 @@
                 } else {
                     this.connectedUsers = res.room.connectedUsers;
                     this.team_1 = res.room.team_1;
-                    this.team_2 = res.room.team_2; 
+                    this.team_2 = res.room.team_2;
                     this.user = res.user;
                     this.myTeam = res.user.team;
                 }
@@ -287,5 +293,13 @@
         border-radius: 50%;
         width: 20px;
         height: 20px;
+    }
+
+    #editor {
+        overflow-y: hidden;
+    }
+    #editor-2 {
+        overflow-y: hidden;
+        filter: blur(3px);
     }
 </style>
