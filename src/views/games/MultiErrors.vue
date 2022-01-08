@@ -108,7 +108,9 @@
 
                 /** Variables pour le partage des IDEs */
                 remoteCursorManagerGamer: null,
-                remoteCursorManagerOpponent: null
+                remoteCursorManagerOpponent: null,
+                remoteContentManagerGamer: null,
+                remoteContentManagerOpponent: null,
             }
         },
         methods: {
@@ -188,6 +190,24 @@
               );
             },
 
+            sharedContentIde(thisVue) {
+                /** Création de l'objet permettant de rentranscrire écriture pour l'IDE principal */
+                this.remoteContentManagerGamer = new MonacoCollabExt.EditorContentManager({
+                    editor: this.editorGamer,
+                    onInsert(index, text) {
+                        thisVue.$socket.client.emit('newTextInsert', {index: index, value: text, team: thisVue.myTeam, pin: thisVue.$route.params.pin});
+                    },
+                    onDelete(index, length) {
+                        thisVue.$socket.client.emit('newTextDelete', {index: index, length: length, team: thisVue.myTeam, pin: thisVue.$route.params.pin});
+                    }
+                });
+
+                /** Création de l'objet permettant de rentranscrire écriture pour l'IDE secondaire */
+                this.remoteContentManagerOpponent = new MonacoCollabExt.EditorContentManager({
+                    editor: this.editorOpponent,
+                });
+            },
+
             getRandomColor() {
                 return '#' + Math.floor(Math.random()*16777215).toString(16);
             }
@@ -230,16 +250,40 @@
                 this.myTeam = res.user.team;
                 this.createCursorsGamer();
             });
+
+            /** Création des objets pour l'écriture dans l'ide */
+            this.sharedContentIde(this);
         },
 
         sockets: {
             gamerCursorChange(cursorInformations) {
-                console.log(this.team_2, this.team_1);
-                console.log(cursorInformations);
                 const team = cursorInformations.user.team === 'team_1' ? this.team_1 : this.team_2;
                 const user = team.find((user) => user.socketId === cursorInformations.user.socketId)
                 user.cursor.setPosition(cursorInformations.position);
                 user.cursor.show();
+            },
+
+            newTextInsert(value) {
+                const mainIde = this.myTeam === value.team;
+                if (mainIde) {
+                    this.remoteContentManagerGamer.insert(value.index, value.value);
+                    this.remoteContentManagerGamer.dispose();
+                    return;
+                }
+                this.remoteContentManagerOpponent.insert(value.index, value.value);
+                this.remoteContentManagerOpponent.dispose();
+            },
+
+            newTextDelete(value) {
+                console.log('je passe ici');
+                const mainIde = this.myTeam === value.team;
+                if (mainIde) {
+                    this.remoteContentManagerOpponent.delete(value.index, value.length);
+                    this.remoteContentManagerOpponent.dispose();
+                    return;
+                }
+                this.remoteContentManagerOpponent.delete(value.index, value.length);
+                this.remoteContentManagerOpponent.dispose();
             }
         }
     }
