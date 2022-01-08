@@ -14,7 +14,7 @@
                             <div class="progress-bar" role="progressbar" style="width: 10%"></div>
                         </div>
                     </div>
-                    <div id="editor-1"></div>
+                    <div id="editor-1" @click="onIdeClick"></div>
                     <div class="under">
                         <div class="button" @click="executeCode">TESTER</div>
                         <div class="output">{{ output }}</div>
@@ -136,14 +136,10 @@
              * On crée les différents curseurs pour les IDEs
              */
             createCursorsGamer() {
-                const teamGamer = this.myTeam == 'team_1' ? this.team_1 : this.team_2;
-                const teamOpponent = this.myTeam !== 'team_1' ? this.team_2 : this.team_1;
-                
+                const teamGamer = this.myTeam === 'team_1' ? this.team_1 : this.team_2;
+                const teamOpponent = this.myTeam !== 'team_1' ? this.team_1 : this.team_2;
+
                 teamGamer.forEach((user) => {
-                    // Early return pour ne pas créer de curseur pour le propre utilisateur
-                    if (user.socketId === this.user.socketId) {
-                        return;
-                    }
                     // Création du curseur
                     const newCursor = this.remoteCursorManagerGamer.addCursor(
                         user.socketId,
@@ -151,11 +147,16 @@
                         user.username
                     );
 
-                    // Ajout du curseur pour le user
+                    // Early return pour ne pas créer de curseur pour le propre utilisateur
+                    if (user.socketId === this.user.socketId) {
+                        // this.user.cursor = newCursor;
+                        return;
+                    }
+
+                    // Ajout du curseur pour le user 
                     user.cursor = newCursor;
                     newCursor.setPosition({column: 1, lineNumber: 1});
                 });
-
                 // Création des curseur sur l'autre IDE
                 this.createCursorsOpponent(teamOpponent);
             },
@@ -169,10 +170,22 @@
                         user.username
                     );
 
+                    // Early return pour ne pas créer de curseur pour le propre utilisateur
+                    if (user.socketId === this.user.socketId) {
+                        // this.user.cursor = newCursor;
+                        return;
+                    }
+
                     // ajout du curseur pour le user
                     user.cursor = newCursor;
                     newCursor.setPosition({column:1, lineNumber: 1});
                 });
+            },
+
+            onIdeClick() {
+              this.$socket.client.emit('gamerCursorChange',
+                  {pin: this.$route.params.pin, user: this.user, position: this.editorGamer.getPosition()}
+              );
             },
 
             getRandomColor() {
@@ -210,15 +223,24 @@
                     router.push({ path: `/room-connection`});
                     return;
                 } 
-
                 this.connectedUsers = res.room.connectedUsers;
                 this.team_1 = res.room.team_1;
                 this.team_2 = res.room.team_2;
                 this.user = res.user;
                 this.myTeam = res.user.team;
-
                 this.createCursorsGamer();
             });
+        },
+
+        sockets: {
+            gamerCursorChange(cursorInformations) {
+                console.log(this.team_2, this.team_1);
+                console.log(cursorInformations);
+                const team = cursorInformations.user.team === 'team_1' ? this.team_1 : this.team_2;
+                const user = team.find((user) => user.socketId === cursorInformations.user.socketId)
+                user.cursor.setPosition(cursorInformations.position);
+                user.cursor.show();
+            }
         }
     }
 </script>
