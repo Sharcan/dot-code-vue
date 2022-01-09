@@ -1,6 +1,4 @@
-let vert = 'rouge';
-let bleu = 'jaune';
-let jaune = 'vert';
+const numbers = [{ number: 4 }, { number: 8 }, { number: 3 }, { number: 5 }];
 
-const colors = ['vert', jaune , rouge, 'bleu', vert, 'jaune'];
-console.log(colors);
+numbers[4].number += 1;
+console.log(numbers)

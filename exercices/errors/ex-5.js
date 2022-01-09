@@ -3,4 +3,4 @@ let b = 3;
 function soustraction(c, $d) { 
 	return c - $d; 
 } 
-console.log(soustraction(a, b))
+console.log(soustraction(a, $b))

@@ -1,6 +1,9 @@
-const a = ['Je', 'voUdrAiS', 5, 'baNanEs'];
-let b = '';
-a.forEach(word => {
-    b += word.toLowerCase() + ' ';
-});
-console.log(b)
+const a = [1, 2, 3];
+function multiply(c) { 
+    const b = [];
+	c.forEach(x => function {
+        b.push(x * 2);
+    });
+    return b;
+}
+console.log(multiply(a))

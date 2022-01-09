@@ -1,6 +1,10 @@
-const a = 2;
-function increment() { 
-	a++;
-} 
-increment()
-console.log(a)
+let dev = {
+    name: 'Antoine D',
+    age: 21,
+    job: 'Developer',
+    speack() {
+        console.log('coucou');
+    }
+}
+dev.spaeck()
+

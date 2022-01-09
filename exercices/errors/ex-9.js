@@ -1,10 +1,6 @@
-let dev = {
-    name: 'Antoine D',
-    age: 21,
-    job: 'Developer',
-    speack() {
-        console.log('coucou');
-    }
-}
-dev.spaeck()
+let vert = 'rouge';
+let bleu = 'jaune';
+let jaune = 'vert';
 
+const colors = ['vert', jaune, rouge, 'bleu', vert, 'jaune'];
+console.log(colors);

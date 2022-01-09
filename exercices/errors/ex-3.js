@@ -1,9 +1,6 @@
-const a = [1, 2, 3];
-const b = [];
-function multiply(c) { 
-	c.forEach(x => function {
-        b.push(x * 2);
-    });
-} 
-multiply(a)
-console.log(b)
+x = 100
+y = 50
+if((x > y) && (y < 77) {
+    result = 'ok';
+}
+console.log(result)

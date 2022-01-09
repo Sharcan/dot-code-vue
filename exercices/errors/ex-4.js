@@ -1,6 +1,6 @@
-const a = [1, 2, 3];
-function multiply(a) { 
-	return a.map(a => x * 2);
+const a = 2;
+function increment() { 
+	a++;
 } 
-const b = multiply(a)
-console.log(b)
+increment()
+console.log(a)
