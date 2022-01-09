@@ -1,23 +1,42 @@
 <template>
-    <div id="RoomPseudo">
-        <div class="pseudo-pannel-input">
-            <pseudo />
-        </div>
+  <div id="RoomPseudo">
+    <p class="id-room">
+      #<span class="geminis">{{ $route.params.pin }}</span>
+    </p>
+    <div class="top-img">
+      <img src="@/assets/images/SpaceCode_DashboardLogOut.png" alt="" />
     </div>
+    <div class="pseudo-pannel">
+      <pseudo />
+    </div>
+    <div class="bottom-img">
+      <img src="@/assets/images/diamond.png" alt="" />
+    </div>
+  </div>
 </template>
 
 <script>
-import Pseudo from '@/components/Room/Pseudo.vue';
+import Pseudo from "@/components/Room/Pseudo.vue";
 
 export default {
   components: { Pseudo },
-    name: 'RoomPseudo'
-}
+  name: "RoomPseudo",
+};
 </script>
 
 <style scoped>
-
-.pseudo-pannel-input {
-    margin-top: 2%;
+.top-img {
+  margin-left: 40%;
+  margin-top: 5%;
+}
+.pseudo-pannel {
+  margin-top: -10%;
+}
+.bottom-img img {
+  width: 12%;
+  height: 10%;
+  margin-top: -8%;
+  margin-left: 67.5%;
+  opacity: 90%;
 }
 </style>

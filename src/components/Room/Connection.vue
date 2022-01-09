@@ -54,30 +54,30 @@ export default {
   color: black;
 }
 #Connection {
-  width: 1000px;
-  height: 400px;
+  width: 50%;
+  height: 40vh;
   border-radius: 10px;
   padding: 0.1px;
   margin-left: 24%;
 }
 .main-title {
-  font-size: 50px;
+  font-size: 250%;
   text-shadow: #30b5ff 1px 0 50px;
-  margin-bottom: 20px;
   margin-top: 3%;
-  height: 50px;
+  margin-bottom: 5%;
+  height: 15%;
 }
 .input {
-  width: 600px;
-  height: 200px;
-  margin-left: 15%;
+  width: 50%;
+  height: 10%;
+  margin-left: 17.5%;
   margin-top: 5%;
 }
 
 .id-input {
-  width: 500px;
-  height: 60px;
-  font-size: 40px;
+  width: 100%;
+  height: 150%;
+  font-size: 200%;
   margin-top: 5%;
   margin-left: 15%;
   border-radius: 50px;
@@ -91,7 +91,7 @@ export default {
 .button-confirm, .button-cancel {
   width: 25%;
   float: right;
-  margin-top: -5%;
+  margin-top: 10%;
   margin-right: 5%;
   cursor: pointer;
   color: white;

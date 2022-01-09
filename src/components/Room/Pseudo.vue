@@ -1,13 +1,17 @@
 <template>
   <div id="Pseudo">
+    
     <h1 class="geminis text-center main-title">Entre ton Nom</h1>
-    <input type="text" placeholder="Pseudo" class="pseudo-input" v-model="username"/>
+    <div class="input">
+      <input type="text" placeholder="Pseudo" class="pseudo-input" v-model="username"/>
+    </div>
+    
     <div>{{ error }}</div>
     <!-- <select name="teamSelect" id="teamSelect" v-model="team">
       <option value="equipe_1">Equipe 1</option>
       <option value="equipe_2">Equipe 2</option>
     </select> -->
-    <SpaceButton text="Continuer" @click.native="sendPseudo" />
+    <SpaceButton class="continue" text="Continuer" @click.native="sendPseudo" />
   </div>
 </template>
 
@@ -56,30 +60,48 @@ export default {
 }
 
 #Pseudo {
-  width: 600px;
-  height: 200px;
+  width: 50%;
+  height: 40vh;
   border-radius: 10px;
   padding: 0.1px;
-  margin-left: 30%;
+  margin-left: 24%;
 }
 
 .main-title {
-  font-size: 30px;
+  font-size: 250%;
   text-shadow: #30b5ff 1px 0 50px;
-  margin-bottom: 20px;
-  height: 50px;
+  margin-top: 3%;
+  margin-bottom: 5%;
+  height: 15%;
+}
+
+.input {
+  width: 50%;
+  height: 10%;
+  margin-left: 17.5%;
+  margin-top: 5%;
+  margin-bottom: 10%;
 }
 
 .pseudo-input {
-  width: 300px;
-  height: 40px;
-  font-size: 30px;
-  margin-left: 25%;
+  width: 100%;
+  height: 150%;
+  font-size: 200%;
+  margin-top: 5%;
+  margin-left: 15%;
   border-radius: 50px;
   border: none;
   background: #090b31;
   box-shadow: 0px 0px 50px 5px rgba(48, 181, 255, 0.8);
   color: White;
   text-align: center;
+}
+
+.continue {
+  width: 50%;
+  float: right;
+  margin-right: 25%;
+  cursor: pointer;
+  color: white;
 }
 </style>
