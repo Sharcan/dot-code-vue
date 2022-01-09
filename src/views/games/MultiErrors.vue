@@ -116,7 +116,7 @@
         methods: {
             executeCode() {
                 $.ajax({
-                    url: process.env.VUE_APP_API_URL + '/editor',
+                    url: process.env.VUE_APP_API_URL + 'editor',
                     method: 'POST',
                     data: {
                         language: this.language,
