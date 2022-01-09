@@ -5,5 +5,84 @@
         "expectedCode": [
             "function addition(c, d)"
         ]
+    },
+    {
+        "code": "let dev = { \n\tname: 'Antoine D', \n\tage: 21, \n\tjob: 'Developer', \n\tspeack() { \n\t\tconsole.log('coucou'); \n\t} \n} \ndev.spaeck()",
+        "expectedResult": "coucou",
+        "expectedCode": [
+            "let dev",
+            "name:",
+            "age:",
+            "job:"
+        ]
+    },
+    {
+        "code": "x = 100 \ny = 50 \nif((x > y) && (y < 77) { \n\tresult = 'ok'; \n} \nconsole.log(result)",
+        "expectedResult": "ok",
+        "expectedCode": [
+            "if((x > y) && (y < 77))",
+            "console.log(result)"
+        ]
+    },
+    {
+        "code": "const a = 2; \nfunction increment() { \n\ta++; \n} \nincrement() \nconsole.log(a)",
+        "expectedResult": 3,
+        "expectedCode": [
+            "function increment()",
+            "a++",
+            "increment()"
+        ]
+    },
+    {
+        "code": "let a = 2; \nlet b = 3; \nfunction soustraction(c, $d) { \n\treturn c - $d; \n} \nconsole.log(soustraction(a, $b))",
+        "expectedResult": -1,
+        "expectedCode": [
+            "function soustraction",
+            "return c -",
+            "soustraction(a,"
+        ]
+    },
+    {
+        "code": "const numbers = [{ number: 4 }, { number: 8 }, { number: 3 }, { number: 5 }]; \n\nnumbers[4].number += 1; \nconsole.log(numbers)",
+        "expectedResult": "[ { number: 4 }, { number: 8 }, { number: 3 }, { number: 6 } ]",
+        "expectedCode": [
+            "const numbers = [{ number: 4 }, { number: 8 }, { number: 3 }, { number: 5 }]",
+            "console.log(numbers)"
+        ]
+    },
+    {
+        "code": "const a = ['Je', 'voUdrAiS', 5, 'baNanEs']; \nlet b = ''; \na.forEach(word => { \n\tb += word.toLowerCase() + ' '; \n}); \nconsole.log(b)",
+        "expectedResult": "je voudrais 5 bananes",
+        "expectedCode": [
+            "a.forEach(word =>",
+            "word.toLowerCase()"
+        ]
+    },
+    {
+        "code": "const a = [1, 2, 3]; \nfunction multiply(a) { \n\treturn a.map(a => x * 2); \n} \nconst b = multiply(a) \nconsole.log(b)",
+        "expectedResult": "[ 2, 4, 6 ]",
+        "expectedCode": [
+            "function multiply(a)",
+            "a.map",
+            "const b = multiply(a)"
+        ]
+    },
+    {
+        "code": "let vert = 'rouge'; \nlet bleu = 'jaune'; \nlet jaune = 'vert'; \n\nconst colors = ['vert', jaune, rouge, 'bleu', vert, 'jaune']; \nconsole.log(colors);",
+        "expectedResult": "[ 'vert', 'vert', 'rouge', 'bleu', 'rouge', 'jaune' ]",
+        "expectedCode": [
+            "let vert = 'rouge'",
+            "let bleu = 'jaune'",
+            "let jaune = 'vert'"
+        ]
+    },
+    {
+        "code": "const a = [1, 2, 3]; \nfunction multiply(c) { \n\tconst b = []; \n\tc.forEach(x => function { \n\t\tb.push(x * 2); \n\t}); \n\treturn b; \n} \nconsole.log(multiply(a))",
+        "expectedResult": "[ 2, 4, 6 ]",
+        "expectedCode": [
+            "function multiply(c)",
+            "c.forEach(",
+            "return b"
+        ]
     }
 ]
