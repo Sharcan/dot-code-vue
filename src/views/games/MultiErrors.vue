@@ -14,7 +14,7 @@
                             <div class="progress-bar" role="progressbar" style="width: 10%"></div>
                         </div>
                     </div>
-                    <div id="editor-1"></div>
+                    <div id="editor-1" @click="onIdeClick"></div>
                     <div class="under">
                         <div class="button" @click="executeCode">TESTER</div>
                         <div class="output">{{ output }}</div>
@@ -82,6 +82,8 @@
     import * as monaco from 'monaco-editor'
     import $ from 'jquery'
     import exercices from '../../../exercices/errors'
+    import router from "../../router";
+    import * as MonacoCollabExt from "@convergencelabs/monaco-collab-ext";
 
     export default {
         name: 'MultiErrors',
@@ -95,7 +97,20 @@
                 editorGamer: null,
                 editorOpponent: null,
                 output: null,
-                exercice_number: 0
+                exercice_number: 0,
+
+                /** Variables pour du joueur et des différentes équipes */
+                connectedUsers: [],
+                team_1: [],
+                team_2: [],
+                user: null,
+                myTeam: null,
+
+                /** Variables pour le partage des IDEs */
+                remoteCursorManagerGamer: null,
+                remoteCursorManagerOpponent: null,
+                remoteContentManagerGamer: null,
+                remoteContentManagerOpponent: null,
             }
         },
         methods: {
@@ -117,6 +132,84 @@
                         }
                     }
                 })
+            },
+
+            /**
+             * On crée les différents curseurs pour les IDEs
+             */
+            createCursorsGamer() {
+                const teamGamer = this.myTeam === 'team_1' ? this.team_1 : this.team_2;
+                const teamOpponent = this.myTeam !== 'team_1' ? this.team_1 : this.team_2;
+
+                teamGamer.forEach((user) => {
+                    // Création du curseur
+                    const newCursor = this.remoteCursorManagerGamer.addCursor(
+                        user.socketId,
+                        this.getRandomColor(),
+                        user.username
+                    );
+
+                    // Early return pour ne pas créer de curseur pour le propre utilisateur
+                    if (user.socketId === this.user.socketId) {
+                        // this.user.cursor = newCursor;
+                        return;
+                    }
+
+                    // Ajout du curseur pour le user 
+                    user.cursor = newCursor;
+                    newCursor.setPosition({column: 1, lineNumber: 1});
+                });
+                // Création des curseur sur l'autre IDE
+                this.createCursorsOpponent(teamOpponent);
+            },
+
+            createCursorsOpponent(team) {
+                team.forEach((user) => {
+                    // Création du curseur
+                    const newCursor = this.remoteCursorManagerOpponent.addCursor(
+                        user.socketId,
+                        this.getRandomColor(),
+                        user.username
+                    );
+
+                    // Early return pour ne pas créer de curseur pour le propre utilisateur
+                    if (user.socketId === this.user.socketId) {
+                        // this.user.cursor = newCursor;
+                        return;
+                    }
+
+                    // ajout du curseur pour le user
+                    user.cursor = newCursor;
+                    newCursor.setPosition({column:1, lineNumber: 1});
+                });
+            },
+
+            onIdeClick() {
+              this.$socket.client.emit('gamerCursorChange',
+                  {pin: this.$route.params.pin, user: this.user, position: this.editorGamer.getPosition()}
+              );
+            },
+
+            sharedContentIde(thisVue) {
+                /** Création de l'objet permettant de rentranscrire écriture pour l'IDE principal */
+                this.remoteContentManagerGamer = new MonacoCollabExt.EditorContentManager({
+                    editor: this.editorGamer,
+                    onInsert(index, text) {
+                        thisVue.$socket.client.emit('newTextInsert', {index: index, value: text, team: thisVue.myTeam, pin: thisVue.$route.params.pin});
+                    },
+                    onDelete(index, length) {
+                        thisVue.$socket.client.emit('newTextDelete', {index: index, length: length, team: thisVue.myTeam, pin: thisVue.$route.params.pin});
+                    }
+                });
+
+                /** Création de l'objet permettant de rentranscrire écriture pour l'IDE secondaire */
+                this.remoteContentManagerOpponent = new MonacoCollabExt.EditorContentManager({
+                    editor: this.editorOpponent,
+                });
+            },
+
+            getRandomColor() {
+                return '#' + Math.floor(Math.random()*16777215).toString(16);
             }
         },
         mounted() {
@@ -130,6 +223,68 @@
                 language: this.language,
                 theme: 'vs-dark'
             });
+
+            /** Création de l'objet permettant de créer plusieurs curseurs pour l'IDE principal */
+            this.remoteCursorManagerGamer = new MonacoCollabExt.RemoteCursorManager({
+                editor: this.editorGamer,
+                tooltips: true,
+                tooltipDuration: 4
+            });
+
+            /** Création de l'objet permettant de créer plusieurs curseurs pour l'IDE secondaire */
+            this.remoteCursorManagerOpponent = new MonacoCollabExt.RemoteCursorManager({
+                editor: this.editorOpponent,
+                tooltips: true,
+                tooltipDuration: 4
+            });
+
+            this.$socket.client.emit('getConnectedUsers', {pin: this.$route.params.pin}, res => {
+                if(res.error) {
+                    router.push({ path: `/room-connection`});
+                    return;
+                } 
+                this.connectedUsers = res.room.connectedUsers;
+                this.team_1 = res.room.team_1;
+                this.team_2 = res.room.team_2;
+                this.user = res.user;
+                this.myTeam = res.user.team;
+                this.createCursorsGamer();
+            });
+
+            /** Création des objets pour l'écriture dans l'ide */
+            this.sharedContentIde(this);
+        },
+
+        sockets: {
+            gamerCursorChange(cursorInformations) {
+                const team = cursorInformations.user.team === 'team_1' ? this.team_1 : this.team_2;
+                const user = team.find((user) => user.socketId === cursorInformations.user.socketId)
+                user.cursor.setPosition(cursorInformations.position);
+                user.cursor.show();
+            },
+
+            newTextInsert(value) {
+                const mainIde = this.myTeam === value.team;
+                if (mainIde) {
+                    this.remoteContentManagerGamer.insert(value.index, value.value);
+                    this.remoteContentManagerGamer.dispose();
+                    return;
+                }
+                this.remoteContentManagerOpponent.insert(value.index, value.value);
+                this.remoteContentManagerOpponent.dispose();
+            },
+
+            newTextDelete(value) {
+                console.log('je passe ici');
+                const mainIde = this.myTeam === value.team;
+                if (mainIde) {
+                    this.remoteContentManagerOpponent.delete(value.index, value.length);
+                    this.remoteContentManagerOpponent.dispose();
+                    return;
+                }
+                this.remoteContentManagerOpponent.delete(value.index, value.length);
+                this.remoteContentManagerOpponent.dispose();
+            }
         }
     }
 </script>
