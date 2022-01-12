@@ -456,8 +456,8 @@
     #editor {
         overflow-y: hidden;
     }
-    /* #editor-2 {
+    #editor-2 {
         overflow-y: hidden;
         filter: blur(3px);
-    } */
+    }
 </style>
