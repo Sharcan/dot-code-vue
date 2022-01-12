@@ -9,9 +9,9 @@
                         Le script ci-dessous comporte une erreur cachée. Essaye de la corriger puis appuie sur "Tester" pour voir le résultat et passer à l'exercice suivant. Bonne chance !
                     </p>
                     <div class="progression">
-                        <span>Progression: 1/10</span>
+                        <span>Progression: {{ exercice_number }}/10</span>
                         <div class="progress mt-1">
-                            <div class="progress-bar" role="progressbar" style="width: 10%"></div>
+                            <div class="progress-bar" role="progressbar" :style="'width: ' + (exercice_number * 10) + '%'"></div>
                         </div>
                     </div>
                     <div id="editor-1" @click="onIdeClick"></div>
@@ -98,6 +98,7 @@
                 editorOpponent: null,
                 output: null,
                 exercice_number: 0,
+                loading: false,
 
                 /** Variables pour du joueur et des différentes équipes */
                 connectedUsers: [],
@@ -113,25 +114,47 @@
                 remoteContentManagerOpponent: null,
             }
         },
+        watch: {
+            exercice_number(newVal) {
+                if(newVal <= 9) {
+                    // Next exercice
+                    this.editorGamer.getModel().setValue(exercices[newVal].code);
+                    this.output = null;
+                    this.loading = false;
+                } else {
+                    // Success page
+                    // TODO - change route
+                    router.push({ path: `/game/win` });
+                }
+            }
+        },
         methods: {
             executeCode() {
-                $.ajax({
-                    url: 'http://localhost:3000/editor',
-                    method: 'POST',
-                    data: {
-                        language: this.language,
-                        code: monaco.editor.getModels()[0].getValue(),
-                        expectedResult: exercices[this.exercice_number].expectedResult,
-                        expectedCode: exercices[this.exercice_number].expectedCode
-                    },
-                    success: (res) => {
-                        if(res.error) {
-                            this.output = res.error;
-                        } else {
-                            this.output = res.output;
+                if(!this.loading) {
+                    $.ajax({
+                        url: 'http://localhost:3000/editor',
+                        method: 'POST',
+                        data: {
+                            language: this.language,
+                            code: monaco.editor.getModels()[0].getValue(),
+                            expectedResult: exercices[this.exercice_number].expectedResult,
+                            expectedCode: exercices[this.exercice_number].expectedCode
+                        },
+                        success: (res) => {
+                            if(res.error) {
+                                $('.output').css('color', 'red');
+                                this.output = res.error;
+                            } else {
+                                $('.output').css('color', '#fff');
+                                this.output = res.output;
+                                this.loading = true;
+                                setTimeout(() => {
+                                    this.exercice_number++;
+                                }, 1500);
+                            }
                         }
-                    }
-                })
+                    });
+                }
             },
 
             /**
