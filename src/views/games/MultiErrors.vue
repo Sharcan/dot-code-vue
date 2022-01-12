@@ -186,8 +186,21 @@
 
             onIdeClick() {
               this.$socket.client.emit('gamerCursorChange',
-                  {pin: this.$route.params.pin, user: this.user, position: this.editorGamer.getPosition()}
+                    {pin: this.$route.params.pin, user: this.user, position: this.editorGamer.getPosition()}
               );
+            },
+
+            onIdeAction() {
+              this.editorGamer.onKeyUp((e) => {
+                if (e.code === 'Tab') {
+                    this.$socket.client.emit('onTab',
+                        {value: this.editorGamer.getValue(), team: this.myTeam, pin: this.$route.params.pin}
+                    );
+                }
+                this.$socket.client.emit('gamerCursorChange',
+                    {pin: this.$route.params.pin, user: this.user, position: this.editorGamer.getPosition()}
+                );
+              })
             },
 
             sharedContentIde(thisVue) {
@@ -253,6 +266,7 @@
 
             /** Création des objets pour l'écriture dans l'ide */
             this.sharedContentIde(this);
+            this.onIdeAction();
         },
 
         sockets: {
@@ -275,7 +289,6 @@
             },
 
             newTextDelete(value) {
-                console.log('je passe ici');
                 const mainIde = this.myTeam === value.team;
                 if (mainIde) {
                     this.remoteContentManagerOpponent.delete(value.index, value.length);
@@ -284,6 +297,15 @@
                 }
                 this.remoteContentManagerOpponent.delete(value.index, value.length);
                 this.remoteContentManagerOpponent.dispose();
+            },
+
+            onTab(newText) {
+                const mainIde = this.myTeam === newText.team;
+                 if (mainIde) {
+                    this.editorGamer.setValue(newText.value);
+                    return;
+                }
+                this.editorOpponent.setValue(newText.value);
             }
         }
     }
@@ -434,8 +456,8 @@
     #editor {
         overflow-y: hidden;
     }
-    #editor-2 {
+    /* #editor-2 {
         overflow-y: hidden;
         filter: blur(3px);
-    }
+    } */
 </style>
