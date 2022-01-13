@@ -23,9 +23,9 @@
                 <div class="opponent">
                     <h3 class="geminis subtitle">Ton adversaire: Player 2</h3>
                     <div class="progression">
-                        <span>Progression de ton adversaire: 1/10</span>
+                        <span>Progression de ton adversaire: {{ opponent_exercice_number }}/10</span>
                         <div class="progress mt-1">
-                            <div class="progress-bar" role="progressbar" style="width: 10%"></div>
+                            <div class="progress-bar" role="progressbar" :style="'width: ' + (opponent_exercice_number * 10) + '%'"></div>
                         </div>
                     </div>
                     <div id="editor-2"></div>
@@ -99,6 +99,7 @@
                 output: null,
                 exercice_number: 0,
                 loading: false,
+                opponent_exercice_number: 0,
 
                 /** Variables pour du joueur et des différentes équipes */
                 connectedUsers: [],
@@ -126,6 +127,21 @@
                     // TODO - change route
                     router.push({ path: `/game/win` });
                 }
+
+                // Emit exercice number
+                this.$socket.client.emit('nextExercice', {
+                    pin: this.$route.params.pin
+                });
+            },
+            opponent_exercice_number(newVal) {
+                if(newVal <= 9) {
+                    // Next exercice for opponent
+                    this.editorOpponent.getModel().setValue(exercices[newVal].code);
+                } else {
+                    // Loose page
+                    // TODO - change route
+                    router.push({ path: `/game/loose` });
+                }
             }
         },
         methods: {
@@ -142,12 +158,16 @@
                         },
                         success: (res) => {
                             if(res.error) {
+                                // Display error
                                 $('.output').css('color', 'red');
                                 this.output = res.error;
                             } else {
+                                // Display result
                                 $('.output').css('color', '#fff');
                                 this.output = res.output;
                                 this.loading = true;
+
+                                // Next exercice
                                 setTimeout(() => {
                                     this.exercice_number++;
                                 }, 1500);
@@ -216,13 +236,17 @@
             onIdeAction() {
               this.editorGamer.onKeyUp((e) => {
                 if (e.code === 'Tab') {
-                    this.$socket.client.emit('onTab',
-                        {value: this.editorGamer.getValue(), team: this.myTeam, pin: this.$route.params.pin}
-                    );
+                    this.$socket.client.emit('onTab', {
+                        value: this.editorGamer.getValue(), 
+                        team: this.myTeam, 
+                        pin: this.$route.params.pin
+                    });
                 }
-                this.$socket.client.emit('gamerCursorChange',
-                    {pin: this.$route.params.pin, user: this.user, position: this.editorGamer.getPosition()}
-                );
+                this.$socket.client.emit('gamerCursorChange', {
+                    pin: this.$route.params.pin, 
+                    user: this.user, 
+                    position: this.editorGamer.getPosition()
+                });
               })
             },
 
@@ -234,7 +258,12 @@
                         thisVue.$socket.client.emit('newTextInsert', {index: index, value: text, team: thisVue.myTeam, pin: thisVue.$route.params.pin});
                     },
                     onDelete(index, length) {
-                        thisVue.$socket.client.emit('newTextDelete', {index: index, length: length, team: thisVue.myTeam, pin: thisVue.$route.params.pin});
+                        thisVue.$socket.client.emit('newTextDelete', {
+                            index: index, 
+                            length: length, 
+                            team: thisVue.myTeam, 
+                            pin: thisVue.$route.params.pin
+                        });
                     }
                 });
 
@@ -329,6 +358,10 @@
                     return;
                 }
                 this.editorOpponent.setValue(newText.value);
+            },
+
+            opponentSuccess() {
+                this.opponent_exercice_number++;
             }
         }
     }
