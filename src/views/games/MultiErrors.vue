@@ -16,8 +16,11 @@
                     </div>
                     <div id="editor-1" @click="onIdeClick"></div>
                     <div class="under">
+                        <div class="output">
+                            <span>Console de sortie :</span><br>
+                            <span class="output-result">{{ output }}</span>
+                        </div>
                         <div class="button" @click="executeCode">TESTER</div>
-                        <div class="output">{{ output }}</div>
                     </div>
                 </div>
                 <div class="opponent">
@@ -37,7 +40,7 @@
         <!-- Sidebar -->
         <template #sidebar>
             <div class="profile">
-                <span class="geminis pseudo">Tirrador</span>
+                <span class="geminis pseudo" v-if="user">{{user.username}}</span>
                 <img src="@/assets/images/games/user05.png" alt="Photo de profil">
             </div>
             <SpaceButton text="Déconnexion" width="small" class="deconnexion" />
@@ -159,11 +162,11 @@
                         success: (res) => {
                             if(res.error) {
                                 // Display error
-                                $('.output').css('color', 'red');
+                                $('.output-result').css('color', 'red');
                                 this.output = res.error;
                             } else {
                                 // Display result
-                                $('.output').css('color', '#fff');
+                                $('.output-result').css('color', '#fff');
                                 this.output = res.output;
                                 this.loading = true;
 
@@ -313,6 +316,7 @@
                 this.team_2 = res.room.team_2;
                 this.user = res.user;
                 this.myTeam = res.user.team;
+                console.log(this.user);
                 this.createCursorsGamer();
             });
 
@@ -407,8 +411,17 @@
     .under {
         width: 100%;
         display: flex;
-        align-items: center;
+        flex-direction: column;
         margin-top: 20px;
+    }
+    .output {
+        width: 100%;
+        height: 75px;
+        background-color: #1e1e1e;
+        padding: 10px 20px;
+    }
+    .output-result::before {
+        content: '> ';
     }
     .button {
         text-align: center;
@@ -422,6 +435,7 @@
         color: #090B31;
         width: 20%;
         margin-right: 20px;
+        margin-top: 20px;
     }
     .astronaut {
         width: 110%;
