@@ -9,9 +9,9 @@
                         Le script ci-dessous comporte une erreur cachée. Essaye de la corriger puis appuie sur "Tester" pour voir le résultat et passer à l'exercice suivant. Bonne chance !
                     </p>
                     <div class="progression">
-                        <span>Progression: 1/10</span>
+                        <span>Progression: {{ exercice_number }}/10</span>
                         <div class="progress mt-1">
-                            <div class="progress-bar" role="progressbar" style="width: 10%"></div>
+                            <div class="progress-bar" role="progressbar" :style="'width: ' + (exercice_number * 10) + '%'"></div>
                         </div>
                     </div>
                     <div id="editor-1" @click="onIdeClick"></div>
@@ -23,9 +23,9 @@
                 <div class="opponent">
                     <h3 class="geminis subtitle">Ton adversaire: Player 2</h3>
                     <div class="progression">
-                        <span>Progression de ton adversaire: 1/10</span>
+                        <span>Progression de ton adversaire: {{ opponent_exercice_number }}/10</span>
                         <div class="progress mt-1">
-                            <div class="progress-bar" role="progressbar" style="width: 10%"></div>
+                            <div class="progress-bar" role="progressbar" :style="'width: ' + (opponent_exercice_number * 10) + '%'"></div>
                         </div>
                     </div>
                     <div id="editor-2"></div>
@@ -98,6 +98,8 @@
                 editorOpponent: null,
                 output: null,
                 exercice_number: 0,
+                loading: false,
+                opponent_exercice_number: 0,
 
                 /** Variables pour du joueur et des différentes équipes */
                 connectedUsers: [],
@@ -113,25 +115,66 @@
                 remoteContentManagerOpponent: null,
             }
         },
+        watch: {
+            exercice_number(newVal) {
+                if(newVal <= 9) {
+                    // Next exercice
+                    this.editorGamer.getModel().setValue(exercices[newVal].code);
+                    this.output = null;
+                    this.loading = false;
+                } else {
+                    // Success page
+                    // TODO - change route
+                    router.push({ path: `/game/win` });
+                }
+
+                // Emit exercice number
+                this.$socket.client.emit('nextExercice', {
+                    pin: this.$route.params.pin
+                });
+            },
+            opponent_exercice_number(newVal) {
+                if(newVal <= 9) {
+                    // Next exercice for opponent
+                    this.editorOpponent.getModel().setValue(exercices[newVal].code);
+                } else {
+                    // Loose page
+                    // TODO - change route
+                    router.push({ path: `/game/loose` });
+                }
+            }
+        },
         methods: {
             executeCode() {
-                $.ajax({
-                    url: 'http://localhost:3000/editor',
-                    method: 'POST',
-                    data: {
-                        language: this.language,
-                        code: monaco.editor.getModels()[0].getValue(),
-                        expectedResult: exercices[this.exercice_number].expectedResult,
-                        expectedCode: exercices[this.exercice_number].expectedCode
-                    },
-                    success: (res) => {
-                        if(res.error) {
-                            this.output = res.error;
-                        } else {
-                            this.output = res.output;
+                if(!this.loading) {
+                    $.ajax({
+                        url: 'http://localhost:3000/editor',
+                        method: 'POST',
+                        data: {
+                            language: this.language,
+                            code: monaco.editor.getModels()[0].getValue(),
+                            expectedResult: exercices[this.exercice_number].expectedResult,
+                            expectedCode: exercices[this.exercice_number].expectedCode
+                        },
+                        success: (res) => {
+                            if(res.error) {
+                                // Display error
+                                $('.output').css('color', 'red');
+                                this.output = res.error;
+                            } else {
+                                // Display result
+                                $('.output').css('color', '#fff');
+                                this.output = res.output;
+                                this.loading = true;
+
+                                // Next exercice
+                                setTimeout(() => {
+                                    this.exercice_number++;
+                                }, 1500);
+                            }
                         }
-                    }
-                })
+                    });
+                }
             },
 
             /**
@@ -186,8 +229,25 @@
 
             onIdeClick() {
               this.$socket.client.emit('gamerCursorChange',
-                  {pin: this.$route.params.pin, user: this.user, position: this.editorGamer.getPosition()}
+                    {pin: this.$route.params.pin, user: this.user, position: this.editorGamer.getPosition()}
               );
+            },
+
+            onIdeAction() {
+              this.editorGamer.onKeyUp((e) => {
+                if (e.code === 'Tab') {
+                    this.$socket.client.emit('onTab', {
+                        value: this.editorGamer.getValue(), 
+                        team: this.myTeam, 
+                        pin: this.$route.params.pin
+                    });
+                }
+                this.$socket.client.emit('gamerCursorChange', {
+                    pin: this.$route.params.pin, 
+                    user: this.user, 
+                    position: this.editorGamer.getPosition()
+                });
+              })
             },
 
             sharedContentIde(thisVue) {
@@ -198,7 +258,12 @@
                         thisVue.$socket.client.emit('newTextInsert', {index: index, value: text, team: thisVue.myTeam, pin: thisVue.$route.params.pin});
                     },
                     onDelete(index, length) {
-                        thisVue.$socket.client.emit('newTextDelete', {index: index, length: length, team: thisVue.myTeam, pin: thisVue.$route.params.pin});
+                        thisVue.$socket.client.emit('newTextDelete', {
+                            index: index, 
+                            length: length, 
+                            team: thisVue.myTeam, 
+                            pin: thisVue.$route.params.pin
+                        });
                     }
                 });
 
@@ -253,6 +318,7 @@
 
             /** Création des objets pour l'écriture dans l'ide */
             this.sharedContentIde(this);
+            this.onIdeAction();
         },
 
         sockets: {
@@ -275,7 +341,6 @@
             },
 
             newTextDelete(value) {
-                console.log('je passe ici');
                 const mainIde = this.myTeam === value.team;
                 if (mainIde) {
                     this.remoteContentManagerOpponent.delete(value.index, value.length);
@@ -284,6 +349,19 @@
                 }
                 this.remoteContentManagerOpponent.delete(value.index, value.length);
                 this.remoteContentManagerOpponent.dispose();
+            },
+
+            onTab(newText) {
+                const mainIde = this.myTeam === newText.team;
+                 if (mainIde) {
+                    this.editorGamer.setValue(newText.value);
+                    return;
+                }
+                this.editorOpponent.setValue(newText.value);
+            },
+
+            opponentSuccess() {
+                this.opponent_exercice_number++;
             }
         }
     }
