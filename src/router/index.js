@@ -6,7 +6,9 @@ import RoomConnection from '../views/Room/RoomConnection'
 import RoomPseudo from '../views/Room/RoomPseudo'
 import RoomTeam from '../views/Room/RoomTeam'
 import Test from '../views/Test'
-import Game from "../views/Room/Game";
+import Game from "../views/Room/Game"
+import RoomWin from "../views/Room/RoomWin"
+import RoomLose from "../views/Room/RoomLose"
 
 Vue.use(VueRouter)
 
@@ -54,7 +56,18 @@ const routes = [
     path: '/test',
     name: 'Test',
     component: Test
+  },
+  {
+    path: '/room-win',
+    name: 'RoomWin',
+    component: RoomWin
+  },
+  {
+    path: '/room-lose',
+    name: 'RoomLose',
+    component: RoomLose
   }
+  
 ]
 
 const router = new VueRouter({
