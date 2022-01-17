@@ -1,7 +1,7 @@
 <template>
   <div id="RoomConnection">
       <div class="top-img">
-          <img src="@/assets/images/SpaceCode_DashboardLogOut.png" alt="">
+          <img src="@/assets/images/SpaceCode_DashboardLogOut.png">
       </div>
     <div class="connect-pannel">
       <connection />
@@ -25,13 +25,21 @@ export default {
 </script>
 
 <style scoped>
+#RoomConnection {
+  height: 100vh;
+}
+
 .top-img {
-    margin-left: 40%;
-    margin-top: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .connect-pannel {
   margin-top: -10%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .bottom-img img{

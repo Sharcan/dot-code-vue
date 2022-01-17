@@ -1,7 +1,7 @@
 <template>
   <div id="win">
     <a class="back-link" href="">Retour dans le CyberSpace</a>
-    <div class="win-text">
+    <div class="win-card">
       <div class="geminis">
         <h2 class="text-title">Bravo !</h2>
         <p class="sub-title">
@@ -10,10 +10,11 @@
         </p>
       </div>
       <div>
-        <p class="text-main">Souhaites-tu repartir à l’asault ?</p>
+        <p class="text-main">Souhaites-tu repartir à l’assaut ?</p>
       </div>
+      <img class="win-image" src="@/assets/images/SpaceCode_AstroWin.png" />
     </div>
-    <div class="button">
+    <div class="buttons">
       <button class="continue">Evidemment !</button>
       <button class="finished">Non, j'ai eu ma dose</button>
     </div>
@@ -30,16 +31,11 @@ export default {
 * {
   color: black;
 }
-#win {
-  width: 35%;
-  margin-left: 24%;
-}
 
 .text-title {
   font-size: 400%;
   text-shadow: #30b5ff 1px 0 50px;
   margin-top: 3%;
-  margin-bottom: 5%;
 }
 
 .sub-title {
@@ -48,10 +44,11 @@ export default {
 }
 
 .text-main {
-    font-size: 50px;
+    font-size: 250%;
     font-weight: bold;
     width: 55%;
     line-height: 90%;
+    margin-top: -2%;
 }
 
 .back-link {
@@ -59,14 +56,20 @@ export default {
   text-decoration: none;
 }
 
-.win-text {
+.win-card {
+  position: relative;
   background: white;
-
   height: 40vh;
   border-radius: 10px;
   padding: 3%;
 }
-.button {
+.win-image {
+  position: absolute;
+  right: -25%;
+  top: 5%;
+  width: 65%;
+}
+.buttons {
   display: flex;
   padding: 1%;
   margin-left: 2%;
@@ -78,13 +81,17 @@ export default {
   text-align: center;
   border-radius: 30px;
   font-weight: 700;
-  padding: 12px 0;
+  padding: 10px 0;
   box-shadow: 0px 0px 50px 5px rgba(48, 181, 255, 0.8);
   transition: 0.25s;
   cursor: pointer;
   color: #fff;
   border: none;
   position: relative;
+}
+
+.continue:hover{
+   background-color: #22c790;
 }
 .finished {
   width: 100%;
@@ -93,12 +100,16 @@ export default {
   text-align: center;
   border-radius: 30px;
   font-weight: 700;
-  padding: 12px 0;
+  padding: 10px 0;
   box-shadow: 0px 0px 50px 5px rgba(48, 181, 255, 0.8);
   transition: 0.25s;
   cursor: pointer;
   color: #fff;
   border: none;
   position: relative;
+}
+
+.finished:hover{
+    background-color: #a82323;
 }
 </style>

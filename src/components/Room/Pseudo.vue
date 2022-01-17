@@ -64,7 +64,6 @@ export default {
   height: 40vh;
   border-radius: 10px;
   padding: 0.1px;
-  margin-left: 24%;
 }
 
 .main-title {

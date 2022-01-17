@@ -1,14 +1,14 @@
 <template>
   <div class="win">
-    <img class="top-image" src="@/assets/images/SpaceCodeGreenLogo.png">
+    <div class="topbar">
+      <img class="top-image" src="@/assets/images/SpaceCodeGreenLogo.png" />
+    </div>
     <div class="win-main">
-    
-      
-      <div class="win-card">
+      <div class="win-card-container">
         <Win />
-        <img class="win-image" src="@/assets/images/SpaceCode_AstroWin.png" />
       </div>
     </div>
+    <img src="@/assets/images/Moon.png" class="font-image" />
   </div>
 </template>
 
@@ -22,22 +22,39 @@ export default {
 </script>
 
 <style scoped>
-    .win-card {
-        display: flex;
-        margin-top: -5%;
-    }
-    .top-image {
-        margin-bottom: 5%;
-        margin-top: 2%;
-        margin-left: 40%;
-        width: 5%;
-    }
-    .win-image {
-        width: 25%;
-        margin-left: -15%;
-        
-    }
-    
 
-    
+.win {
+  height: 100vh;
+}
+
+.topbar {
+  height: 12vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.win-main {
+  width: 100%;
+  height: 83vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.win-card-container {
+  display: flex;
+  position: relative;
+  z-index: 3;
+  justify-content: center;
+}
+
+.font-image {
+  opacity: 70%;
+  width: 40%;
+  margin-top: -70%;
+  position: relative;
+  z-index: 1;
+}
 </style>

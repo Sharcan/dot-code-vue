@@ -101,14 +101,14 @@
 
             SPACECODE est avant tout un endroit pour apprendre, s'entraider avec
             une communauté importante de joueurs/développeurs, mais c'est aussi
-            surtout un espace de compétition et de coopération !
+            surtout un espace de compétition et de coopération ! <br>
 
             <strong>En mode Collaboration : </strong> <br />
             Vous choisissez votre équipe et votre langage de programmation et
             nous choisissons un problème d'ingénierie à résoudre. Un classement
             mensuelle des meilleures équipes seront mise en avant sur notre
             Dashboard et ensuite invitées à participer à nos finales mondiales
-            virtuelles.
+            virtuelles. <br>
 
             <strong>En mode Compétition : </strong> <br />
             C'est dans cette espace temps que les programmeurs de tous niveaux

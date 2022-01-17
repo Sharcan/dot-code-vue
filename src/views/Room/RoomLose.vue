@@ -1,14 +1,14 @@
 <template>
   <div class="lose">
-    <img class="top-image" src="@/assets/images/SpaceCodeGreenLogo.png">
+    <div class="topbar">
+      <img class="top-image" src="@/assets/images/SpaceCodeGreenLogo.png" />
+    </div>
     <div class="lose-main">
-    
-      
-      <div class="lose-card">
-        <Lose/>
-        <img class="lose-image" src="@/assets/images/SpaceCode_AstroLoose.png" />
+      <div class="lose-card-container">
+        <Lose />
       </div>
     </div>
+    <img src="@/assets/images/Moon.png" class="font-image" />
   </div>
 </template>
 
@@ -22,23 +22,39 @@ export default {
 </script>
 
 <style scoped>
-    .lose-card {
-        display: flex;
-        margin-top: -5%;
-    }
-    .top-image {
-        margin-bottom: 5%;
-        margin-top: 2%;
-        margin-left: 40%;
-        width: 5%;
-    }
-    .lose-image {
-        width: 15%;
-        margin-left: -10%;
-        margin-bottom: 5%;
-        
-    }
-    
 
-    
+.lose {
+  height: 100vh;
+}
+
+.topbar {
+  height: 12vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.lose-main {
+  width: 100%;
+  height: 83vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lose-card-container {
+  display: flex;
+  position: relative;
+  z-index: 3;
+  justify-content: center;
+}
+
+.font-image {
+  opacity: 70%;
+  width: 40%;
+  top: -80%;
+  position: relative;
+  z-index: 1;
+}
 </style>

@@ -25,12 +25,20 @@ export default {
 </script>
 
 <style scoped>
+#RoomPseudo {
+  height: 100vh;
+}
+
 .top-img {
-  margin-left: 40%;
-  margin-top: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .pseudo-pannel {
   margin-top: -10%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .bottom-img img {
   width: 12%;

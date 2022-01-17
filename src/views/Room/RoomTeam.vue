@@ -1,6 +1,5 @@
 <template>
   <div id="RoomPseudo">
-    <Topbar />
     <a class="back" href="#"> Retour dans le cyberspace</a>
     <div class="pseudo-pannel">
       <Team />
@@ -13,13 +12,11 @@
 
 <script>
 import Team from "@/components/Room/Team.vue";
-import Topbar from "../../layouts/partials/game-layout/Topbar.vue";
 
 export default {
   name: "RoomTeam",
   components: {
     Team,
-    Topbar,
   },
 };
 </script>

@@ -1,8 +1,8 @@
 <template>
   <div id="Team">
-    <p class="id-room">
+    <h4 class="id-room">
       #<span class="geminis">{{ $route.params.pin }}</span>
-    </p>
+    </h4>
     <!-- <div class="connectedUsers">
       <span v-for="user in connectedUsers" :key="user.socketId"
         >{{ user.username }}
@@ -13,7 +13,6 @@
       de commencer la partie !
     </h3>
     <div class="teams">
-      
       <div class="team-1">
         <h3 class="team-title geminis t1">Equipe ixion</h3>
         <div class="team-card">
@@ -42,7 +41,7 @@
       <div class="team-logo logo1">
         <img src="@/assets/images/satelite.png" />
       </div>
-      <div class="team-logo  logo2">
+      <div class="team-logo logo2">
         <img src="@/assets/images/meteore.png" />
       </div>
       <div class="team-2">
@@ -73,13 +72,15 @@
         </div>
       </div>
     </div>
-    
-    <button class="start-button" @click="launchGame()">
-      Démarer la partie !
-    </button>
 
-    <div class="error">
-      {{err}}
+    <div class="start-game">
+      <button class="start-button" @click="launchGame()">
+        Démarer la partie !
+      </button>
+
+      <div v-if="err" class="error">
+        {{ err }}
+      </div>
     </div>
   </div>
 </template>
@@ -107,7 +108,7 @@ export default {
             this.changeUserTeam(res.user, team);
           } else {
             console.log(res.error);
-            this.err = res.error
+            this.err = res.error;
           }
         }
       );
@@ -141,7 +142,7 @@ export default {
             router.push({ path: `/game/${this.$route.params.pin}` });
           } else {
             console.log(res.error);
-            this.err = res.error
+            this.err = res.error;
           }
         }
       );
@@ -180,66 +181,66 @@ export default {
 </script>
 
 <style>
+#Team {
+  display: flex;
+  flex-direction: column;
+}
+
 .connectedUsers {
   height: 50px;
   border: 1px solid #fff;
 }
 
 .id-room {
-  font-size: 150%;
+  font-size: 200%;
   color: #44f5ba;
 }
 
-.error {
-  color: red;
-  background: #fff;
-  text-align: center;
-  width: 20%;
-  height: 30px;
-  border-radius: 10px;
-  margin-left: 40%;
-  margin-top: 1%;
-}
+
 
 .main {
   color: #44f5ba;
   font-size: 300%;
-  margin-left: 30%;
   margin-bottom: 2%;
+  display: flex;
+  justify-content: center;
 }
 
 .team-card {
   background: #fff;
-  height: 400px;
+  height: 250px;
   color: #090b31;
   width: 75%;
   border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .teams {
   display: flex;
   justify-content: space-between;
-  height: 500px;
+  height: 400px;
   margin-left: 10%;
 }
 .team-logo {
-    background: black;
-    border-radius: 100%;
-    height: 20%;
+  background: black;
+  border-radius: 100%;
+  height: 25%;
 }
 .team-logo > img {
-    width: 90%;
-    margin-left: 5%;
-    margin-top: 5%;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 5%;
 }
 
-.logo1{
-    margin-left: -25%;
+.logo1 {
+  margin-left: -25%;
 }
 
 .logo2 {
-    margin-right: -17.5%;
-    position: relative;
+  margin-right: -17.5%;
+  position: relative;
 }
 .team-title {
   color: #44f5ba;
@@ -260,7 +261,7 @@ export default {
 }
 
 .list-player {
-  height: 350px;
+  height: 200px;
   padding-top: 20%;
   font-weight: 700;
   font-size: 150%;
@@ -275,14 +276,27 @@ export default {
   text-align: center;
   background-color: #090b31;
   border-radius: 30px;
+  border: none;
   height: 42px;
-  width: 50%;
+  width: 60%;
+  padding: 10px 0;
   font-weight: 700;
   box-shadow: 0px 0px 50px 5px rgba(48, 181, 255, 0.8);
   transition: 0.25s;
   cursor: pointer;
   color: #fff;
-  margin-left: 27.5%;
+}
+
+.join-button:hover {
+  background-color: #fff;
+  color: #090b31;
+}
+
+.start-game {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .start-button {
@@ -297,6 +311,21 @@ export default {
   transition: 0.25s;
   cursor: pointer;
   color: #090b31;
-  margin-left: 35%;
+  border: none;
+}
+
+.start-button:hover {
+  background-color: #090b31;
+  color: #fff;
+}
+
+.error {
+  color: red;
+  background: #fff;
+  text-align: center;
+  width: 40%;
+  height: 30px;
+  border-radius: 10px;
+  margin-top: 1%;
 }
 </style>
