@@ -148,7 +148,7 @@
             executeCode() {
                 if(!this.loading) {
                     $.ajax({
-                        url: 'http://localhost:3000/editor',
+                        url: `${process.env.VUE_APP_API_URL}editor`,
                         method: 'POST',
                         data: {
                             language: this.language,
