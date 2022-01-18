@@ -292,7 +292,8 @@
             this.editorOpponent = monaco.editor.create(document.getElementById("editor-2"), {
                 value: exercices[this.exercice_number].code,
                 language: this.language,
-                theme: 'vs-dark'
+                theme: 'vs-dark',
+                readOnly: true
             });
 
             /** Création de l'objet permettant de créer plusieurs curseurs pour l'IDE principal */

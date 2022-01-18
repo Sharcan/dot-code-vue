@@ -1,16 +1,11 @@
 <template>
   <div id="Pseudo">
-    
     <h1 class="geminis text-center main-title">Entre ton Nom</h1>
     <div class="input">
       <input type="text" placeholder="Pseudo" class="pseudo-input" v-model="username"/>
     </div>
     
     <div>{{ error }}</div>
-    <!-- <select name="teamSelect" id="teamSelect" v-model="team">
-      <option value="equipe_1">Equipe 1</option>
-      <option value="equipe_2">Equipe 2</option>
-    </select> -->
     <SpaceButton class="continue" text="Continuer" @click.native="sendPseudo" />
   </div>
 </template>
@@ -25,7 +20,6 @@ export default {
   data() {
     return {
       username: '',
-      // team: null,
       error: ''
     }
   },
@@ -61,17 +55,14 @@ export default {
 
 #Pseudo {
   width: 50%;
-  height: 40vh;
+  height: auto;
   border-radius: 10px;
-  padding: 0.1px;
 }
 
 .main-title {
   font-size: 250%;
   text-shadow: #30b5ff 1px 0 50px;
   margin-top: 3%;
-  margin-bottom: 5%;
-  height: 15%;
 }
 
 .input {
@@ -84,7 +75,6 @@ export default {
 
 .pseudo-input {
   width: 100%;
-  height: 150%;
   font-size: 200%;
   margin-top: 5%;
   margin-left: 15%;
@@ -92,7 +82,7 @@ export default {
   border: none;
   background: #090b31;
   box-shadow: 0px 0px 50px 5px rgba(48, 181, 255, 0.8);
-  color: White;
+  color: white;
   text-align: center;
 }
 

@@ -55,17 +55,16 @@ export default {
 }
 #Connection {
   width: 50%;
-  height: 40vh;
   border-radius: 10px;
-  padding: 0.1px;
 }
+
 .main-title {
   font-size: 250%;
   text-shadow: #30b5ff 1px 0 50px;
   margin-top: 3%;
   margin-bottom: 5%;
-  height: 15%;
 }
+
 .input {
   width: 50%;
   height: 10%;
@@ -97,13 +96,13 @@ export default {
 }
 
 .button-confirm{
-    float: right;
-    margin-right: 15%;
+  float: right;
+  margin-right: 15%;
 }
 
 .button-cancel {
-    float: left;
-    margin-left: 15%;
+  float: left;
+  margin-left: 15%;
 }
 .button-confirm:hover, .button-cancel:hover {
   background-color: #fff;

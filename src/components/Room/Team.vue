@@ -3,13 +3,8 @@
     <h4 class="id-room">
       #<span class="geminis">{{ $route.params.pin }}</span>
     </h4>
-    <!-- <div class="connectedUsers">
-      <span v-for="user in connectedUsers" :key="user.socketId"
-        >{{ user.username }}
-      </span>
-    </div> -->
     <h3 class="geminis main">
-      Rejoind ton équipe avant <br />
+      Rejoins ton équipe avant <br />
       de commencer la partie !
     </h3>
     <div class="teams">
@@ -75,7 +70,7 @@
 
     <div class="start-game">
       <button class="start-button" @click="launchGame()">
-        Démarer la partie !
+        Démarrer la partie !
       </button>
 
       <div v-if="err" class="error">
