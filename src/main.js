@@ -11,7 +11,7 @@ import '@fortawesome/fontawesome-free/js/all.js'
 Vue.config.productionTip = false
 
 // Connexion de socket au serveur NestJS
-const socket = io('http://localhost:3000');
+const socket = io(process.env.VUE_APP_API_URL);
 // On ajoute SocketIO à Vue pour accéder aux variables globales ($socket)
 Vue.use(VueSocketIOExt, socket);
 
