@@ -281,6 +281,9 @@
             }
         },
         mounted() {
+
+            document.title = 'Corrige le code | DotCode'
+
             this.editorGamer = monaco.editor.create(document.getElementById("editor-1"), {
                 value: exercices[this.exercice_number].code,
                 language: this.language,

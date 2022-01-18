@@ -15,6 +15,8 @@ const socket = io(process.env.VUE_APP_API_URL);
 // On ajoute SocketIO à Vue pour accéder aux variables globales ($socket)
 Vue.use(VueSocketIOExt, socket);
 
+document.title = 'Accueil | Space Code'
+
 new Vue({
   router,
   render: h => h(App)
