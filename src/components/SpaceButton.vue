@@ -1,7 +1,9 @@
 <template>
+<router-link :to="{ name: link }">
     <div class="button">
-        {{ text.toUpperCase() }}
+        {{ text.toUpperCase() }} 
     </div>
+</router-link>
 </template>
 
 <script>
@@ -9,6 +11,8 @@
         name: 'SpaceButton',
         props: [
             'text',
+            'width',
+            'link'
         ]
     }
 </script>
@@ -23,11 +27,20 @@
         box-shadow: 0px 0px 50px 5px rgba(48,181,255,0.8);
         transition: 0.25s;
         cursor: pointer;
+        color: #fff;
     }
     .button:hover {
         background-color: #fff;
         color: #4D2A9C;
         cursor: pointer;
         transition: 0.25s;
+    }
+    .btn-small {
+        padding: 3px 0;
+        font-size: 1rem;
+    }
+    a {
+    color: white;
+    text-decoration: none;
     }
 </style>
