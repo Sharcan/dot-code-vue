@@ -7,7 +7,7 @@
         ]
     },
     {
-        "code": "let dev = { \n\tname: 'Antoine D', \n\tage: 21, \n\tjob: 'Developer', \n\tspeack() { \n\t\tconsole.log('coucou'); \n\t} \n} \ndev.spaeck()",
+        "code": "let dev = { \n\tname: 'Antoine D', \n\tage: 21, \n\tjob: 'Developer', \n\tspeak() { \n\t\tconsole.log('coucou'); \n\t} \n} \ndev.spaek()",
         "expectedResult": "coucou",
         "expectedCode": [
             "let dev",

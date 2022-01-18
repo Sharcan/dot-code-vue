@@ -392,6 +392,9 @@ export default {
 .button-title {
   color: #090b31;
 }
+h3.button-title {
+  margin-top: 25px;
+}
 .button-text h3 {
   font-size: 3.3rem;
   margin-bottom: 0;

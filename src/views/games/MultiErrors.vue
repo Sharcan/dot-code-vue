@@ -120,6 +120,11 @@
         },
         watch: {
             exercice_number(newVal) {
+                // Emit exercice number
+                this.$socket.client.emit('nextExercice', {
+                    pin: this.$route.params.pin
+                });
+
                 if(newVal <= 9) {
                     // Next exercice
                     this.editorGamer.getModel().setValue(exercices[newVal].code);
@@ -128,13 +133,8 @@
                 } else {
                     // Success page
                     // TODO - change route
-                    router.push({ path: `/game/win` });
+                    router.push({ path: `/room-win` });
                 }
-
-                // Emit exercice number
-                this.$socket.client.emit('nextExercice', {
-                    pin: this.$route.params.pin
-                });
             },
             opponent_exercice_number(newVal) {
                 if(newVal <= 9) {
@@ -143,7 +143,7 @@
                 } else {
                     // Loose page
                     // TODO - change route
-                    router.push({ path: `/game/loose` });
+                    router.push({ path: `/room-lose` });
                 }
             }
         },
