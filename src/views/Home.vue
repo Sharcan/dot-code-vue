@@ -241,7 +241,6 @@ export default {
 .text-container p {
   margin-top: 0;
   font-size: 0.9rem;
-  color: rgb(212, 212, 212);
 }
 
 /** Planet PART **/

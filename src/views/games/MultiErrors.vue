@@ -287,13 +287,15 @@
             this.editorGamer = monaco.editor.create(document.getElementById("editor-1"), {
                 value: exercices[this.exercice_number].code,
                 language: this.language,
-                theme: 'vs-dark'
+                theme: 'vs-dark',
+                minimap: {enabled: false}
             });
             this.editorOpponent = monaco.editor.create(document.getElementById("editor-2"), {
                 value: exercices[this.exercice_number].code,
                 language: this.language,
                 theme: 'vs-dark',
-                readOnly: true
+                lineNumbers: false,
+                minimap: {enabled: false}
             });
 
             /** Création de l'objet permettant de créer plusieurs curseurs pour l'IDE principal */
@@ -314,7 +316,7 @@
                 if(res.error) {
                     router.push({ path: `/room-connection`});
                     return;
-                } 
+                }
                 this.connectedUsers = res.room.connectedUsers;
                 this.team_1 = res.room.team_1;
                 this.team_2 = res.room.team_2;
