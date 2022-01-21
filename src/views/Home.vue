@@ -3,15 +3,15 @@
     <template #content>
       <div class="title-part">
         <div class="title-container">
-          <h1 class="main-title geminis">Welcome<br />on board !</h1>
+          <h1 class="main-title geminis">Welcome<br/>on board !</h1>
           <div class="buttons">
             <div class="btn-1">
-              <SpaceButton text="Jouer en ligne !" link="RoomConnection" />
+              <SpaceButton text="Jouer en ligne !" link="RoomConnection"/>
             </div>
             <div class="btn-2">
               <SpaceButton
-                text="Créer une partie privée"
-                @click.native="createRoom"
+                  text="Créer une partie privée"
+                  @click.native="createRoom"
               />
             </div>
           </div>
@@ -23,34 +23,30 @@
         <div class="text-container">
           <h2 class="geminis">Third Stone from the Sun</h2>
           <p>
-            <strong>SPACECODE, c'est quoi ?</strong> <br />
-            Relevez le défi sur les différents mode de jeux que vous propose
-            SPACECODE, qui sont de petits exercices de codage. Chaque défi est
-            conçu par la communauté pour vous aider à renforcer différentes
-            compétences de codage. Maîtrisez la langue de votre choix ou
-            développez votre compréhension d'une nouvelle. Résolvez le defi avec
-            votre style de codage directement dans le navigateur et utilisez des
-            cas de test (TDD) pour le vérifier au fur et à mesure de votre
-            progression. SPACECODE vous propose une approche nouvelle, créative
-            et optimisée pour tirez le meilleur parti de votre pratique de la
+            <strong>SPACECODE, c'est quoi ?</strong> <br/>
+            Relevez le défi sur les différents modes de jeux que vous propose SPACECODE. Chaque défi est conçu par la
+            communauté pour vous aider à renforcer différentes compétences de développement. Maîtrisez le langage de
+            votre choix et développez votre compréhension du code. Résolvez le défi avec votre style de développement
+            directement dans le navigateur et résolvez des exercices pour mesurer votre progression. SPACECODE vous
+            propose une approche nouvelle, créative et optimisée pour tirer le meilleur parti de votre pratique de la
             programmation.
           </p>
         </div>
         <div>
           <img
-            src="@/assets/images/planet-red.png"
-            alt="planet-red"
-            class="planet-red-img"
+              src="@/assets/images/planet-red.png"
+              alt="planet-red"
+              class="planet-red-img"
           />
           <img
-            src="@/assets/images/diamond.png"
-            alt="diamonds"
-            class="diamond-img"
+              src="@/assets/images/diamond.png"
+              alt="diamonds"
+              class="diamond-img"
           />
           <img
-            src="@/assets/images/diamond-2.png"
-            alt="diamonds"
-            class="diamond-img-2"
+              src="@/assets/images/diamond-2.png"
+              alt="diamonds"
+              class="diamond-img-2"
           />
         </div>
       </div>
@@ -59,36 +55,30 @@
         <div class="text-container text-right">
           <h2 class="geminis">Interstellar Supernova</h2>
           <p>
-            <strong> Comment ça fonctionne ? </strong> <br />
+            <strong> Comment ça fonctionne ? </strong> <br/>
 
-            Comparez votre solution avec d'autres après chaque fin de partie
-            pour une meilleure compréhension. Discutez du défi, des meilleures
-            pratiques et des techniques innovantes avec la communauté.
-            Laissez-vous surprendre par la façon dont les autres abordent le
-            même problème que vous différemment. Créez des mini-jeu qui se
-            concentrent sur vos intérêts et entraînez des ensembles de
-            compétences spécifiques. Défiez la communauté avec vos idées et
-            votre compréhension du code. Vous pouvez tout créer : des questions
-            courantes d'entretien avec les développeurs aux défis qui repoussent
-            les limites de votre créativité. Gagnez l'honneur en tant que
-            Capitaine de bord au sein du vaisseau de codage.
+            Discutez du défi, des meilleures pratiques et des techniques innovantes avec la communauté. Laissez-vous
+            surprendre par la façon dont les autres abordent le même problème que vous. Créez des mini-jeux qui se
+            concentrent sur vos connaissances et permettez aux autres de s’entraîner. Défiez la communauté avec vos
+            idées et votre compréhension du code. Vous pouvez tout créer : des exercices simples comme des défis qui
+            repoussent les limites de votre créativité. Embarquez au sein du vaisseau SPACECODE et devenez le meilleur !
           </p>
         </div>
         <div>
           <img
-            src="@/assets/images/diamond-2.png"
-            alt="diamonds"
-            class="diamond-img-earth"
+              src="@/assets/images/diamond-2.png"
+              alt="diamonds"
+              class="diamond-img-earth"
           />
           <img
-            src="@/assets/images/planet-earth.png"
-            alt="planet-earth"
-            class="planet-earth-img"
+              src="@/assets/images/planet-earth.png"
+              alt="planet-earth"
+              class="planet-earth-img"
           />
           <img
-            src="@/assets/images/diamond-5.png"
-            alt="diamonds"
-            class="diamond-img-earth-2"
+              src="@/assets/images/diamond-5.png"
+              alt="diamonds"
+              class="diamond-img-earth-2"
           />
         </div>
       </div>
@@ -97,64 +87,59 @@
         <div class="text-container">
           <h2 class="geminis">FIGHT LIKE A Rocket Man !</h2>
           <p>
-            <strong>Ce que propose SPACECODE ?</strong> <br />
+            <strong>Ce que propose SPACECODE ?</strong> <br/>
 
-            SPACECODE est avant tout un endroit pour apprendre, s'entraider avec
-            une communauté importante de joueurs/développeurs, mais c'est aussi
-            surtout un espace de compétition et de coopération ! <br>
+            SPACECODE est avant tout un endroit pour apprendre, s'entraider avec une communauté importante de
+            joueurs/développeurs, mais c'est aussi et surtout un espace de compétition et de coopération ! <br>
 
-            <strong>En mode Collaboration : </strong> <br />
-            Vous choisissez votre équipe et votre langage de programmation et
-            nous choisissons un problème d'ingénierie à résoudre. Un classement
-            mensuelle des meilleures équipes seront mise en avant sur notre
-            Dashboard et ensuite invitées à participer à nos finales mondiales
-            virtuelles. <br>
+            <strong>En mode Collaboration : </strong> <br/>
+            Choisissez votre équipe et votre langage et résolvez des exercices de développement. Un classement mensuel
+            des meilleures équipes sera mis en avant sur le Dashboard et vous serez invités à participer à nos finales
+            mondiales virtuelles. <br>
 
-            <strong>En mode Compétition : </strong> <br />
-            C'est dans cette espace temps que les programmeurs de tous niveaux
-            mettent leurs compétences à l'épreuve. Les concurrents se frayent un
-            chemin à travers une série de puzzles algorithmiques en ligne pour
-            gagner une place aux finales mondiales, le tout pour avoir une
-            chance de remporter le titre de champion !
+            <strong>En mode Compétition : </strong> <br/>
+            C'est dans cet espace-temps que les programmeurs de tous niveaux mettent leurs compétences à l'épreuve. Les
+            concurrents se frayent un chemin à travers une série de puzzles en ligne pour remporter le titre de
+            champion.
           </p>
         </div>
         <div>
           <img
-            src="@/assets/images/diamond-2.png"
-            alt="diamonds"
-            class="diamond-img-egg"
+              src="@/assets/images/diamond-2.png"
+              alt="diamonds"
+              class="diamond-img-egg"
           />
           <img
-            src="@/assets/images/diamond-3.png"
-            alt="diamonds"
-            class="diamond-img-egg-2"
+              src="@/assets/images/diamond-3.png"
+              alt="diamonds"
+              class="diamond-img-egg-2"
           />
           <img
-            src="@/assets/images/planet-egg.png"
-            alt="planet-egg"
-            class="planet-egg-img"
+              src="@/assets/images/planet-egg.png"
+              alt="planet-egg"
+              class="planet-egg-img"
           />
         </div>
       </div>
 
       <div class="button-part">
-        <img src="@/assets/images/splash.png" alt="Splash" class="splash" />
-        <img src="@/assets/images/diamond.png" alt="Diamond" class="diamond" />
+        <img src="@/assets/images/splash.png" alt="Splash" class="splash"/>
+        <img src="@/assets/images/diamond.png" alt="Diamond" class="diamond"/>
         <div class="button-text">
           <h3 class="geminis button-title">Prêt à rejoindre l'aventure ?</h3>
           <h4 class="geminis button-title">L'espace a besoin de toi !</h4>
-          <SpaceButton text="Se créer un compte" class="bottom-btn" />
+          <SpaceButton text="Se créer un compte" class="bottom-btn"/>
         </div>
       </div>
 
       <div class="footer">
         <img
-          src="@/assets/images/dotcode.png"
-          alt="Dotcode"
-          class="footer-img"
+            src="@/assets/images/dotcode.png"
+            alt="Dotcode"
+            class="footer-img"
         />
         <div class="geminis footer-txt-1">Made with love by l'équipe 12</div>
-        <div class="geminis footer-txt-2">2021, Dotcode</div>
+        <div class="geminis footer-txt-2">2022, Dotcode</div>
       </div>
     </template>
   </HomeLayout>
@@ -174,7 +159,7 @@ export default {
   methods: {
     createRoom() {
       this.$socket.client.emit("newRoomCreation", (response) => {
-        router.push({ path: `/game/${response.pin}/room-pseudo` });
+        router.push({path: `/game/${response.pin}/room-pseudo`});
       });
     },
   },
@@ -187,6 +172,7 @@ export default {
   position: relative;
   height: 88vh;
 }
+
 .bg-astronaute {
   position: absolute;
   top: 60px;
@@ -197,23 +183,27 @@ export default {
   background-repeat: no-repeat;
   z-index: -1;
 }
+
 .title-container {
   height: 45%;
   width: 48%;
   float: right;
   margin-top: 3.5rem;
 }
+
 .main-title {
   font-size: 7rem;
   text-shadow: #30b5ff 1px 0 50px;
   margin-bottom: 20px;
 }
+
 .buttons {
   width: 95%;
   display: flex;
   justify-content: space-between;
   font-size: 0.9rem;
 }
+
 .btn-1,
 .btn-2 {
   width: 48%;
@@ -227,17 +217,21 @@ export default {
   align-items: center;
   margin-top: -50px;
 }
+
 .text-part-right {
   justify-content: end;
 }
+
 .text-container {
   width: 50%;
   margin-top: 25px;
 }
+
 .text-container h2 {
   font-size: 2.2rem;
   margin-bottom: 15px;
 }
+
 .text-container p {
   margin-top: 0;
   font-size: 0.9rem;
@@ -255,6 +249,7 @@ export default {
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }
+
 .diamond-img {
   position: absolute;
   width: 10%;
@@ -266,6 +261,7 @@ export default {
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }
+
 .diamond-img-2 {
   position: absolute;
   width: 10%;
@@ -291,6 +287,7 @@ export default {
   animation-timing-function: ease-in-out;
   animation-direction: reverse;
 }
+
 .diamond-img-earth {
   position: absolute;
   width: 8%;
@@ -304,6 +301,7 @@ export default {
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }
+
 .diamond-img-earth-2 {
   position: absolute;
   width: 8%;
@@ -330,6 +328,7 @@ export default {
   animation-timing-function: ease-in-out;
   animation-direction: normal;
 }
+
 .diamond-img-egg {
   position: absolute;
   width: 10%;
@@ -342,6 +341,7 @@ export default {
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }
+
 .diamond-img-egg-2 {
   position: absolute;
   width: 7%;
@@ -364,12 +364,14 @@ export default {
   position: relative;
   z-index: -1;
 }
+
 .splash {
   width: 200px;
   position: absolute;
   top: -15px;
   left: 0;
 }
+
 .diamond {
   width: 250px;
   position: absolute;
@@ -381,6 +383,7 @@ export default {
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }
+
 .button-text {
   width: 100%;
   text-align: center;
@@ -388,21 +391,26 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+
 .button-title {
   color: #090b31;
 }
+
 h3.button-title {
   margin-top: 25px;
 }
+
 .button-text h3 {
   font-size: 3.3rem;
   margin-bottom: 0;
 }
+
 .button-text h4 {
   font-size: 2rem;
   margin-top: 10px;
   margin-bottom: 30px;
 }
+
 .bottom-btn {
   width: 30%;
 }
@@ -411,9 +419,11 @@ h3.button-title {
   width: 100%;
   text-align: center;
 }
+
 .footer-img {
   margin-top: -15px;
 }
+
 .footer-txt-1 {
   margin-top: 20px;
 }
