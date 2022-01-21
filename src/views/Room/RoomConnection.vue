@@ -11,7 +11,7 @@
           <img src="@/assets/images/diamond.png" alt="">
       </div>
 
-    <p class="text-center go-create">Vous voulez plutot créer votre propre room ? <a href="#">C'est ici !</a></p>
+    <p class="text-center go-create">Vous voulez plutot créer votre propre room ? <a :href="'/'">C'est ici !</a></p>
     
   </div>
 </template>
