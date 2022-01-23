@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  vue_development:
+    container_name: vue_container_development
+    build:
+      context: ../
+      target: development
+    command: npm run serve
+    volumes:
+      - ..:/usr/app
+    ports:
+      - '8080:8080'
+
+  vue_production:
+    container_name: vue_container_production
+    build:
+      context: ../
+      target: production
+    ports:
+        - '8080:8080'
