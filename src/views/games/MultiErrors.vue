@@ -132,7 +132,6 @@
                     this.loading = false;
                 } else {
                     // Success page
-                    // TODO - change route
                     router.push({ path: `/room-win` });
                 }
             },
@@ -142,7 +141,6 @@
                     this.editorOpponent.getModel().setValue(exercices[newVal].code);
                 } else {
                     // Loose page
-                    // TODO - change route
                     router.push({ path: `/room-lose` });
                 }
             }
@@ -322,7 +320,6 @@
                 this.team_2 = res.room.team_2;
                 this.user = res.user;
                 this.myTeam = res.user.team;
-                console.log(this.user);
                 this.createCursorsGamer();
             });
 
