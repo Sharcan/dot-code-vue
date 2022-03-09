@@ -9,14 +9,21 @@ import Test from '../views/Test'
 import Game from "../views/Room/Game"
 import RoomWin from "../views/Room/RoomWin"
 import RoomLose from "../views/Room/RoomLose"
+import test from "../middlewares/test"
 
 Vue.use(VueRouter)
 
+/**
+ * Route list
+ */
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      middlewares: [test]
+    }
   },
   {
     path: '/room-connection',
@@ -70,10 +77,49 @@ const routes = [
   
 ]
 
+/**
+ * Define router
+ */
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
+
+/**
+ * Router event before navigation (middlewares)
+ */
+router.beforeEach((to, from, next) => {
+  if(to.meta.middlewares && Array.isArray(to.meta.middlewares)) {
+    const middlewares = to.meta.middlewares;
+    const context = { from, next, router, to };
+    const nextMiddleware = nextFactory(context, middlewares, 1);
+
+    return middlewares[0]({ ...context, next: nextMiddleware });
+  }
+
+  return next();
+})
+
+/**
+ * Launch all middlewares recursively
+ * 
+ * @param {*} context 
+ * @param {*} middlewares 
+ * @param int index 
+ * @returns 
+ */
+function nextFactory(context, middlewares, index) {
+  const middleware = middlewares[index];
+
+  if (!middleware) return context.next;
+
+  return (...parameters) => {
+    context.next(...parameters);
+    const nextMiddleware = nextFactory(context, middlewares, index + 1);
+    middleware({ ...context, next: nextMiddleware });
+  }
+}
+
 
 export default router
