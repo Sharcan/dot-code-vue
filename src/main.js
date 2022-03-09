@@ -7,17 +7,22 @@ import './assets/css/main.css'
 import 'bootstrap/dist/css/bootstrap.css' 
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
+import socketAuth from './middlewares/socket-auth'
 
 Vue.config.productionTip = false
 
-// Connexion de socket au serveur NestJS
+// Socket connexion to Nest
 const socket = io(process.env.VUE_APP_API_URL);
-// On ajoute SocketIO à Vue pour accéder aux variables globales ($socket)
 Vue.use(VueSocketIOExt, socket);
 
 document.title = 'Accueil | Space Code'
 
 new Vue({
+  sockets: {
+    connect() {
+      socketAuth(this.$socket)
+    }
+  },
   router,
   render: h => h(App)
 }).$mount('#app')

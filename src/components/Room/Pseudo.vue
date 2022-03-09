@@ -26,7 +26,6 @@ export default {
   methods: {
     sendPseudo() {
       this.$socket.client.emit('sendPseudo', { pin: this.$route.params.pin, username: this.username }, (res) => {
-        console.log(res);
         if(!res.error) {
           router.push({ path: `/game/${this.$route.params.pin}/room-team`});
         } else {

@@ -102,7 +102,6 @@ export default {
           if (!res.error) {
             this.changeUserTeam(res.user, team);
           } else {
-            console.log(res.error);
             this.err = res.error;
           }
         }
@@ -136,7 +135,6 @@ export default {
           if (!res.error) {
             router.push({ path: `/game/${this.$route.params.pin}` });
           } else {
-            console.log(res.error);
             this.err = res.error;
           }
         }
