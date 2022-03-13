@@ -10,6 +10,7 @@ import Game from "../views/Room/Game"
 import RoomWin from "../views/Room/RoomWin"
 import RoomLose from "../views/Room/RoomLose"
 import test from "../middlewares/test"
+import Register from '../views/profil/Register.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,11 @@ const routes = [
     meta: {
       middlewares: [test]
     }
+  },
+  {
+    path: '/register',
+    name : 'Register',
+    component: Register
   },
   {
     path: '/room-connection',
