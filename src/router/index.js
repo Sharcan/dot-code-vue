@@ -11,6 +11,7 @@ import RoomWin from "../views/Room/RoomWin"
 import RoomLose from "../views/Room/RoomLose"
 import test from "../middlewares/test"
 import Register from '../views/profil/Register.vue'
+import Login from '../views/profil/Login.vue'
 
 Vue.use(VueRouter)
 
@@ -30,6 +31,11 @@ const routes = [
     path: '/register',
     name : 'Register',
     component: Register
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   {
     path: '/room-connection',
