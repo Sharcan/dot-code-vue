@@ -19,7 +19,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: Home,
     meta: {
       middlewares: [test]
@@ -27,33 +27,33 @@ const routes = [
   },
   {
     path: '/room-connection',
-    name: 'RoomConnection',
+    name: 'room.connection',
     component: RoomConnection
   },
   {
-    path: '/game/:pin',
+    path: '/game/:pin/',
     component: Game,
     children: [
       {
-        path: 'room-pseudo',
-        name: 'RoomPseudo',
+        path: 'pseudo',
+        name: 'room.pseudo',
         component: RoomPseudo
       },
       {
-        path: 'room-team',
-        name: 'RoomTeam',
+        path: 'team',
+        name: 'room.team',
         component: RoomTeam
       },
       {
         path: '',
-        name: 'Game',
+        name: 'room.game',
         component: MultiErrors
       }
     ]
   },
   {
     path: '/about',
-    name: 'About',
+    name: 'about',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.

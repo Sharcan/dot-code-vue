@@ -6,13 +6,10 @@
           <h1 class="main-title geminis">Welcome<br/>on board !</h1>
           <div class="buttons">
             <div class="btn-1">
-              <SpaceButton text="Jouer en ligne !" link="RoomConnection"/>
+              <SpaceButton text="Jouer en ligne !" link="room.connection" />
             </div>
             <div class="btn-2">
-              <SpaceButton
-                  text="Créer une partie privée"
-                  @click.native="createRoom"
-              />
+              <SpaceButton text="Créer une partie privée" @click.native="createRoom" />
             </div>
           </div>
         </div>
@@ -146,309 +143,329 @@
 </template>
 
 <script>
-import HomeLayout from "@/layouts/HomeLayout";
-import SpaceButton from "@/components/SpaceButton";
-import router from "../router";
+  import HomeLayout from "@/layouts/HomeLayout"
+  import SpaceButton from "@/components/SpaceButton"
+  import axios from 'axios'
 
-export default {
-  name: "Home",
-  components: {
-    HomeLayout,
-    SpaceButton,
-  },
-  methods: {
-    createRoom() {
-      this.$socket.client.emit("newRoomCreation", (response) => {
-        router.push({path: `/game/${response.pin}/room-pseudo`});
-      });
+  export default {
+    name: "Home",
+    components: {
+      HomeLayout,
+      SpaceButton,
     },
-  },
-};
+    methods: {
+      async createRoom() {
+        // Get user
+        const userId = localStorage.getItem('user');
+        const user = await axios.get(process.env.VUE_APP_API_URL + 'user/' + userId).then(res => res.data);
+        if(!user) {
+          this.$router.push({ name: 'home' });
+        }
+        // Create room
+        const room = await axios.post(process.env.VUE_APP_API_URL + 'room', {
+          owner_id: user.id
+        }).then(res => res.data);
+        // Create teams
+        await axios.post(process.env.VUE_APP_API_URL + 'team', {
+          room_id: room.id,
+          name: 'Team 1',
+          points: 0
+        });
+        await axios.post(process.env.VUE_APP_API_URL + 'team', {
+          room_id: room.id,
+          name: 'Team 2',
+          points: 0
+        });
+        // Redirect
+        this.$router.push({ name: 'room.pseudo', params: { pin: room.pin } });
+      },
+    },
+  };
 </script>
 
 <style>
-/* Title part */
-.title-part {
-  position: relative;
-  height: 88vh;
-}
-
-.bg-astronaute {
-  position: absolute;
-  top: 60px;
-  height: 95%;
-  width: 85%;
-  background: url("~@/assets/images/bg-astronaute-2.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: -1;
-}
-
-.title-container {
-  height: 45%;
-  width: 48%;
-  float: right;
-  margin-top: 3.5rem;
-}
-
-.main-title {
-  font-size: 7rem;
-  text-shadow: #30b5ff 1px 0 50px;
-  margin-bottom: 20px;
-}
-
-.buttons {
-  width: 95%;
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-}
-
-.btn-1,
-.btn-2 {
-  width: 48%;
-}
-
-/* Text parts */
-.text-part {
-  position: relative;
-  height: 60vh;
-  display: flex;
-  align-items: center;
-  margin-top: -50px;
-}
-
-.text-part-right {
-  justify-content: end;
-}
-
-.text-container {
-  width: 50%;
-  margin-top: 25px;
-}
-
-.text-container h2 {
-  font-size: 2.2rem;
-  margin-bottom: 15px;
-}
-
-.text-container p {
-  margin-top: 0;
-  font-size: 0.9rem;
-}
-
-/** Planet PART **/
-.planet-red-img {
-  position: absolute;
-  width: 25%;
-  right: 10%;
-  bottom: 50px;
-
-  animation-name: planet-movement;
-  animation-duration: 120s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
-
-.diamond-img {
-  position: absolute;
-  width: 10%;
-  right: 3%;
-  bottom: 20px;
-
-  animation-name: diamond-movement;
-  animation-duration: 5s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
-
-.diamond-img-2 {
-  position: absolute;
-  width: 10%;
-  right: 35%;
-  bottom: 200px;
-
-  animation-name: diamond-movement;
-  animation-duration: 5s;
-  animation-delay: 3s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
-
-.planet-earth-img {
-  position: absolute;
-  width: 25%;
-  left: 10%;
-  top: 15%;
-
-  animation-name: planet-movement;
-  animation-duration: 120s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-  animation-direction: reverse;
-}
-
-.diamond-img-earth {
-  position: absolute;
-  width: 8%;
-  left: 30%;
-  top: 8%;
-  transform: rotate(180deg);
-
-  animation-name: diamond-movement;
-  animation-duration: 5s;
-  animation-delay: 1s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
-
-.diamond-img-earth-2 {
-  position: absolute;
-  width: 8%;
-  left: 4%;
-  bottom: 4%;
-  transform: rotate(180deg);
-
-  animation-name: diamond-movement;
-  animation-duration: 5s;
-  animation-delay: 2s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
-
-.planet-egg-img {
-  position: absolute;
-  width: 25%;
-  right: 10%;
-  bottom: 50px;
-
-  animation-name: planet-movement;
-  animation-duration: 120s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-  animation-direction: normal;
-}
-
-.diamond-img-egg {
-  position: absolute;
-  width: 10%;
-  right: 3%;
-  top: 10%;
-
-  animation-name: diamond-movement;
-  animation-duration: 5s;
-  animation-delay: 5s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
-
-.diamond-img-egg-2 {
-  position: absolute;
-  width: 7%;
-  right: 3%;
-  top: 40%;
-
-  animation-name: diamond-movement;
-  animation-duration: 5s;
-  animation-delay: 4s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
-
-.button-part {
-  height: 33vh;
-  width: 100%;
-  margin-top: 150px;
-  background-color: #fff;
-  border-radius: 150px;
-  position: relative;
-  z-index: -1;
-}
-
-.splash {
-  width: 200px;
-  position: absolute;
-  top: -15px;
-  left: 0;
-}
-
-.diamond {
-  width: 250px;
-  position: absolute;
-  bottom: -100px;
-  right: -30px;
-
-  animation-name: diamond-movement;
-  animation-duration: 10s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in-out;
-}
-
-.button-text {
-  width: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.button-title {
-  color: #090b31;
-}
-
-h3.button-title {
-  margin-top: 25px;
-}
-
-.button-text h3 {
-  font-size: 3.3rem;
-  margin-bottom: 0;
-}
-
-.button-text h4 {
-  font-size: 2rem;
-  margin-top: 10px;
-  margin-bottom: 30px;
-}
-
-.bottom-btn {
-  width: 30%;
-}
-
-.footer {
-  width: 100%;
-  text-align: center;
-}
-
-.footer-img {
-  margin-top: -15px;
-}
-
-.footer-txt-1 {
-  margin-top: 20px;
-}
-
-@keyframes planet-movement {
-  0% {
-    transform: rotate(0) translate(0, 0);
+  /* Title part */
+  .title-part {
+    position: relative;
+    height: 88vh;
   }
-  50% {
-    transform: rotate(180deg) translate(50px, -40px);
-  }
-  100% {
-    transform: rotate(360deg) translate(0, 0);
-  }
-}
 
-@keyframes diamond-movement {
-  0% {
-    transform: translateY(0);
+  .bg-astronaute {
+    position: absolute;
+    top: 60px;
+    height: 95%;
+    width: 85%;
+    background: url("~@/assets/images/bg-astronaute-2.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: -1;
   }
-  50% {
-    transform: translateY(30px);
+
+  .title-container {
+    height: 45%;
+    width: 48%;
+    float: right;
+    margin-top: 3.5rem;
   }
-  100% {
-    transform: translateY(0);
+
+  .main-title {
+    font-size: 7rem;
+    text-shadow: #30b5ff 1px 0 50px;
+    margin-bottom: 20px;
   }
-}
+
+  .buttons {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+  }
+
+  .btn-1,
+  .btn-2 {
+    width: 48%;
+  }
+
+  /* Text parts */
+  .text-part {
+    position: relative;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    margin-top: -50px;
+  }
+
+  .text-part-right {
+    justify-content: end;
+  }
+
+  .text-container {
+    width: 50%;
+    margin-top: 25px;
+  }
+
+  .text-container h2 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+  }
+
+  .text-container p {
+    margin-top: 0;
+    font-size: 0.9rem;
+  }
+
+  /** Planet PART **/
+  .planet-red-img {
+    position: absolute;
+    width: 25%;
+    right: 10%;
+    bottom: 50px;
+
+    animation-name: planet-movement;
+    animation-duration: 120s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  .diamond-img {
+    position: absolute;
+    width: 10%;
+    right: 3%;
+    bottom: 20px;
+
+    animation-name: diamond-movement;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  .diamond-img-2 {
+    position: absolute;
+    width: 10%;
+    right: 35%;
+    bottom: 200px;
+
+    animation-name: diamond-movement;
+    animation-duration: 5s;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  .planet-earth-img {
+    position: absolute;
+    width: 25%;
+    left: 10%;
+    top: 15%;
+
+    animation-name: planet-movement;
+    animation-duration: 120s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: reverse;
+  }
+
+  .diamond-img-earth {
+    position: absolute;
+    width: 8%;
+    left: 30%;
+    top: 8%;
+    transform: rotate(180deg);
+
+    animation-name: diamond-movement;
+    animation-duration: 5s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  .diamond-img-earth-2 {
+    position: absolute;
+    width: 8%;
+    left: 4%;
+    bottom: 4%;
+    transform: rotate(180deg);
+
+    animation-name: diamond-movement;
+    animation-duration: 5s;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  .planet-egg-img {
+    position: absolute;
+    width: 25%;
+    right: 10%;
+    bottom: 50px;
+
+    animation-name: planet-movement;
+    animation-duration: 120s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: normal;
+  }
+
+  .diamond-img-egg {
+    position: absolute;
+    width: 10%;
+    right: 3%;
+    top: 10%;
+
+    animation-name: diamond-movement;
+    animation-duration: 5s;
+    animation-delay: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  .diamond-img-egg-2 {
+    position: absolute;
+    width: 7%;
+    right: 3%;
+    top: 40%;
+
+    animation-name: diamond-movement;
+    animation-duration: 5s;
+    animation-delay: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  .button-part {
+    height: 33vh;
+    width: 100%;
+    margin-top: 150px;
+    background-color: #fff;
+    border-radius: 150px;
+    position: relative;
+    z-index: -1;
+  }
+
+  .splash {
+    width: 200px;
+    position: absolute;
+    top: -15px;
+    left: 0;
+  }
+
+  .diamond {
+    width: 250px;
+    position: absolute;
+    bottom: -100px;
+    right: -30px;
+
+    animation-name: diamond-movement;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  .button-text {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-title {
+    color: #090b31;
+  }
+
+  h3.button-title {
+    margin-top: 25px;
+  }
+
+  .button-text h3 {
+    font-size: 3.3rem;
+    margin-bottom: 0;
+  }
+
+  .button-text h4 {
+    font-size: 2rem;
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+
+  .bottom-btn {
+    width: 30%;
+  }
+
+  .footer {
+    width: 100%;
+    text-align: center;
+  }
+
+  .footer-img {
+    margin-top: -15px;
+  }
+
+  .footer-txt-1 {
+    margin-top: 20px;
+  }
+
+  @keyframes planet-movement {
+    0% {
+      transform: rotate(0) translate(0, 0);
+    }
+    50% {
+      transform: rotate(180deg) translate(50px, -40px);
+    }
+    100% {
+      transform: rotate(360deg) translate(0, 0);
+    }
+  }
+
+  @keyframes diamond-movement {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(30px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
 </style>
