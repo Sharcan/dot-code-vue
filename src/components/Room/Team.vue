@@ -82,6 +82,7 @@
 
 <script>
 import router from "../../router";
+import axios from 'axios'
 
 export default {
   name: "Team",
@@ -141,20 +142,34 @@ export default {
       );
     },
   },
-  mounted() {
-    this.$socket.client.emit(
-      "getConnectedUsers",
-      { pin: this.$route.params.pin },
-      (res) => {
-        if (res.error) {
-          router.push({ path: `/room-connection` });
-        } else {
-          this.connectedUsers = res.room.connectedUsers;
-          this.team_1 = res.room.team_1 ?? [];
-          this.team_2 = res.room.team_2 ?? [];
-        }
-      }
-    );
+  async mounted() {
+    // this.$socket.client.emit(
+    //   "getConnectedUsers",
+    //   { pin: this.$route.params.pin },
+    //   (res) => {
+    //     if (res.error) {
+    //       router.push({ path: `/room-connection` });
+    //     } else {
+    //       this.connectedUsers = res.room.connectedUsers;
+    //       this.team_1 = res.room.team_1 ?? [];
+    //       this.team_2 = res.room.team_2 ?? [];
+    //     }
+    //   }
+    // );
+
+    // Get room informations : Room - team - user
+    const roomInformations = await axios.get(`${process.env.VUE_APP_API_URL}room/find-by-pin?pin=${this.$route.params.pin}`)
+        .then((res) => res);
+    console.log(roomInformations)
+    if (roomInformations.data === '') {
+      this.$router.push({ path: `/room-connection` })
+      return;
+    }
+    // EXEMPLE DE RECUPERATION DES TEAMS
+    this.team_1 = [...roomInformations.data.team[0].user];
+    this.team_2 = [...roomInformations.data.team[1].user]
+    console.log(this.connectedUsers)
+
   },
   sockets: {
     // New user connected to room

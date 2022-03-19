@@ -163,16 +163,16 @@
         }
         // Create room
         const room = await axios.post(process.env.VUE_APP_API_URL + 'room', {
-          owner_id: user.id
+          owner: user.id
         }).then(res => res.data);
         // Create teams
         await axios.post(process.env.VUE_APP_API_URL + 'team', {
-          room_id: room.id,
+          room: room.id,
           name: 'Team 1',
           points: 0
         });
         await axios.post(process.env.VUE_APP_API_URL + 'team', {
-          room_id: room.id,
+          room: room.id,
           name: 'Team 2',
           points: 0
         });
