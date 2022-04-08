@@ -155,16 +155,19 @@
     },
     methods: {
       async createRoom() {
+
         // Get user
         const userId = localStorage.getItem('user');
         const user = await axios.get(process.env.VUE_APP_API_URL + 'user/' + userId).then(res => res.data);
         if(!user) {
           this.$router.push({ name: 'home' });
         }
+
         // Create room
         const room = await axios.post(process.env.VUE_APP_API_URL + 'room', {
           owner: user.id
         }).then(res => res.data);
+
         // Create teams
         await axios.post(process.env.VUE_APP_API_URL + 'team', {
           room: room.id,
@@ -176,6 +179,7 @@
           name: 'Team 2',
           points: 0
         });
+        
         // Redirect
         this.$router.push({ name: 'room.pseudo', params: { pin: room.pin } });
       },

@@ -13,7 +13,7 @@
       />
       <span class="error">{{ error }}</span>
     </div>
-    <SpaceButton text="Annuler"  link="Home" class="button-cancel"/>
+    <SpaceButton text="Annuler"  link="home" class="button-cancel"/>
     <SpaceButton text="Confirmer" class="button-confirm" @click.native="getRoomConnection"/>
   </div>
 </template>

@@ -146,7 +146,6 @@ export default {
     // Get room informations : Room - team - user
     const roomInformations = await axios.get(`${process.env.VUE_APP_API_URL}room/find-by-pin?pin=${this.$route.params.pin}`)
         .then((res) => res);
-    console.log(roomInformations)
     if (roomInformations.data === '') {
       this.$router.push({ path: `/room-connection` })
       return;
