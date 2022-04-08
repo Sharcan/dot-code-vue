@@ -26,15 +26,11 @@ export default {
   padding: 10px 0;
 }
 
-.party-main {
-    width: 100%;
-    z-index: 3;
-}
-
 .font-image {
   opacity: 70%;
   width: 25%;
-  left: 10%;
+  left: 5%;
+  margin-top: -40%;
   position: relative;
   z-index: 1;
 }
