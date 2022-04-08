@@ -14,13 +14,14 @@
       <span class="error">{{ error }}</span>
     </div>
     <SpaceButton text="Annuler"  link="Home" class="button-cancel"/>
-    <SpaceButton text="Confirmer" class="button-confirm" @click.native="roomConnection"/>
+    <SpaceButton text="Confirmer" class="button-confirm" @click.native="getRoomConnection"/>
   </div>
 </template>
 
 <script>
 import SpaceButton from '../SpaceButton.vue';
 import router from "../../router";
+import axios from "axios";
 
 export default {
   components: { SpaceButton },
@@ -32,6 +33,19 @@ export default {
     }
   },
   methods: {
+    // Get room from database for connection
+    async getRoomConnection() {
+      const room = await axios.get(`${process.env.VUE_APP_API_URL}room/find?pin=${this.pin}`)
+          .then((res) => res);
+
+      if (room.data.length === 0) {
+        this.error = 'Cette room est introuvable';
+        return;
+      }
+
+      this.$router.push({ path: `/game/${room.data[0].pin}/room-pseudo` });
+    },
+
     roomConnection() {
       this.$socket.client.emit('roomConnection', {pin: this.pin}, (res) => {
         if (res.pin) {
