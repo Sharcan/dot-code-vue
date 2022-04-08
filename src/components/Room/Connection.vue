@@ -43,7 +43,7 @@ export default {
         return;
       }
 
-      this.$router.push({ path: `/game/${room.data[0].pin}/room-pseudo` });
+      this.$router.push({ path: `/game/${room.data[0].pin}/pseudo` });
     },
 
     roomConnection() {
