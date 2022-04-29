@@ -154,36 +154,30 @@
       SpaceButton,
     },
     methods: {
-      async createRoom() {
-
+      async getUser() {
         // Get user
-        const userId = localStorage.getItem('user');
-        const user = await axios.get(process.env.VUE_APP_API_URL + 'user/' + userId).then(res => res.data);
-        if(!user) {
-          this.$router.push({ name: 'home' });
-        }
+        const userId = parseInt(localStorage.getItem('user'));
+        this.user = await axios.get(process.env.VUE_APP_API_URL + 'user/' + userId).then(res => res.data);
+      },
+      async createRoom() {
+        const userId = parseInt(localStorage.getItem('user'));
 
         // Create room
-        const room = await axios.post(process.env.VUE_APP_API_URL + 'room', {
-          owner: user.id
+        const room = await axios.post(process.env.VUE_APP_API_URL + 'room/with-teams', {
+          owner_id: userId
         }).then(res => res.data);
-
-        // Create teams
-        await axios.post(process.env.VUE_APP_API_URL + 'team', {
-          room: room.id,
-          name: 'Team 1',
-          points: 0
-        });
-        await axios.post(process.env.VUE_APP_API_URL + 'team', {
-          room: room.id,
-          name: 'Team 2',
-          points: 0
-        });
         
         // Redirect
         this.$router.push({ name: 'room.pseudo', params: { pin: room.pin } });
       },
+      async disconnectFromAll() {
+        const userId = parseInt(localStorage.getItem('user'));
+        await axios.patch(process.env.VUE_APP_API_URL + 'user/' + userId + '/disconnect');
+      }
     },
+    mounted() {
+      this.disconnectFromAll();
+    }
   };
 </script>
 

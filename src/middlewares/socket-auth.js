@@ -5,13 +5,13 @@ export default async function socketAuth(socket) {
     if(userId) {
         const user = await axios.get(process.env.VUE_APP_API_URL + 'user/' + userId).then(res => res.data);
         if(user) {
-            await axios.patch(process.env.VUE_APP_API_URL + 'user/' + userId, {
+            await axios.patch(process.env.VUE_APP_API_URL + 'user/' + userId + '/socket', {
                 socket_id: socket.client.id
             });
             return;
         }
     }
-    const user = await axios.post(process.env.VUE_APP_API_URL + 'user', {
+    const user = await axios.post(process.env.VUE_APP_API_URL + 'user/guest', {
         socket_id: socket.client.id,
         is_guest: true
     }).then(res => res.data);
