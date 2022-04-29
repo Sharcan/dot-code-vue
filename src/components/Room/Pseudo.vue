@@ -1,13 +1,4 @@
 <template>
-  <div id="Pseudo">
-    <h1 class="geminis text-center main-title">Entre ton Nom</h1>
-    <div class="input">
-      <input type="text" placeholder="Pseudo" class="pseudo-input" v-model="pseudo"/>
-    </div>
-    
-    <div>{{ error }}</div>
-    <SpaceButton class="continue" text="Continuer" @click.native="sendPseudo" />
-  </div>
 </template>
 
 <script>

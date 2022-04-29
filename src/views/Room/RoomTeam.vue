@@ -1,5 +1,5 @@
 <template>
-  <div id="RoomPseudo">
+  <div id="RoomTeam">
     <a class="back" href="#"> Retour dans le cyberspace</a>
     <div class="pseudo-pannel">
       <Team />
