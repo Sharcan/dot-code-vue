@@ -4,7 +4,7 @@ import Home from '../views/Home'
 import MultiErrors from '../views/games/MultiErrors'
 import RoomConnection from '../views/Room/RoomConnection'
 import Pseudo from '../views/Room/Pseudo'
-import RoomTeam from '../views/Room/RoomTeam'
+import Team from '../views/Room/Team'
 import Test from '../views/Test'
 import Game from "../views/Room/Game"
 import RoomWin from "../views/Room/RoomWin"
@@ -42,7 +42,7 @@ const routes = [
       {
         path: 'team',
         name: 'room.team',
-        component: RoomTeam
+        component: Team
       },
       {
         path: '',

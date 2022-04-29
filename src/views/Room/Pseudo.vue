@@ -54,7 +54,7 @@
         this.$router.push({ name: 'room.team', params: { pin: this.$route.params.pin } });
       }
     },
-    created() {
+    mounted() {
       this.getPseudo();
     }
   };
