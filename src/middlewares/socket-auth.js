@@ -1,10 +1,13 @@
 import axios from "axios";
 
 export default async function socketAuth(socket) {
+
     const userId = localStorage.getItem('user');
     if(userId) {
-        const user = await axios.get(process.env.VUE_APP_API_URL + 'user/' + userId).then(res => res.data);
-        if(user) {
+        const user = await axios.get(process.env.VUE_APP_API_URL + 'user/' + userId).then(res => res.data)
+            .catch(err => err);
+
+        if('slug' in user) {
             // Update user socket_id
             await axios.patch(process.env.VUE_APP_API_URL + 'user/' + userId + '/socket', {
                 socket_id: socket.client.id
@@ -18,6 +21,7 @@ export default async function socketAuth(socket) {
             return;
         }
     }
+
     const user = await axios.post(process.env.VUE_APP_API_URL + 'user/guest', {
         socket_id: socket.client.id,
         is_guest: true

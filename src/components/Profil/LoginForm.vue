@@ -32,12 +32,15 @@ export default {
     },
     methods: {
       onLogin() {
-        axios.post(process.env.VUE_APP_API_URL + 'auth/login', {
+        const userId = localStorage.getItem('user');
+
+        axios.post(process.env.VUE_APP_API_URL + `auth/login?id=${userId}`, {
           email: this.email,
           password: this.password
         }).then((response) => {
-          if (response.data.access_token) {
+          if ('id' in response.data) {
             localStorage.setItem('token', response.data.access_token)
+            localStorage.setItem('user', response.data.id)
             this.$router.push({name: 'home'});
           }
         })
