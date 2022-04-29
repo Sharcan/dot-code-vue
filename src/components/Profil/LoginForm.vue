@@ -5,23 +5,44 @@
                 type="text"
                 id="id-input"
                 class="id-input"
-                placeholder="Username">
+                placeholder="Username"
+                v-model="email">
             <input
                 type="text"
                 id="id-input"
                 class="id-input"
                 placeholder="Password"
+                v-model="password"
             />
        </div>
-      <SpaceButton class="connect-button" text="Se connecter" />
+      <button class="connect-button" @click="onLogin">Se connecter</button>
     </div>
 </template>
 
 <script>
-import SpaceButton from "../SpaceButton.vue";
+import axios from "axios";
+
 export default {
     name: "LoginForm",
-    components: { SpaceButton }
+    data() {
+      return {
+        email: "sharcan@gmail.com",
+        password: "azerty123",
+      }
+    },
+    methods: {
+      onLogin() {
+        axios.post(process.env.VUE_APP_API_URL + 'auth/login', {
+          email: this.email,
+          password: this.password
+        }).then((response) => {
+          if (response.data.access_token) {
+            localStorage.setItem('token', response.data.access_token)
+            this.$router.push({name: 'home'});
+          }
+        })
+      }
+    }
 }
 </script>
 
@@ -67,14 +88,18 @@ export default {
     margin-left: 10%;
 }
 
-.sub-text {
-    font-size: small;
-    margin-top: 10%;
-}
-
-.connexion-link {
-    font-weight: bold;
-    text-decoration: none;
-    cursor: pointer;
+.connect-button {
+  width: 80%;
+  margin-top: 5%;
+  margin-left: 10%;
+  text-align: center;
+  background-color: #090B31;
+  border-radius: 30px;
+  font-weight: 700;
+  padding: 12px 0;
+  box-shadow: 0px 0px 50px 5px rgba(48,181,255,0.8);
+  transition: 0.25s;
+  cursor: pointer;
+  color: #fff;
 }
 </style>

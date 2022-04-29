@@ -15,7 +15,7 @@
                 placeholder="Email"
                 v-model="email"
             />
-            <div v-if="!hasValidEmailFormat" class="errors">Le format du mail n'est pas valide</div>
+            <p v-if="!hasValidEmailFormat" class="errors">Le format du mail n'est pas valide</p>
             <input
                 type="password"
                 id="id-input"
@@ -30,18 +30,24 @@
                 placeholder="Confirm Password"
                 v-model="confirmPassword"
             />
-            <div v-if="!hasValidPassword" class="errors">Les deux champs ne correspondent pas</div>
+            <p v-if="!hasValidPassword" class="errors">Les deux champs ne correspondent pas</p>
        </div>
         <p class="text-center information-text">
             <span class="bold">En soumettant la demande d'inscription, vous acceptez</span> <br>
             nos termes d'utilisation <span class="bold">et</span> la politique de confidentialité
         </p>
-      <button :disabled="!hasValidForm" class="connect-button">S'inscrire</button>
-      <p class="sub-text text-center">Vous avez déjà un compte ? <a class="connexion-link">Connexion</a></p>
+      <button :disabled="!hasValidForm" class="connect-button" @click="onRegister">S'inscrire</button>
+      <p class="sub-text text-center">Vous avez déjà un compte ? 
+        <a class="connexion-link" href="/login">
+            Connexion
+        </a>
+      </p>
     </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: "RegisterForm",
     data() {
@@ -49,7 +55,8 @@ export default {
             name : "",
             email: "",
             password: "",
-            confirmPassword: ""
+            confirmPassword: "",
+            id: null
         }
     },
     computed : {
@@ -58,16 +65,38 @@ export default {
             && this.hasValidPassword 
             && this.name.length > 0
             && this.password.length > 0
-            && this.email.length > 0
+            && this.confirmPassword.length > 0
+            && this.email.length > 0;
         },
         hasValidEmailFormat() {
             if(this.email.length > 0) return  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email) // eslint-disable-line
-            else return true
-            
+            else return true;
         },
         hasValidPassword() {
-            return this.password === this.confirmPassword 
+            if (this.password.length > 0 && this.confirmPassword.length > 0) {
+              return this.password === this.confirmPassword;
+            }
+            return true;
         }
+    },
+    methods: {
+        onRegister() {
+          axios.post(process.env.VUE_APP_API_URL + `auth/register?id=${this.id}`, {
+            email: this.email,
+            pseudo: this.name,
+            password: this.password
+          });
+        },
+        getUserGuest() {
+          this.id = localStorage.getItem('user')
+          axios.get(process.env.VUE_APP_API_URL + `user/${this.id}`)
+              .then((response) => {
+                this.name = response.data.pseudo ?? '';
+              });
+        }
+    },
+    mounted() {
+      this.getUserGuest()
     }
 }
 </script>
@@ -92,19 +121,17 @@ export default {
 
 .id-input {
     width: 100%;
-    height: 150%;
-    font-size: 150%;
     margin-top: 3%;
     padding: 2%;
     padding-left: 6%;
     border-radius: 50px;
     border: none;
     background: #090b31;
-    color: White;
-    text-align: left;
+    color: white;
 }
 .id-input::placeholder {
-    color: white;
+    color: #a1a1a1;
+    font-size: 1rem;
 }
 
 .information-text {
@@ -125,6 +152,12 @@ export default {
     cursor: pointer;
     color: #fff;
 }
+
+.connect-button:disabled {
+  background-color: grey;
+  cursor: default;
+}
+
 
 .sub-text {
     font-size: small;

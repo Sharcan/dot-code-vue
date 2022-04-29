@@ -17,7 +17,7 @@
                 </ul>
             </div>
             <div class="right-div">
-                <h2 class="geminis sub-title text-center">Creer Notre compte</h2>
+                <h2 class="geminis sub-title text-center">Créer Notre compte</h2>
                 <register-form />
             </div>
         </div>
