@@ -2,7 +2,12 @@
   <div>
       <div class="main-block">
             <div class="left-div">
-                <a class="back-link">Retour dans le cyberspace</a>
+                <a class="back-link" href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="back-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                  </svg>
+                  Retour dans le cyberspace
+                  </a>
                 <h1 class="main-title geminis">WELCOME <br> all space <br> traveler !</h1>
             </div>
             <div class="right-div">
@@ -17,7 +22,7 @@
                         <input type="text" placeholder="Username" class="name-input"/>
                       </div>
                     </div>
-                    <SpaceButton class="create" text="Démarer la partie"/>
+                    <SpaceButton link="gameMode" class="create" text="Démarer la partie"/>
                 </div>
             </div>
         </div>

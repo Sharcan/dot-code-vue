@@ -43,6 +43,7 @@ const routes = [
       },
       {
         path: 'mode',
+        name:'gameMode',
         component: PrivateMode
       }
     ]
