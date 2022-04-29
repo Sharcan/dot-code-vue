@@ -51,6 +51,12 @@
         await axios.patch(process.env.VUE_APP_API_URL + 'user/' + userId + '/pseudo', {
             pseudo: this.pseudo
         });
+
+        // Emit connection event
+        this.$socket.client.emit('userSendPseudo', {
+          pin: this.$route.params.pin
+        });
+
         this.$router.push({ name: 'room.team', params: { pin: this.$route.params.pin } });
       }
     },
