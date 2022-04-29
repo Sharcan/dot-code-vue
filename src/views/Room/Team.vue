@@ -70,6 +70,13 @@
           </div>
         </div>
 
+        <div v-if="room">
+          Joueurs dans la room: 
+          <span v-for="user in room.users" :key="user.id">
+            {{ (user.pseudo ? user.pseudo : 'Guest ' + user.id) + ' ' }}
+          </span>
+        </div>
+
         <div class="start-game">
           <button class="start-button" @click="launchGame()">
             Démarrer la partie !
@@ -171,16 +178,21 @@
       // Get room details
       const room = await axios.get(`${process.env.VUE_APP_API_URL}room/pin/${this.$route.params.pin}`)
         .then((res) => res.data)
-        .catch(() => this.$router.push({ path: `/room-connection` }));
+        .catch(() => this.$router.push({ name: 'room.connection' }));
   
       // Set team details
+      this.room = room;
       this.team_1 = room.teams[0];
       this.team_2 = room.teams[1];
     },
     sockets: {
       // New user connected to room
-      newUserConnected(params) {
-        this.connectedUsers.push(params.user);
+      userJoinsRoom(room) {
+        this.room = room;
+      },
+      // User send a new pseudo
+      userSendPseudo(room) {
+        this.room = room;
       },
       // User join a team
       userJoinTeam(params) {

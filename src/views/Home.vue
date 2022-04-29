@@ -166,6 +166,11 @@
         const room = await axios.post(process.env.VUE_APP_API_URL + 'room/with-teams', {
           owner_id: userId
         }).then(res => res.data);
+
+        // Emit creation event
+        this.$socket.client.emit('userCreatesRoom', {
+          pin: room.pin
+        });
         
         // Redirect
         this.$router.push({ name: 'room.pseudo', params: { pin: room.pin } });

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import MultiErrors from '../views/games/MultiErrors'
-import RoomConnection from '../views/Room/RoomConnection'
+import Connection from '../views/Room/Connection'
 import Pseudo from '../views/Room/Pseudo'
 import Team from '../views/Room/Team'
 import Test from '../views/Test'
@@ -28,7 +28,7 @@ const routes = [
   {
     path: '/room-connection',
     name: 'room.connection',
-    component: RoomConnection
+    component: Connection
   },
   {
     path: '/room/:pin/',

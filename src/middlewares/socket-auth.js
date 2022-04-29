@@ -5,9 +5,16 @@ export default async function socketAuth(socket) {
     if(userId) {
         const user = await axios.get(process.env.VUE_APP_API_URL + 'user/' + userId).then(res => res.data);
         if(user) {
+            // Update user socket_id
             await axios.patch(process.env.VUE_APP_API_URL + 'user/' + userId + '/socket', {
                 socket_id: socket.client.id
             });
+            // Connect socket to room
+            if(user.room) {
+                socket.client.emit('newConnection', {
+                    pin: user.room.pin
+                });
+            }
             return;
         }
     }
