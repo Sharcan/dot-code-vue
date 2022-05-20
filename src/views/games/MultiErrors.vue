@@ -82,10 +82,11 @@
 <script>
     import GameLayout from '@/layouts/GameLayout'
     import SpaceButton from '@/components/SpaceButton'
-    import * as monaco from 'monaco-editor'
     import $ from 'jquery'
     import exercices from '../../../exercices/errors'
     import router from "../../router";
+
+    import loader from "@monaco-editor/loader";
     import * as MonacoCollabExt from "@convergencelabs/monaco-collab-ext";
 
     export default {
@@ -153,7 +154,7 @@
                         method: 'POST',
                         data: {
                             language: this.language,
-                            code: monaco.editor.getModels()[0].getValue(),
+                            code: this.editorGamer.getModel().getValue(),
                             expectedResult: exercices[this.exercice_number].expectedResult,
                             expectedCode: exercices[this.exercice_number].expectedCode
                         },
@@ -278,10 +279,13 @@
                 return '#' + Math.floor(Math.random()*16777215).toString(16);
             }
         },
-        mounted() {
-
+        async mounted() {
             document.title = 'Corrige le code | DotCode'
 
+            // Init Monaco
+            const monaco = await loader.init()
+
+            // Create editors
             this.editorGamer = monaco.editor.create(document.getElementById("editor-1"), {
                 value: exercices[this.exercice_number].code,
                 language: this.language,
@@ -296,20 +300,19 @@
                 minimap: {enabled: false}
             });
 
-            /** Création de l'objet permettant de créer plusieurs curseurs pour l'IDE principal */
+            // Cursor management
             this.remoteCursorManagerGamer = new MonacoCollabExt.RemoteCursorManager({
                 editor: this.editorGamer,
                 tooltips: true,
                 tooltipDuration: 4
             });
-
-            /** Création de l'objet permettant de créer plusieurs curseurs pour l'IDE secondaire */
             this.remoteCursorManagerOpponent = new MonacoCollabExt.RemoteCursorManager({
                 editor: this.editorOpponent,
                 tooltips: true,
                 tooltipDuration: 4
             });
 
+            // Emit connected users
             this.$socket.client.emit('getConnectedUsers', {pin: this.$route.params.pin}, res => {
                 if(res.error) {
                     router.push({ path: `/room-connection`});
