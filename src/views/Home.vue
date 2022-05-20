@@ -125,7 +125,7 @@
         <div class="button-text">
           <h3 class="geminis button-title">Prêt à rejoindre l'aventure ?</h3>
           <h4 class="geminis button-title">L'espace a besoin de toi !</h4>
-          <SpaceButton text="Se créer un compte" class="bottom-btn"/>
+          <SpaceButton text="Se créer un compte" class="bottom-btn" link="register"/>
         </div>
       </div>
 
@@ -171,9 +171,9 @@
         this.$socket.client.emit('joinRoom', {
           pin: room.pin
         });
-        
+
         // Redirect
-        this.$router.push({ name: 'room.pseudo', params: { pin: room.pin } });
+        return await this.$router.push({ name: 'room.pseudo', params: { pin: room.pin } });
       },
       async disconnectFromAll() {
         const userId = parseInt(localStorage.getItem('user'));

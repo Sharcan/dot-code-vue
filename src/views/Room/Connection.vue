@@ -72,7 +72,7 @@
           pin: this.pin
         });
 
-        this.$router.push({ name: 'room.pseudo', params: { pin: this.pin } });
+        return await this.$router.push({ name: 'room.pseudo', params: { pin: this.pin } });
       }
     }
   };

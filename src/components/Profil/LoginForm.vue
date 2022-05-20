@@ -41,7 +41,7 @@ export default {
           if ('id' in response.data) {
             localStorage.setItem('token', response.data.access_token)
             localStorage.setItem('user', response.data.id)
-            this.$router.push({name: 'home'});
+            return this.$router.push({name: 'home'});
           }
         })
       }

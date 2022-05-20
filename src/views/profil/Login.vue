@@ -4,7 +4,7 @@
           <img src="@/assets/images/SpaceCodeGreenLogo.png">
         </div>
         <div class="nav-button">
-            <SpaceButton class="register-button" text="Se créer un compte" />
+            <SpaceButton class="register-button" text="Se créer un compte" link="register"/>
             <SpaceButton class="game-button" text="Créer une partie privé"/>
         </div>
         <div class="main-block">

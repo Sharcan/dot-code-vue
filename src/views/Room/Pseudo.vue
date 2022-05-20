@@ -57,7 +57,7 @@
           pin: this.$route.params.pin
         });
 
-        this.$router.push({ name: 'room.team', params: { pin: this.$route.params.pin } });
+        await this.$router.push({ name: 'room.team', params: { pin: this.$route.params.pin } });
       }
     },
     mounted() {
