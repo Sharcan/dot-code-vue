@@ -14,7 +14,7 @@ export default async function socketAuth(socket) {
             });
             // Connect socket to room
             if(user.room) {
-                socket.client.emit('newConnection', {
+                socket.client.emit('joinRoom', {
                     pin: user.room.pin
                 });
             }

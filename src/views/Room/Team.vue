@@ -9,17 +9,16 @@
         <h3 class="geminis main">Rejoins ton équipe avant <br />de commencer la partie !</h3>
 
         <!-- Teams -->
-        <div class="teams">
+        <div class="teams" v-if="room">
 
           <!-- Team 1 -->
           <div class="team-1">
-            <h3 class="team-title geminis t1">{{ team_1 ? team_1.name : '...' }}</h3>
+            <h3 class="team-title geminis t1">{{ room.teams[0] ? room.teams[0].name : '...' }}</h3>
             <div class="team-card">
               <div class="text-card">
-                <div class="list-player" v-if="team_1 && team_1.users.length > 0">
+                <div class="list-player" v-if="room.teams[0] && room.teams[0].users.length > 0">
                   <ul>
-                    <li v-for="(user, index) in team_1.users" :key="user.slug">
-                      Joueur {{ index + 1 }} : <br />
+                    <li v-for="user in room.teams[0].users" :key="user.slug">
                       {{ user.pseudo }}
                     </li>
                   </ul>
@@ -29,8 +28,8 @@
                 </div>
               </div>
 
-              <button class="join-button" @click="joinTeam(team_1.id)" v-if="team_1">
-                Rejoindre l'équipe {{ team_1.name }}
+              <button class="join-button" @click="joinTeam(room.teams[0].id)" v-if="room.teams[0]">
+                Rejoindre l'équipe {{ room.teams[0].name }}
               </button>
             </div>
           </div>
@@ -45,13 +44,12 @@
 
           <!-- Team 2 -->
           <div class="team-2">
-            <h3 class="team-title geminis t2">{{ team_2 ? team_2.name : '...' }}</h3>
+            <h3 class="team-title geminis t2">{{ room.teams[1] ? room.teams[1].name : '...' }}</h3>
             <div class="team-card">
               <div class="text-card">
-                <div class="list-player" v-if="team_2 && team_2.users.length > 0">
+                <div class="list-player" v-if="room.teams[1] && room.teams[1].users.length > 0">
                   <ul>
-                    <li v-for="(user, index) in team_2.users" :key="user.slug">
-                      Joueur {{ index + 1 }} : <br />
+                    <li v-for="user in room.teams[1].users" :key="user.slug">
                       {{ user.pseudo }}
                     </li>
                   </ul>
@@ -63,8 +61,8 @@
                 </div>
               </div>
 
-              <button class="join-button" @click="joinTeam(team_2.id)" v-if="team_2">
-                Rejoindre l'équipe {{ team_2.name }}
+              <button class="join-button" @click="joinTeam(room.teams[1].id)" v-if="room.teams[1]">
+                Rejoindre l'équipe {{ room.teams[1].name }}
               </button>
             </div>
           </div>
@@ -104,8 +102,6 @@
       return {
         user: null,
         room: null,
-        team_1: null,
-        team_2: null,
         err: null,
       };
     },
@@ -120,55 +116,33 @@
           team_id: teamId
         });
 
-        // Move user
-        this.moveUser(teamId);
-
         // Emit event
         this.$socket.client.emit('userJoinsTeam', {
           pin: this.$route.params.pin
         });
       },
       checkNotAlreadyInTeam(teamId) {
-        if(this.team_1.id == teamId && this.team_1.users.find(user => user.id == this.user.id)) {
+        if(this.room.teams[0].id == teamId && this.room.teams[0].users.find(user => user.id == this.user.id)) {
           return false;
         }
-        if(this.team_2.id == teamId && this.team_2.users.find(user => user.id == this.user.id)) {
+        if(this.room.teams[1].id == teamId && this.room.teams[1].users.find(user => user.id == this.user.id)) {
           return false;
         }
         return true;
       },
-      moveUser(teamId) {
-        if(this.team_1.id == teamId) {
-          this.team_1.users.push(this.user);
-          let userPosition = this.team_2.users.indexOf(
-            this.team_2.users.find((user) => user.id == this.user.id)
-          );
-          if(userPosition != -1) {
-            this.team_2.users.splice(userPosition, 1);
-          }
-        } else if(this.team_2.id == teamId) {
-          this.team_2.users.push(this.user);
-          let userPosition = this.team_2.users.indexOf(
-            this.team_2.users.find((user) => user.id == this.user.id)
-          );
-          if(userPosition != -1) {
-            this.team_1.users.splice(userPosition, 1);
-          }
-        }
-      },
+
       launchGame() {
-        console.log('launch game');
-        // this.$socket.client.emit(
-        //   "launchGame",
-        //   { pin: this.$route.params.pin },
-        //   (res) => {
-        //     if (!res.error) {
-        //       router.push({ path: `/game/${this.$route.params.pin}` });
-        //     } else {
-        //       this.err = res.error;
-        //     }
-        //   }
-        // );
+        this.$socket.client.emit(
+          "launchGame",
+          { pin: this.$route.params.pin },
+          (res) => {
+            if (!res.error) {
+              router.push({ path: `/game/${this.$route.params.pin}` });
+            } else {
+              this.err = res.error;
+            }
+          }
+        );
       },
     },
     async mounted() {
@@ -182,8 +156,6 @@
   
       // Set team details
       this.room = room;
-      this.team_1 = room.teams[0];
-      this.team_2 = room.teams[1];
     },
     sockets: {
       // New user connected to room
@@ -194,9 +166,8 @@
       userSendPseudo(room) {
         this.room = room;
       },
-      // User join a team
-      userJoinTeam(params) {
-        this.changeUserTeam(params.user, params.team);
+      userJoinsTeam(room) {
+        this.room = room
       },
       // Game is launching
       launchGame() {

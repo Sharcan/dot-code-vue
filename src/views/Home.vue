@@ -167,8 +167,8 @@
           owner_id: userId
         }).then(res => res.data);
 
-        // Emit creation event
-        this.$socket.client.emit('userCreatesRoom', {
+        // Join room
+        this.$socket.client.emit('joinRoom', {
           pin: room.pin
         });
         
@@ -177,7 +177,9 @@
       },
       async disconnectFromAll() {
         const userId = parseInt(localStorage.getItem('user'));
-        await axios.patch(process.env.VUE_APP_API_URL + 'user/' + userId + '/disconnect');
+        if(userId) {
+          await axios.patch(process.env.VUE_APP_API_URL + 'user/' + userId + '/disconnect');
+        }
       }
     },
     mounted() {
