@@ -9,6 +9,9 @@ import Test from '../views/Test'
 import Game from "../views/Room/Game"
 import RoomWin from "../views/Room/RoomWin"
 import RoomLose from "../views/Room/RoomLose"
+import PrivateParty from '../views/Room/PrivateParty'
+import PrivateCreation from '../views/privateparty/Creation'
+import PrivateMode from '../views/privateparty/Mode'
 import test from "../middlewares/test"
 import Register from '../views/profil/Register.vue'
 import Login from '../views/profil/Login.vue'
@@ -43,6 +46,22 @@ const routes = [
     component: Connection
   },
   {
+    path:'/private-party',
+    component: PrivateParty,
+    children : [
+      {
+        path: '',
+        component: PrivateCreation
+      },
+      {
+        path: 'mode',
+        name:'gameMode',
+        component: PrivateMode
+      }
+    ]
+  },
+  {
+    path: '/game/:pin',
     path: '/room/:pin/',
     component: Game,
     children: [
