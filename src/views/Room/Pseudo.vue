@@ -1,26 +1,43 @@
 <template>
-  <div id="roomPseudo">
-    <p class="id-room">
-      #<span class="geminis">{{ $route.params.pin }}</span>
-    </p>
-    <div class="top-img">
-      <img src="@/assets/images/SpaceCode_DashboardLogOut.png" alt="" />
-    </div>
-    <div class="pseudo-pannel">
-      <div id="pseudo">
-        <h1 class="geminis text-center main-title">Entre ton Nom</h1>
-        <div class="input">
-          <input type="text" placeholder="Pseudo" class="pseudo-input" v-model="pseudo"/>
-        </div>
+	<div id="roomPseudo">
+		<p class="id-room">
+			#<span class="geminis">{{ $route.params.pin }}</span>
+		</p>
+		<div class="top-img">
+			<img
+				src="@/assets/images/SpaceCode_DashboardLogOut.png"
+				alt=""
+			>
+		</div>
+		<div class="pseudo-pannel">
+			<div id="pseudo">
+				<h1 class="geminis text-center main-title">
+					Entre ton Nom
+				</h1>
+				<div class="input">
+					<input
+						v-model="pseudo"
+						type="text"
+						placeholder="Pseudo"
+						class="pseudo-input"
+					>
+				</div>
         
-        <div>{{ error }}</div>
-        <SpaceButton class="continue" text="Continuer" @click.native="sendPseudo" />
-      </div>
-    </div>
-    <div class="bottom-img">
-      <img src="@/assets/images/diamond.png" alt="" />
-    </div>
-  </div>
+				<div>{{ error }}</div>
+				<SpaceButton
+					class="continue"
+					text="Continuer"
+					@click.native="sendPseudo"
+				/>
+			</div>
+		</div>
+		<div class="bottom-img">
+			<img
+				src="@/assets/images/diamond.png"
+				alt=""
+			>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -37,6 +54,9 @@
         pseudo: '',
         error: ''
       }
+    },
+    mounted() {
+      this.getPseudo();
     },
     methods: {
       async getPseudo() {
@@ -59,9 +79,6 @@
 
         await this.$router.push({ name: 'room.team', params: { pin: this.$route.params.pin } });
       }
-    },
-    mounted() {
-      this.getPseudo();
     }
   };
 </script>

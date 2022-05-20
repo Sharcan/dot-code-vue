@@ -1,14 +1,19 @@
 <template>
-  <div>
-        <div class="topbar">
-            <img class="top-image" src="@/assets/images/SpaceCodeGreenLogo.png" />
-        </div>
-        <div class="party-main">
-            <slot name="content"></slot>
-        </div>
-        <img src="@/assets/images/Moon.png" class="font-image" />
-        
-  </div>
+	<div>
+		<div class="topbar">
+			<img
+				class="top-image"
+				src="@/assets/images/SpaceCodeGreenLogo.png"
+			>
+		</div>
+		<div class="party-main">
+			<slot name="content" />
+		</div>
+		<img
+			src="@/assets/images/Moon.png"
+			class="font-image"
+		>
+	</div>
 </template>
 
 <script>

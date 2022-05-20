@@ -1,16 +1,16 @@
 <template>
-    <private-layout>
-        <template #content>
-            <router-view></router-view>
-        </template>
-    </private-layout>
+	<private-layout>
+		<template #content>
+			<router-view />
+		</template>
+	</private-layout>
 </template>
 
 <script>
 import PrivateLayout from '../../layouts/PrivateLayout.vue'
 export default {
-  components: { PrivateLayout },
- name : 'PrivateParty'
+ name : 'PrivateParty',
+  components: { PrivateLayout }
 }
 </script>
 

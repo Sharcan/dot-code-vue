@@ -1,22 +1,28 @@
 <template>
-    <div id="LoginForm">
-       <div class="input">
-            <input
-                type="text"
-                id="id-input"
-                class="id-input"
-                placeholder="Username"
-                v-model="email">
-            <input
-                type="text"
-                id="id-input"
-                class="id-input"
-                placeholder="Password"
-                v-model="password"
-            />
-       </div>
-      <button class="connect-button" @click="onLogin">Se connecter</button>
-    </div>
+	<div id="LoginForm">
+		<div class="input">
+			<input
+				id="id-input"
+				v-model="email"
+				type="text"
+				class="id-input"
+				placeholder="Username"
+			>
+			<input
+				id="id-input"
+				v-model="password"
+				type="text"
+				class="id-input"
+				placeholder="Password"
+			>
+		</div>
+		<button
+			class="connect-button"
+			@click="onLogin"
+		>
+			Se connecter
+		</button>
+	</div>
 </template>
 
 <script>

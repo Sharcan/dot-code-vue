@@ -1,35 +1,47 @@
 <template>
-  <div id="roomConnection">
-      <div class="top-img">
-          <img src="@/assets/images/SpaceCode_DashboardLogOut.png">
-      </div>
-    <div class="connect-pannel">
-      <div id="connection">
-        <h3 class="text-center geminis main-title">
-          Entrez le numéro de votre partie
-        </h3>
-        <div class="input">
-          <input
-            type="text"
-            id="id-input"
-            class="id-input"
-            placeholder="ID Room"
-            v-model="pin"
-          />
-          <span class="error">{{ error }}</span>
-        </div>
-        <SpaceButton text="Annuler"  link="home" class="button-cancel"/>
-        <SpaceButton text="Confirmer" class="button-confirm" @click.native="roomConnection"/>
-      </div>
-    </div>
+	<div id="roomConnection">
+		<div class="top-img">
+			<img src="@/assets/images/SpaceCode_DashboardLogOut.png">
+		</div>
+		<div class="connect-pannel">
+			<div id="connection">
+				<h3 class="text-center geminis main-title">
+					Entrez le numéro de votre partie
+				</h3>
+				<div class="input">
+					<input
+						id="id-input"
+						v-model="pin"
+						type="text"
+						class="id-input"
+						placeholder="ID Room"
+					>
+					<span class="error">{{ error }}</span>
+				</div>
+				<SpaceButton
+					text="Annuler"
+					link="home"
+					class="button-cancel"
+				/>
+				<SpaceButton
+					text="Confirmer"
+					class="button-confirm"
+					@click.native="roomConnection"
+				/>
+			</div>
+		</div>
 
-    <div class="bottom-img">
-          <img src="@/assets/images/diamond.png" alt="">
-      </div>
+		<div class="bottom-img">
+			<img
+				src="@/assets/images/diamond.png"
+				alt=""
+			>
+		</div>
 
-    <p class="text-center go-create">Vous voulez plutot créer votre propre room ? <a :href="'/'">C'est ici !</a></p>
-    
-  </div>
+		<p class="text-center go-create">
+			Vous voulez plutot créer votre propre room ? <a :href="'/'">C'est ici !</a>
+		</p>
+	</div>
 </template>
 
 <script>
@@ -37,7 +49,7 @@
   import axios from "axios";
 
   export default {
-    name: "connection",
+    name: "Connection",
     components: { 
       SpaceButton 
     },

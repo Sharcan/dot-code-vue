@@ -1,145 +1,179 @@
 <template>
-  <HomeLayout>
-    <template #content>
-      <div class="title-part">
-        <div class="title-container">
-          <h1 class="main-title geminis">Welcome<br/>on board !</h1>
-          <div class="buttons">
-            <div class="btn-1">
-              <SpaceButton text="Jouer en ligne !" link="room.connection" />
-            </div>
-            <div class="btn-2">
-              <SpaceButton text="Créer une partie privée" @click.native="createRoom" />
-            </div>
-          </div>
-        </div>
-        <div class="bg-astronaute"></div>
-      </div>
+	<HomeLayout>
+		<template #content>
+			<div class="title-part">
+				<div class="title-container">
+					<h1 class="main-title geminis">
+						Welcome<br>on board !
+					</h1>
+					<div class="buttons">
+						<div class="btn-1">
+							<SpaceButton
+								text="Jouer en ligne !"
+								link="room.connection"
+							/>
+						</div>
+						<div class="btn-2">
+							<SpaceButton
+								text="Créer une partie privée"
+								@click.native="createRoom"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="bg-astronaute" />
+			</div>
 
-      <div class="text-part">
-        <div class="text-container">
-          <h2 class="geminis">Third Stone from the Sun</h2>
-          <p>
-            <strong>SPACECODE, c'est quoi ?</strong> <br/>
-            Relevez le défi sur les différents modes de jeux que vous propose SPACECODE. Chaque défi est conçu par la
-            communauté pour vous aider à renforcer différentes compétences de développement. Maîtrisez le langage de
-            votre choix et développez votre compréhension du code. Résolvez le défi avec votre style de développement
-            directement dans le navigateur et résolvez des exercices pour mesurer votre progression. SPACECODE vous
-            propose une approche nouvelle, créative et optimisée pour tirer le meilleur parti de votre pratique de la
-            programmation.
-          </p>
-        </div>
-        <div>
-          <img
-              src="@/assets/images/planet-red.png"
-              alt="planet-red"
-              class="planet-red-img"
-          />
-          <img
-              src="@/assets/images/diamond.png"
-              alt="diamonds"
-              class="diamond-img"
-          />
-          <img
-              src="@/assets/images/diamond-2.png"
-              alt="diamonds"
-              class="diamond-img-2"
-          />
-        </div>
-      </div>
+			<div class="text-part">
+				<div class="text-container">
+					<h2 class="geminis">
+						Third Stone from the Sun
+					</h2>
+					<p>
+						<strong>SPACECODE, c'est quoi ?</strong> <br>
+						Relevez le défi sur les différents modes de jeux que vous propose SPACECODE. Chaque défi est conçu par la
+						communauté pour vous aider à renforcer différentes compétences de développement. Maîtrisez le langage de
+						votre choix et développez votre compréhension du code. Résolvez le défi avec votre style de développement
+						directement dans le navigateur et résolvez des exercices pour mesurer votre progression. SPACECODE vous
+						propose une approche nouvelle, créative et optimisée pour tirer le meilleur parti de votre pratique de la
+						programmation.
+					</p>
+				</div>
+				<div>
+					<img
+						src="@/assets/images/planet-red.png"
+						alt="planet-red"
+						class="planet-red-img"
+					>
+					<img
+						src="@/assets/images/diamond.png"
+						alt="diamonds"
+						class="diamond-img"
+					>
+					<img
+						src="@/assets/images/diamond-2.png"
+						alt="diamonds"
+						class="diamond-img-2"
+					>
+				</div>
+			</div>
 
-      <div class="text-part text-part-right">
-        <div class="text-container text-right">
-          <h2 class="geminis">Interstellar Supernova</h2>
-          <p>
-            <strong> Comment ça fonctionne ? </strong> <br/>
+			<div class="text-part text-part-right">
+				<div class="text-container text-right">
+					<h2 class="geminis">
+						Interstellar Supernova
+					</h2>
+					<p>
+						<strong> Comment ça fonctionne ? </strong> <br>
 
-            Discutez du défi, des meilleures pratiques et des techniques innovantes avec la communauté. Laissez-vous
-            surprendre par la façon dont les autres abordent le même problème que vous. Créez des mini-jeux qui se
-            concentrent sur vos connaissances et permettez aux autres de s’entraîner. Défiez la communauté avec vos
-            idées et votre compréhension du code. Vous pouvez tout créer : des exercices simples comme des défis qui
-            repoussent les limites de votre créativité. Embarquez au sein du vaisseau SPACECODE et devenez le meilleur !
-          </p>
-        </div>
-        <div>
-          <img
-              src="@/assets/images/diamond-2.png"
-              alt="diamonds"
-              class="diamond-img-earth"
-          />
-          <img
-              src="@/assets/images/planet-earth.png"
-              alt="planet-earth"
-              class="planet-earth-img"
-          />
-          <img
-              src="@/assets/images/diamond-5.png"
-              alt="diamonds"
-              class="diamond-img-earth-2"
-          />
-        </div>
-      </div>
+						Discutez du défi, des meilleures pratiques et des techniques innovantes avec la communauté. Laissez-vous
+						surprendre par la façon dont les autres abordent le même problème que vous. Créez des mini-jeux qui se
+						concentrent sur vos connaissances et permettez aux autres de s’entraîner. Défiez la communauté avec vos
+						idées et votre compréhension du code. Vous pouvez tout créer : des exercices simples comme des défis qui
+						repoussent les limites de votre créativité. Embarquez au sein du vaisseau SPACECODE et devenez le meilleur !
+					</p>
+				</div>
+				<div>
+					<img
+						src="@/assets/images/diamond-2.png"
+						alt="diamonds"
+						class="diamond-img-earth"
+					>
+					<img
+						src="@/assets/images/planet-earth.png"
+						alt="planet-earth"
+						class="planet-earth-img"
+					>
+					<img
+						src="@/assets/images/diamond-5.png"
+						alt="diamonds"
+						class="diamond-img-earth-2"
+					>
+				</div>
+			</div>
 
-      <div class="text-part">
-        <div class="text-container">
-          <h2 class="geminis">FIGHT LIKE A Rocket Man !</h2>
-          <p>
-            <strong>Ce que propose SPACECODE ?</strong> <br/>
+			<div class="text-part">
+				<div class="text-container">
+					<h2 class="geminis">
+						FIGHT LIKE A Rocket Man !
+					</h2>
+					<p>
+						<strong>Ce que propose SPACECODE ?</strong> <br>
 
-            SPACECODE est avant tout un endroit pour apprendre, s'entraider avec une communauté importante de
-            joueurs/développeurs, mais c'est aussi et surtout un espace de compétition et de coopération ! <br>
+						SPACECODE est avant tout un endroit pour apprendre, s'entraider avec une communauté importante de
+						joueurs/développeurs, mais c'est aussi et surtout un espace de compétition et de coopération ! <br>
 
-            <strong>En mode Collaboration : </strong> <br/>
-            Choisissez votre équipe et votre langage et résolvez des exercices de développement. Un classement mensuel
-            des meilleures équipes sera mis en avant sur le Dashboard et vous serez invités à participer à nos finales
-            mondiales virtuelles. <br>
+						<strong>En mode Collaboration : </strong> <br>
+						Choisissez votre équipe et votre langage et résolvez des exercices de développement. Un classement mensuel
+						des meilleures équipes sera mis en avant sur le Dashboard et vous serez invités à participer à nos finales
+						mondiales virtuelles. <br>
 
-            <strong>En mode Compétition : </strong> <br/>
-            C'est dans cet espace-temps que les programmeurs de tous niveaux mettent leurs compétences à l'épreuve. Les
-            concurrents se frayent un chemin à travers une série de puzzles en ligne pour remporter le titre de
-            champion.
-          </p>
-        </div>
-        <div>
-          <img
-              src="@/assets/images/diamond-2.png"
-              alt="diamonds"
-              class="diamond-img-egg"
-          />
-          <img
-              src="@/assets/images/diamond-3.png"
-              alt="diamonds"
-              class="diamond-img-egg-2"
-          />
-          <img
-              src="@/assets/images/planet-egg.png"
-              alt="planet-egg"
-              class="planet-egg-img"
-          />
-        </div>
-      </div>
+						<strong>En mode Compétition : </strong> <br>
+						C'est dans cet espace-temps que les programmeurs de tous niveaux mettent leurs compétences à l'épreuve. Les
+						concurrents se frayent un chemin à travers une série de puzzles en ligne pour remporter le titre de
+						champion.
+					</p>
+				</div>
+				<div>
+					<img
+						src="@/assets/images/diamond-2.png"
+						alt="diamonds"
+						class="diamond-img-egg"
+					>
+					<img
+						src="@/assets/images/diamond-3.png"
+						alt="diamonds"
+						class="diamond-img-egg-2"
+					>
+					<img
+						src="@/assets/images/planet-egg.png"
+						alt="planet-egg"
+						class="planet-egg-img"
+					>
+				</div>
+			</div>
 
-      <div class="button-part">
-        <img src="@/assets/images/splash.png" alt="Splash" class="splash"/>
-        <img src="@/assets/images/diamond.png" alt="Diamond" class="diamond"/>
-        <div class="button-text">
-          <h3 class="geminis button-title">Prêt à rejoindre l'aventure ?</h3>
-          <h4 class="geminis button-title">L'espace a besoin de toi !</h4>
-          <SpaceButton text="Se créer un compte" class="bottom-btn" link="register"/>
-        </div>
-      </div>
+			<div class="button-part">
+				<img
+					src="@/assets/images/splash.png"
+					alt="Splash"
+					class="splash"
+				>
+				<img
+					src="@/assets/images/diamond.png"
+					alt="Diamond"
+					class="diamond"
+				>
+				<div class="button-text">
+					<h3 class="geminis button-title">
+						Prêt à rejoindre l'aventure ?
+					</h3>
+					<h4 class="geminis button-title">
+						L'espace a besoin de toi !
+					</h4>
+					<SpaceButton
+						text="Se créer un compte"
+						class="bottom-btn"
+						link="register"
+					/>
+				</div>
+			</div>
 
-      <div class="footer">
-        <img
-            src="@/assets/images/dotcode.png"
-            alt="Dotcode"
-            class="footer-img"
-        />
-        <div class="geminis footer-txt-1">Made with love by l'équipe 12</div>
-        <div class="geminis footer-txt-2">2022, Dotcode</div>
-      </div>
-    </template>
-  </HomeLayout>
+			<div class="footer">
+				<img
+					src="@/assets/images/dotcode.png"
+					alt="Dotcode"
+					class="footer-img"
+				>
+				<div class="geminis footer-txt-1">
+					Made with love by l'équipe 12
+				</div>
+				<div class="geminis footer-txt-2">
+					2022, Dotcode
+				</div>
+			</div>
+		</template>
+	</HomeLayout>
 </template>
 
 <script>
@@ -152,6 +186,9 @@
     components: {
       HomeLayout,
       SpaceButton,
+    },
+    mounted() {
+      this.disconnectFromAll();
     },
     methods: {
       async getUser() {
@@ -181,9 +218,6 @@
           await axios.patch(process.env.VUE_APP_API_URL + 'user/' + userId + '/disconnect');
         }
       }
-    },
-    mounted() {
-      this.disconnectFromAll();
     }
   };
 </script>

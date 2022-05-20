@@ -1,26 +1,37 @@
 <template>
-  <div id="lose">
-    <a class="back-link" href="">Retour dans le CyberSpace</a>
-    <div class="lose-card">
-      <div class="geminis">
-        <h2 class="text-title">Dommage !</h2>
-        <p class="sub-title">
-          Tu t'es fait propulser vers <br> d'autres cieux...
-        </p>
-      </div>
-      <div>
-        <p class="text-main">Souhaites-tu repartir à l’assaut ?</p>
-      </div>
-       <img
-          class="lose-image"
-          src="@/assets/images/SpaceCode_AstroLoose.png"
-        />
-    </div>
-    <div class="buttons">
-      <button class="continue">Evidemment !</button>
-      <button class="finished">Non, j'ai eu ma dose</button>
-    </div>
-  </div>
+	<div id="lose">
+		<a
+			class="back-link"
+			href=""
+		>Retour dans le CyberSpace</a>
+		<div class="lose-card">
+			<div class="geminis">
+				<h2 class="text-title">
+					Dommage !
+				</h2>
+				<p class="sub-title">
+					Tu t'es fait propulser vers <br> d'autres cieux...
+				</p>
+			</div>
+			<div>
+				<p class="text-main">
+					Souhaites-tu repartir à l’assaut ?
+				</p>
+			</div>
+			<img
+				class="lose-image"
+				src="@/assets/images/SpaceCode_AstroLoose.png"
+			>
+		</div>
+		<div class="buttons">
+			<button class="continue">
+				Evidemment !
+			</button>
+			<button class="finished">
+				Non, j'ai eu ma dose
+			</button>
+		</div>
+	</div>
 </template>
 
 <script>

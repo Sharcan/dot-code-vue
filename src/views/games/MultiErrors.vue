@@ -1,82 +1,136 @@
 <template>
-    <GameLayout>
-        <!-- Content -->
-        <template #content>
-            <div class="game">
-                <div class="gamer">
-                    <h3 class="geminis subtitle">Corrige le code</h3>
-                    <p class="explanation">
-                        Le script ci-dessous comporte une erreur cachée. Essaye de la corriger puis appuie sur "Tester" pour voir le résultat et passer à l'exercice suivant. Bonne chance !
-                    </p>
-                    <div class="progression">
-                        <span>Progression: {{ exercice_number }}/10</span>
-                        <div class="progress mt-1">
-                            <div class="progress-bar" role="progressbar" :style="'width: ' + (exercice_number * 10) + '%'"></div>
-                        </div>
-                    </div>
-                    <div id="editor-1" @click="onIdeClick"></div>
-                    <div class="under">
-                        <div class="output">
-                            <span>Console de sortie :</span><br>
-                            <span class="output-result">{{ output }}</span>
-                        </div>
-                        <div class="button" @click="executeCode">TESTER</div>
-                    </div>
-                </div>
-                <div class="opponent">
-                    <h3 class="geminis subtitle">Ton adversaire: Player 2</h3>
-                    <div class="progression">
-                        <span>Progression de ton adversaire: {{ opponent_exercice_number }}/10</span>
-                        <div class="progress mt-1">
-                            <div class="progress-bar" role="progressbar" :style="'width: ' + (opponent_exercice_number * 10) + '%'"></div>
-                        </div>
-                    </div>
-                    <div id="editor-2"></div>
-                    <img src="@/assets/images/games/astronaut.png" alt="Astronaut" class="astronaut">
-                </div>
-            </div>
-        </template>
+	<GameLayout>
+		<!-- Content -->
+		<template #content>
+			<div class="game">
+				<div class="gamer">
+					<h3 class="geminis subtitle">
+						Corrige le code
+					</h3>
+					<p class="explanation">
+						Le script ci-dessous comporte une erreur cachée. Essaye de la corriger puis appuie sur "Tester" pour voir le résultat et passer à l'exercice suivant. Bonne chance !
+					</p>
+					<div class="progression">
+						<span>Progression: {{ exercice_number }}/10</span>
+						<div class="progress mt-1">
+							<div
+								class="progress-bar"
+								role="progressbar"
+								:style="'width: ' + (exercice_number * 10) + '%'"
+							/>
+						</div>
+					</div>
+					<div
+						id="editor-1"
+						@click="onIdeClick"
+					/>
+					<div class="under">
+						<div class="output">
+							<span>Console de sortie :</span><br>
+							<span class="output-result">{{ output }}</span>
+						</div>
+						<div
+							class="button"
+							@click="executeCode"
+						>
+							TESTER
+						</div>
+					</div>
+				</div>
+				<div class="opponent">
+					<h3 class="geminis subtitle">
+						Ton adversaire: Player 2
+					</h3>
+					<div class="progression">
+						<span>Progression de ton adversaire: {{ opponent_exercice_number }}/10</span>
+						<div class="progress mt-1">
+							<div
+								class="progress-bar"
+								role="progressbar"
+								:style="'width: ' + (opponent_exercice_number * 10) + '%'"
+							/>
+						</div>
+					</div>
+					<div id="editor-2" />
+					<img
+						src="@/assets/images/games/astronaut.png"
+						alt="Astronaut"
+						class="astronaut"
+					>
+				</div>
+			</div>
+		</template>
 
-        <!-- Sidebar -->
-        <template #sidebar>
-            <div class="profile">
-                <span class="geminis pseudo" v-if="user">{{user.username}}</span>
-                <img src="@/assets/images/games/user05.png" alt="Photo de profil">
-            </div>
-            <SpaceButton text="Déconnexion" width="small" class="deconnexion" />
-            <div class="links">
-                <div class="link-container">
-                    <a href="#" class="geminis">Space Odity</a>
-                    <div class="img-container">
-                        <img src="@/assets/images/games/space-icon.png" alt="Dashboard">
-                    </div>
-                </div>
-                <div class="link-container active">
-                    <a href="#" class="geminis">Space games</a>
-                    <div class="img-container">
-                        <img src="@/assets/images/games/code-icon.png" alt="Space games">
-                    </div>
-                </div>
-                <div class="link-container">
-                    <a href="#" class="geminis">Paramètres</a>
-                    <div class="img-container">
-                        <img src="@/assets/images/games/params-icon.png" alt="Paramètres">
-                    </div>
-                </div>
-            </div>
-            <div class="badges">
-                <h5 class="geminis">Badges</h5>
-                <div class="badges-list">
-                    <div class="badge"></div>
-                    <div class="badge"></div>
-                    <div class="badge"></div>
-                    <div class="badge"></div>
-                    <div class="badge"></div>
-                    <div class="badge"></div>
-                </div>
-            </div>
-        </template>
-    </GameLayout>
+		<!-- Sidebar -->
+		<template #sidebar>
+			<div class="profile">
+				<span
+					v-if="user"
+					class="geminis pseudo"
+				>{{ user.username }}</span>
+				<img
+					src="@/assets/images/games/user05.png"
+					alt="Photo de profil"
+				>
+			</div>
+			<SpaceButton
+				text="Déconnexion"
+				width="small"
+				class="deconnexion"
+			/>
+			<div class="links">
+				<div class="link-container">
+					<a
+						href="#"
+						class="geminis"
+					>Space Odity</a>
+					<div class="img-container">
+						<img
+							src="@/assets/images/games/space-icon.png"
+							alt="Dashboard"
+						>
+					</div>
+				</div>
+				<div class="link-container active">
+					<a
+						href="#"
+						class="geminis"
+					>Space games</a>
+					<div class="img-container">
+						<img
+							src="@/assets/images/games/code-icon.png"
+							alt="Space games"
+						>
+					</div>
+				</div>
+				<div class="link-container">
+					<a
+						href="#"
+						class="geminis"
+					>Paramètres</a>
+					<div class="img-container">
+						<img
+							src="@/assets/images/games/params-icon.png"
+							alt="Paramètres"
+						>
+					</div>
+				</div>
+			</div>
+			<div class="badges">
+				<h5 class="geminis">
+					Badges
+				</h5>
+				<div class="badges-list">
+					<div class="badge" />
+					<div class="badge" />
+					<div class="badge" />
+					<div class="badge" />
+					<div class="badge" />
+					<div class="badge" />
+				</div>
+			</div>
+		</template>
+	</GameLayout>
 </template>
 
 <script>
@@ -141,51 +195,6 @@
                     // Loose page
                     router.push({ path: `/room-lose` });
                 }
-            }
-        },
-        methods: {
-            executeCode() {
-                if(!this.loading) {
-                    $.ajax({
-                        url: process.env.VUE_APP_API_URL + 'editor',
-                        method: 'POST',
-                        data: {
-                            language: this.language,
-                            code: this.userEditor.getModel().getValue(),
-                            expectedResult: exercices[this.exercice_number].expectedResult,
-                            expectedCode: exercices[this.exercice_number].expectedCode
-                        },
-                        success: (res) => {
-                            if(res.error) {
-                                // Display error
-                                $('.output-result').css('color', 'red');
-                                this.output = res.error;
-                            } else {
-                                // Display result
-                                $('.output-result').css('color', '#fff');
-                                this.output = res.output;
-                                this.loading = true;
-
-                                // Next exercice
-                                setTimeout(() => {
-                                    this.exercice_number++;
-                                }, 1500);
-                            }
-                        }
-                    });
-                }
-            },
-
-            onIdeClick() {
-                this.$socket.client.emit('userCursorChange', {
-                    pin: this.$route.params.pin, 
-                    user: this.user, 
-                    position: this.userEditor.getPosition()
-                });
-            },
-
-            getRandomColor() {
-                return '#' + Math.floor(Math.random()*16777215).toString(16);
             }
         },
         async mounted() {
@@ -308,6 +317,51 @@
                     position: this.userEditor.getPosition()
                 });
             });
+        },
+        methods: {
+            executeCode() {
+                if(!this.loading) {
+                    $.ajax({
+                        url: process.env.VUE_APP_API_URL + 'editor',
+                        method: 'POST',
+                        data: {
+                            language: this.language,
+                            code: this.userEditor.getModel().getValue(),
+                            expectedResult: exercices[this.exercice_number].expectedResult,
+                            expectedCode: exercices[this.exercice_number].expectedCode
+                        },
+                        success: (res) => {
+                            if(res.error) {
+                                // Display error
+                                $('.output-result').css('color', 'red');
+                                this.output = res.error;
+                            } else {
+                                // Display result
+                                $('.output-result').css('color', '#fff');
+                                this.output = res.output;
+                                this.loading = true;
+
+                                // Next exercice
+                                setTimeout(() => {
+                                    this.exercice_number++;
+                                }, 1500);
+                            }
+                        }
+                    });
+                }
+            },
+
+            onIdeClick() {
+                this.$socket.client.emit('userCursorChange', {
+                    pin: this.$route.params.pin, 
+                    user: this.user, 
+                    position: this.userEditor.getPosition()
+                });
+            },
+
+            getRandomColor() {
+                return '#' + Math.floor(Math.random()*16777215).toString(16);
+            }
         },
 
         sockets: {

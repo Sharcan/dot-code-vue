@@ -1,15 +1,21 @@
 <template>
-  <div class="win">
-    <div class="topbar">
-      <img class="top-image" src="@/assets/images/SpaceCodeGreenLogo.png" />
-    </div>
-    <div class="win-main">
-      <div class="win-card-container">
-        <Win />
-      </div>
-    </div>
-    <img src="@/assets/images/Moon.png" class="font-image" />
-  </div>
+	<div class="win">
+		<div class="topbar">
+			<img
+				class="top-image"
+				src="@/assets/images/SpaceCodeGreenLogo.png"
+			>
+		</div>
+		<div class="win-main">
+			<div class="win-card-container">
+				<Win />
+			</div>
+		</div>
+		<img
+			src="@/assets/images/Moon.png"
+			class="font-image"
+		>
+	</div>
 </template>
 
 <script>

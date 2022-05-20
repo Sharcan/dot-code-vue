@@ -1,35 +1,54 @@
 <template>
-  <div id="Register">
-      <div class="top-img">
-          <img src="@/assets/images/SpaceCodeGreenLogo.png">
-        </div>
-        <div class="main-block">
-            <div class="left-div">
-                <a class="back-link">Retour dans le cyberspace</a>
-                <h1 class="main-title geminis">Welcome<br/>on board !</h1>
-                <ul class="links-list">
-                    <li class="link-list">FOLLOW US</li>
-                    <li class="link-list link-image"><a href=#><img src="@/assets/images/twitter.png"></a></li>
-                    <li class="link-list"><a href=#><img src="@/assets/images/facebook.png"></a></li>
-                    <li class="link-list"><a href=#><img src="@/assets/images/linkedin.png"></a></li>
-                    <li class="link-list"><a href=#><img src="@/assets/images/discord.png"></a></li>
-                    <li class="link-list"><a href=#><img src="@/assets/images/twitch.png"></a></li>
-                </ul>
-            </div>
-            <div class="right-div">
-                <h2 class="geminis sub-title text-center">Créer Notre compte</h2>
-                <register-form />
-            </div>
-        </div>
-        <img class="bg-planet" src="@/assets/images/planet-ice.png">
-  </div>
+	<div id="Register">
+		<div class="top-img">
+			<img src="@/assets/images/SpaceCodeGreenLogo.png">
+		</div>
+		<div class="main-block">
+			<div class="left-div">
+				<a class="back-link">Retour dans le cyberspace</a>
+				<h1 class="main-title geminis">
+					Welcome<br>on board !
+				</h1>
+				<ul class="links-list">
+					<li class="link-list">
+						FOLLOW US
+					</li>
+					<li class="link-list link-image">
+						<a href="#"><img src="@/assets/images/twitter.png"></a>
+					</li>
+					<li class="link-list">
+						<a href="#"><img src="@/assets/images/facebook.png"></a>
+					</li>
+					<li class="link-list">
+						<a href="#"><img src="@/assets/images/linkedin.png"></a>
+					</li>
+					<li class="link-list">
+						<a href="#"><img src="@/assets/images/discord.png"></a>
+					</li>
+					<li class="link-list">
+						<a href="#"><img src="@/assets/images/twitch.png"></a>
+					</li>
+				</ul>
+			</div>
+			<div class="right-div">
+				<h2 class="geminis sub-title text-center">
+					Créer Notre compte
+				</h2>
+				<register-form />
+			</div>
+		</div>
+		<img
+			class="bg-planet"
+			src="@/assets/images/planet-ice.png"
+		>
+	</div>
 </template>
 
 <script>
 import RegisterForm from '../../components/Profil/RegisterForm.vue'
 export default {
-  components: { RegisterForm },
-    name : "Register"
+    name : "Register",
+  components: { RegisterForm }
 }
 </script>
 

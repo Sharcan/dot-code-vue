@@ -1,95 +1,141 @@
 <template>
-  <div id="roomTeam">
-    <a class="back" href="#"> Retour dans le cyberspace</a>
-    <div class="pseudo-pannel">
-      <div id="team">
-        <h4 class="id-room">
-          #<span class="geminis">{{ $route.params.pin }}</span>
-        </h4>
-        <h3 class="geminis main">Rejoins ton équipe avant <br />de commencer la partie !</h3>
+	<div id="roomTeam">
+		<a
+			class="back"
+			href="#"
+		> Retour dans le cyberspace</a>
+		<div class="pseudo-pannel">
+			<div id="team">
+				<h4 class="id-room">
+					#<span class="geminis">{{ $route.params.pin }}</span>
+				</h4>
+				<h3 class="geminis main">
+					Rejoins ton équipe avant <br>de commencer la partie !
+				</h3>
 
-        <!-- Teams -->
-        <div class="teams" v-if="room">
+				<!-- Teams -->
+				<div
+					v-if="room"
+					class="teams"
+				>
+					<!-- Team 1 -->
+					<div class="team-1">
+						<h3 class="team-title geminis t1">
+							{{ room.teams[0] ? room.teams[0].name : '...' }}
+						</h3>
+						<div class="team-card">
+							<div class="text-card">
+								<div
+									v-if="room.teams[0] && room.teams[0].users.length > 0"
+									class="list-player"
+								>
+									<ul>
+										<li
+											v-for="user in room.teams[0].users"
+											:key="user.slug"
+										>
+											{{ user.pseudo }}
+										</li>
+									</ul>
+								</div>
+								<div
+									v-else
+									class="list-player"
+								>
+									<p>L'équipe est actuellement <br>vide</p>
+								</div>
+							</div>
 
-          <!-- Team 1 -->
-          <div class="team-1">
-            <h3 class="team-title geminis t1">{{ room.teams[0] ? room.teams[0].name : '...' }}</h3>
-            <div class="team-card">
-              <div class="text-card">
-                <div class="list-player" v-if="room.teams[0] && room.teams[0].users.length > 0">
-                  <ul>
-                    <li v-for="user in room.teams[0].users" :key="user.slug">
-                      {{ user.pseudo }}
-                    </li>
-                  </ul>
-                </div>
-                <div class="list-player" v-else>
-                  <p>L'équipe est actuellement <br />vide</p>
-                </div>
-              </div>
+							<button
+								v-if="room.teams[0]"
+								class="join-button"
+								@click="joinTeam(room.teams[0].id)"
+							>
+								Rejoindre l'équipe {{ room.teams[0].name }}
+							</button>
+						</div>
+					</div>
 
-              <button class="join-button" @click="joinTeam(room.teams[0].id)" v-if="room.teams[0]">
-                Rejoindre l'équipe {{ room.teams[0].name }}
-              </button>
-            </div>
-          </div>
+					<!-- Icons -->
+					<div class="team-logo logo1">
+						<img src="@/assets/images/satelite.png">
+					</div>
+					<div class="team-logo logo2">
+						<img src="@/assets/images/meteore.png">
+					</div>
 
-          <!-- Icons -->
-          <div class="team-logo logo1">
-            <img src="@/assets/images/satelite.png" />
-          </div>
-          <div class="team-logo logo2">
-            <img src="@/assets/images/meteore.png" />
-          </div>
+					<!-- Team 2 -->
+					<div class="team-2">
+						<h3 class="team-title geminis t2">
+							{{ room.teams[1] ? room.teams[1].name : '...' }}
+						</h3>
+						<div class="team-card">
+							<div class="text-card">
+								<div
+									v-if="room.teams[1] && room.teams[1].users.length > 0"
+									class="list-player"
+								>
+									<ul>
+										<li
+											v-for="user in room.teams[1].users"
+											:key="user.slug"
+										>
+											{{ user.pseudo }}
+										</li>
+									</ul>
+								</div>
+								<div
+									v-else
+									class="list-player"
+								>
+									<div>
+										<p>L'équipe est actuellement <br>vide</p>
+									</div>
+								</div>
+							</div>
 
-          <!-- Team 2 -->
-          <div class="team-2">
-            <h3 class="team-title geminis t2">{{ room.teams[1] ? room.teams[1].name : '...' }}</h3>
-            <div class="team-card">
-              <div class="text-card">
-                <div class="list-player" v-if="room.teams[1] && room.teams[1].users.length > 0">
-                  <ul>
-                    <li v-for="user in room.teams[1].users" :key="user.slug">
-                      {{ user.pseudo }}
-                    </li>
-                  </ul>
-                </div>
-                <div class="list-player" v-else>
-                  <div>
-                    <p>L'équipe est actuellement <br />vide</p>
-                  </div>
-                </div>
-              </div>
+							<button
+								v-if="room.teams[1]"
+								class="join-button"
+								@click="joinTeam(room.teams[1].id)"
+							>
+								Rejoindre l'équipe {{ room.teams[1].name }}
+							</button>
+						</div>
+					</div>
+				</div>
 
-              <button class="join-button" @click="joinTeam(room.teams[1].id)" v-if="room.teams[1]">
-                Rejoindre l'équipe {{ room.teams[1].name }}
-              </button>
-            </div>
-          </div>
-        </div>
+				<div v-if="room">
+					Joueurs dans la room: 
+					<span
+						v-for="user in room.users"
+						:key="user.id"
+					>
+						{{ (user.pseudo ? user.pseudo : 'Guest ' + user.id) + ' ' }}
+					</span>
+				</div>
 
-        <div v-if="room">
-          Joueurs dans la room: 
-          <span v-for="user in room.users" :key="user.id">
-            {{ (user.pseudo ? user.pseudo : 'Guest ' + user.id) + ' ' }}
-          </span>
-        </div>
+				<div class="start-game">
+					<button
+						class="start-button"
+						@click="launchGame()"
+					>
+						Démarrer la partie !
+					</button>
 
-        <div class="start-game">
-          <button class="start-button" @click="launchGame()">
-            Démarrer la partie !
-          </button>
-
-          <div v-if="err" class="error">
-            {{ err }}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="bottom-img">
-      <img src="@/assets/images/diamond.png"/>
-    </div>
-  </div>
+					<div
+						v-if="err"
+						class="error"
+					>
+						{{ err }}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom-img">
+			<img src="@/assets/images/diamond.png">
+		</div>
+	</div>
 </template>
 
 <script>
@@ -104,6 +150,15 @@
         room: null,
         err: null,
       };
+    },
+    async mounted() {
+      const userId = localStorage.getItem('user');
+      this.user = await axios.get(`${process.env.VUE_APP_API_URL}user/${userId}`).then(res => res.data);
+
+      // Get room details
+      this.room = await axios.get(`${process.env.VUE_APP_API_URL}room/pin/${this.$route.params.pin}`)
+        .then((res) => res.data)
+        .catch(() => this.$router.push({ name: 'room.connection' }));
     },
     methods: {
       async joinTeam(teamId) {
@@ -147,15 +202,6 @@
           }
         );
       },
-    },
-    async mounted() {
-      const userId = localStorage.getItem('user');
-      this.user = await axios.get(`${process.env.VUE_APP_API_URL}user/${userId}`).then(res => res.data);
-
-      // Get room details
-      this.room = await axios.get(`${process.env.VUE_APP_API_URL}room/pin/${this.$route.params.pin}`)
-        .then((res) => res.data)
-        .catch(() => this.$router.push({ name: 'room.connection' }));
     },
     sockets: {
       // New user connected to room

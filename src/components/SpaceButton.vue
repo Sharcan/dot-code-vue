@@ -1,19 +1,18 @@
 <template>
-<router-link :to="{ name: link }">
-    <div class="button">
-        {{ text.toUpperCase() }} 
-    </div>
-</router-link>
+	<router-link :to="{ name: link }">
+		<div class="button">
+			{{ text.toUpperCase() }} 
+		</div>
+	</router-link>
 </template>
 
 <script>
     export default {
         name: 'SpaceButton',
-        props: [
-            'text',
-            'width',
-            'link'
-        ]
+        props: {
+            text: String,
+            link: String
+        }
     }
 </script>
 

@@ -1,59 +1,99 @@
 <template>
-  <div>
-    <a class="back-link" href="/">
-      <svg xmlns="http://www.w3.org/2000/svg" class="back-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-      </svg>
-      retour
-      </a>
-    <div class="main-block">
-      <div class="player-card">
-        <h3 class="geminis player-title">Joueurs {{playerNumber}}/{{playerMaxNumber}}</h3>
-        <div class="player-card-list">
-          <select v-model="playerMaxNumber" name="PlayerMaxNumber" id="PlayerMaxNbr" class="player-max">
-            <option value="2">2 joueurs</option>
-            <option value="4">4 joueurs</option>
-            <option value="6">6 joueurs</option>
-            <option value="10">10 joueurs</option>
-            <option value="20">20 joueurs</option>
-            <option value="30">30 joueurs</option>
-          </select>
-          <div class="player-list">
-            <div class="player">
-              <p>Momoko</p>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-      <div class="game-mode-block">
-        <h3 class="geminis player-title">Mode de jeux</h3>
-        <div class="mode-list">
-          <div class="mode-card">
-            Mode De Jeu 1
-          </div>
-        </div>
-        <div class="mode-button">
-          <SpaceButton class="button-mode" text="Inviter dans la partie"/>
-          <SpaceButton class="button-mode" text="Démarer la partie"/>
-        </div>
-      </div>
-    </div>
-    <div></div>
-  </div>
+	<div>
+		<a
+			class="back-link"
+			href="/"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="back-icon"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M15 19l-7-7 7-7"
+				/>
+			</svg>
+			retour
+		</a>
+		<div class="main-block">
+			<div class="player-card">
+				<h3 class="geminis player-title">
+					Joueurs {{ playerNumber }}/{{ playerMaxNumber }}
+				</h3>
+				<div class="player-card-list">
+					<select
+						id="PlayerMaxNbr"
+						v-model="playerMaxNumber"
+						name="PlayerMaxNumber"
+						class="player-max"
+					>
+						<option value="2">
+							2 joueurs
+						</option>
+						<option value="4">
+							4 joueurs
+						</option>
+						<option value="6">
+							6 joueurs
+						</option>
+						<option value="10">
+							10 joueurs
+						</option>
+						<option value="20">
+							20 joueurs
+						</option>
+						<option value="30">
+							30 joueurs
+						</option>
+					</select>
+					<div class="player-list">
+						<div class="player">
+							<p>Momoko</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="game-mode-block">
+				<h3 class="geminis player-title">
+					Mode de jeux
+				</h3>
+				<div class="mode-list">
+					<div class="mode-card">
+						Mode De Jeu 1
+					</div>
+				</div>
+				<div class="mode-button">
+					<SpaceButton
+						class="button-mode"
+						text="Inviter dans la partie"
+					/>
+					<SpaceButton
+						class="button-mode"
+						text="Démarer la partie"
+					/>
+				</div>
+			</div>
+		</div>
+		<div />
+	</div>
 </template>
 
 <script>
 import SpaceButton from "../../components/SpaceButton.vue"
 export default {
     name: "PrivateMode",
+    components: { SpaceButton },
     data() {
         return {
             playerMaxNumber: 2,
             playerNumber: 0
         };
-    },
-    components: { SpaceButton }
+    }
 }
 </script>
 

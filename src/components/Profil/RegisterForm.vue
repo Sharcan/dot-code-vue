@@ -1,48 +1,68 @@
 <template>
-    <div id="RegisterForm">
-       <div class="input">
-            <input
-                type="text"
-                id="id-input"
-                class="id-input"
-                placeholder="Username"
-                v-model="name"
-            />
-            <input
-                type="text"
-                id="id-input"
-                class="id-input"
-                placeholder="Email"
-                v-model="email"
-            />
-            <p v-if="!hasValidEmailFormat" class="errors">Le format du mail n'est pas valide</p>
-            <input
-                type="password"
-                id="id-input"
-                class="id-input"
-                placeholder="Password"
-                v-model ="password"
-            />
-            <input
-                type="password"
-                id="id-input"
-                class="id-input"
-                placeholder="Confirm Password"
-                v-model="confirmPassword"
-            />
-            <p v-if="!hasValidPassword" class="errors">Les deux champs ne correspondent pas</p>
-       </div>
-        <p class="text-center information-text">
-            <span class="bold">En soumettant la demande d'inscription, vous acceptez</span> <br>
-            nos termes d'utilisation <span class="bold">et</span> la politique de confidentialité
-        </p>
-      <button :disabled="!hasValidForm" class="connect-button" @click="onRegister">S'inscrire</button>
-      <p class="sub-text text-center">Vous avez déjà un compte ? 
-        <a class="connexion-link" href="/login">
-            Connexion
-        </a>
-      </p>
-    </div>
+	<div id="RegisterForm">
+		<div class="input">
+			<input
+				id="id-input"
+				v-model="name"
+				type="text"
+				class="id-input"
+				placeholder="Username"
+			>
+			<input
+				id="id-input"
+				v-model="email"
+				type="text"
+				class="id-input"
+				placeholder="Email"
+			>
+			<p
+				v-if="!hasValidEmailFormat"
+				class="errors"
+			>
+				Le format du mail n'est pas valide
+			</p>
+			<input
+				id="id-input"
+				v-model="password"
+				type="password"
+				class="id-input"
+				placeholder="Password"
+			>
+			<input
+				id="id-input"
+				v-model="confirmPassword"
+				type="password"
+				class="id-input"
+				placeholder="Confirm Password"
+			>
+			<p
+				v-if="!hasValidPassword"
+				class="errors"
+			>
+				Les deux champs ne correspondent pas
+			</p>
+		</div>
+		<p class="text-center information-text">
+			<span class="bold">En soumettant la demande d'inscription, vous acceptez</span> <br>
+			nos termes d'utilisation <span class="bold">et</span> la politique de confidentialité
+		</p>
+		<button
+			:disabled="!hasValidForm"
+			class="connect-button"
+			@click="onRegister"
+		>
+			S'inscrire
+		</button>
+		<p class="sub-text text-center">
+			Vous avez déjà un compte ? 
+			<a
+				class="connexion-link"
+				href="/login"
+			>
+				Connexion
+			</a>
+		</p>
+	</div>
 </template>
 
 <script>
@@ -79,6 +99,9 @@ export default {
             return true;
         }
     },
+    mounted() {
+      this.getUserGuest()
+    },
     methods: {
         onRegister() {
           axios.post(process.env.VUE_APP_API_URL + `auth/register?id=${this.id}`, {
@@ -94,9 +117,6 @@ export default {
                 this.name = response.data.pseudo ?? '';
               });
         }
-    },
-    mounted() {
-      this.getUserGuest()
     }
 }
 </script>
