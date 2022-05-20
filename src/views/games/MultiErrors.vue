@@ -83,11 +83,11 @@
     import GameLayout from '@/layouts/GameLayout'
     import SpaceButton from '@/components/SpaceButton'
     import $ from 'jquery'
-    import exercices from '../../../exercices/errors'
     import router from "../../router";
-
+    import exercices from '../../../exercices/errors'
     import loader from "@monaco-editor/loader";
     import * as MonacoCollabExt from "@convergencelabs/monaco-collab-ext";
+    import axios from 'axios'
 
     export default {
         name: 'MultiErrors',
@@ -98,25 +98,22 @@
         data() {
             return {
                 language: 'javascript',
-                editorGamer: null,
-                editorOpponent: null,
+                userEditor: null,
+                opponentEditor: null,
                 output: null,
-                exercice_number: 0,
                 loading: false,
+
+                user: null,
+                room: null,
+
+                exercice_number: 0,
                 opponent_exercice_number: 0,
 
-                /** Variables pour du joueur et des différentes équipes */
-                connectedUsers: [],
-                team_1: [],
-                team_2: [],
-                user: null,
-                myTeam: null,
-
                 /** Variables pour le partage des IDEs */
-                remoteCursorManagerGamer: null,
-                remoteCursorManagerOpponent: null,
-                remoteContentManagerGamer: null,
-                remoteContentManagerOpponent: null,
+                userRemoteCursorManager: null,
+                opponentRemoteCursorManager: null,
+                userEditorContentManager: null,
+                opponentEditorContentManager: null,
             }
         },
         watch: {
@@ -128,7 +125,7 @@
 
                 if(newVal <= 9) {
                     // Next exercice
-                    this.editorGamer.getModel().setValue(exercices[newVal].code);
+                    this.userEditor.getModel().setValue(exercices[newVal].code);
                     this.output = null;
                     this.loading = false;
                 } else {
@@ -139,7 +136,7 @@
             opponent_exercice_number(newVal) {
                 if(newVal <= 9) {
                     // Next exercice for opponent
-                    this.editorOpponent.getModel().setValue(exercices[newVal].code);
+                    this.opponentEditor.getModel().setValue(exercices[newVal].code);
                 } else {
                     // Loose page
                     router.push({ path: `/room-lose` });
@@ -154,7 +151,7 @@
                         method: 'POST',
                         data: {
                             language: this.language,
-                            code: this.editorGamer.getModel().getValue(),
+                            code: this.userEditor.getModel().getValue(),
                             expectedResult: exercices[this.exercice_number].expectedResult,
                             expectedCode: exercices[this.exercice_number].expectedCode
                         },
@@ -179,99 +176,11 @@
                 }
             },
 
-            /**
-             * On crée les différents curseurs pour les IDEs
-             */
-            createCursorsGamer() {
-                const teamGamer = this.myTeam === 'team_1' ? this.team_1 : this.team_2;
-                const teamOpponent = this.myTeam !== 'team_1' ? this.team_1 : this.team_2;
-
-                teamGamer.forEach((user) => {
-                    // Création du curseur
-                    const newCursor = this.remoteCursorManagerGamer.addCursor(
-                        user.socketId,
-                        this.getRandomColor(),
-                        user.username
-                    );
-
-                    // Early return pour ne pas créer de curseur pour le propre utilisateur
-                    if (user.socketId === this.user.socketId) {
-                        // this.user.cursor = newCursor;
-                        return;
-                    }
-
-                    // Ajout du curseur pour le user 
-                    user.cursor = newCursor;
-                    newCursor.setPosition({column: 1, lineNumber: 1});
-                });
-                // Création des curseur sur l'autre IDE
-                this.createCursorsOpponent(teamOpponent);
-            },
-
-            createCursorsOpponent(team) {
-                team.forEach((user) => {
-                    // Création du curseur
-                    const newCursor = this.remoteCursorManagerOpponent.addCursor(
-                        user.socketId,
-                        this.getRandomColor(),
-                        user.username
-                    );
-
-                    // Early return pour ne pas créer de curseur pour le propre utilisateur
-                    if (user.socketId === this.user.socketId) {
-                        // this.user.cursor = newCursor;
-                        return;
-                    }
-
-                    // ajout du curseur pour le user
-                    user.cursor = newCursor;
-                    newCursor.setPosition({column:1, lineNumber: 1});
-                });
-            },
-
             onIdeClick() {
-              this.$socket.client.emit('gamerCursorChange',
-                    {pin: this.$route.params.pin, user: this.user, position: this.editorGamer.getPosition()}
-              );
-            },
-
-            onIdeAction() {
-              this.editorGamer.onKeyUp((e) => {
-                if (e.code === 'Tab') {
-                    this.$socket.client.emit('onTab', {
-                        value: this.editorGamer.getValue(), 
-                        team: this.myTeam, 
-                        pin: this.$route.params.pin
-                    });
-                }
-                this.$socket.client.emit('gamerCursorChange', {
+                this.$socket.client.emit('userCursorChange', {
                     pin: this.$route.params.pin, 
                     user: this.user, 
-                    position: this.editorGamer.getPosition()
-                });
-              })
-            },
-
-            sharedContentIde(thisVue) {
-                /** Création de l'objet permettant de rentranscrire écriture pour l'IDE principal */
-                this.remoteContentManagerGamer = new MonacoCollabExt.EditorContentManager({
-                    editor: this.editorGamer,
-                    onInsert(index, text) {
-                        thisVue.$socket.client.emit('newTextInsert', {index: index, value: text, team: thisVue.myTeam, pin: thisVue.$route.params.pin});
-                    },
-                    onDelete(index, length) {
-                        thisVue.$socket.client.emit('newTextDelete', {
-                            index: index, 
-                            length: length, 
-                            team: thisVue.myTeam, 
-                            pin: thisVue.$route.params.pin
-                        });
-                    }
-                });
-
-                /** Création de l'objet permettant de rentranscrire écriture pour l'IDE secondaire */
-                this.remoteContentManagerOpponent = new MonacoCollabExt.EditorContentManager({
-                    editor: this.editorOpponent,
+                    position: this.userEditor.getPosition()
                 });
             },
 
@@ -282,18 +191,32 @@
         async mounted() {
             document.title = 'Corrige le code | DotCode'
 
+            // Get user
+            const userId = parseInt(localStorage.getItem('user'));
+            this.user = await axios.get(process.env.VUE_APP_API_URL + 'user/' + userId)
+                .then(res => res.data)
+                .catch(() => this.$router.push({ name: 'room.connection' }));
+
+            // Get room
+            this.room = await axios.get(`${process.env.VUE_APP_API_URL}room/pin/${this.$route.params.pin}`)
+                .then(res => res.data)
+                .catch(() => this.$router.push({ name: 'room.connection' }));
+
+            const userTeam = this.room.teams.find(team => team.id == this.user.team.id);
+            const opponentTeam = this.room.teams.find(team => team.id != this.user.team.id);
+
             // Init Monaco
             const monaco = await loader.init()
 
             // Create editors
-            this.editorGamer = monaco.editor.create(document.getElementById("editor-1"), {
-                value: exercices[this.exercice_number].code,
+            this.userEditor = monaco.editor.create(document.getElementById("editor-1"), {
+                value: exercices[userTeam.points].code,
                 language: this.language,
                 theme: 'vs-dark',
                 minimap: {enabled: false}
             });
-            this.editorOpponent = monaco.editor.create(document.getElementById("editor-2"), {
-                value: exercices[this.exercice_number].code,
+            this.opponentEditor = monaco.editor.create(document.getElementById("editor-2"), {
+                value: exercices[opponentTeam.points].code,
                 language: this.language,
                 theme: 'vs-dark',
                 lineNumbers: false,
@@ -301,73 +224,124 @@
             });
 
             // Cursor management
-            this.remoteCursorManagerGamer = new MonacoCollabExt.RemoteCursorManager({
-                editor: this.editorGamer,
+            this.userRemoteCursorManager = new MonacoCollabExt.RemoteCursorManager({
+                editor: this.userEditor,
                 tooltips: true,
                 tooltipDuration: 4
             });
-            this.remoteCursorManagerOpponent = new MonacoCollabExt.RemoteCursorManager({
-                editor: this.editorOpponent,
+            this.opponentRemoteCursorManager = new MonacoCollabExt.RemoteCursorManager({
+                editor: this.opponentEditor,
                 tooltips: true,
                 tooltipDuration: 4
             });
 
-            // Emit connected users
-            this.$socket.client.emit('getConnectedUsers', {pin: this.$route.params.pin}, res => {
-                if(res.error) {
-                    router.push({ path: `/room-connection`});
+            // Create cursors
+            userTeam.users.forEach(user => {
+                // Don't create for this user
+                if (user.id === this.user.id) {
                     return;
                 }
-                this.connectedUsers = res.room.connectedUsers;
-                this.team_1 = res.room.team_1;
-                this.team_2 = res.room.team_2;
-                this.user = res.user;
-                this.myTeam = res.user.team;
-                this.createCursorsGamer();
+
+                // Add cursor
+                const newCursor = this.userRemoteCursorManager.addCursor(
+                    user.id.toString(),
+                    this.getRandomColor(),
+                    user.pseudo
+                );
+                newCursor.setPosition({column: 1, lineNumber: 1});
+
+                // Add to user
+                this.room.users.find(u => u.id == user.id ).cursor = newCursor;
             });
 
-            /** Création des objets pour l'écriture dans l'ide */
-            this.sharedContentIde(this);
-            this.onIdeAction();
+            opponentTeam.users.forEach(user => {
+                // Add cursor
+                const newCursor = this.opponentRemoteCursorManager.addCursor(
+                    user.id.toString(),
+                    this.getRandomColor(),
+                    user.pseudo
+                );
+                newCursor.setPosition({column: 1, lineNumber: 1});
+
+                // Add to user
+                console.log(this.room.users.find(u => u.id == user.id ))
+                this.room.users.find(u => u.id == user.id).cursor = newCursor;
+            });
+
+            // Editor content managers
+            const vm = this;
+            this.userEditorContentManager = new MonacoCollabExt.EditorContentManager({
+                editor: this.userEditor,
+                onInsert(index, text) {
+                    vm.$socket.client.emit('newTextInsert', {
+                        index: index, 
+                        text: text, 
+                        team_id: vm.user.team.id, 
+                        pin: vm.$route.params.pin
+                    });
+                },
+                onDelete(index, length) {
+                    vm.$socket.client.emit('newTextDelete', {
+                        index: index, 
+                        length: length, 
+                        team_id: vm.user.team.id, 
+                        pin: vm.$route.params.pin
+                    });
+                }
+            });
+            this.opponentEditorContentManager = new MonacoCollabExt.EditorContentManager({
+                editor: this.opponentEditor,
+            });
+
+            // IDE on key up
+            this.userEditor.onKeyUp((e) => {
+                if (e.code === 'Tab') {
+                    this.$socket.client.emit('onTab', {
+                        text: this.userEditor.getValue(),
+                        team_id: this.user.team.id, 
+                        pin: this.$route.params.pin
+                    });
+                }
+                this.$socket.client.emit('userCursorChange', {
+                    pin: this.$route.params.pin, 
+                    user: this.user, 
+                    position: this.userEditor.getPosition()
+                });
+            });
         },
 
         sockets: {
-            gamerCursorChange(cursorInformations) {
-                const team = cursorInformations.user.team === 'team_1' ? this.team_1 : this.team_2;
-                const user = team.find((user) => user.socketId === cursorInformations.user.socketId)
-                user.cursor.setPosition(cursorInformations.position);
-                user.cursor.show();
+            userCursorChange(params) {
+                this.room.users.find(user => user.id == params.user.id).cursor.setPosition(params.position);
+                this.room.users.find(user => user.id == params.user.id).cursor.show();
             },
 
-            newTextInsert(value) {
-                const mainIde = this.myTeam === value.team;
-                if (mainIde) {
-                    this.remoteContentManagerGamer.insert(value.index, value.value);
-                    this.remoteContentManagerGamer.dispose();
-                    return;
+            newTextInsert(params) {
+                if (this.user.team.id === params.team_id) {
+                    this.userEditorContentManager.insert(params.index, params.text);
+                    this.userEditorContentManager.dispose();
+                } else {
+                    this.opponentEditorContentManager.insert(params.index, params.text);
+                    this.opponentEditorContentManager.dispose();
                 }
-                this.remoteContentManagerOpponent.insert(value.index, value.value);
-                this.remoteContentManagerOpponent.dispose();
             },
 
-            newTextDelete(value) {
-                const mainIde = this.myTeam === value.team;
-                if (mainIde) {
-                    this.remoteContentManagerOpponent.delete(value.index, value.length);
-                    this.remoteContentManagerOpponent.dispose();
-                    return;
+            newTextDelete(params) {
+                if (this.user.team.id === params.team_id) {
+                    this.userEditorContentManager.delete(params.index, params.length);
+                    this.userEditorContentManager.dispose();
+                } else {
+                    this.opponentEditorContentManager.delete(params.index, params.length);
+                    this.opponentEditorContentManager.dispose();
                 }
-                this.remoteContentManagerOpponent.delete(value.index, value.length);
-                this.remoteContentManagerOpponent.dispose();
             },
 
-            onTab(newText) {
-                const mainIde = this.myTeam === newText.team;
-                 if (mainIde) {
-                    this.editorGamer.setValue(newText.value);
-                    return;
+            onTab(params) {
+                if (this.user.team.id === params.team_id) {
+                    this.userEditor.setValue(params.text);
+                } else {
+                    this.opponentEditor.setValue(params.text);
                 }
-                this.editorOpponent.setValue(newText.value);
             },
 
             opponentSuccess() {

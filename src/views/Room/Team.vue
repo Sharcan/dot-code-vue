@@ -153,12 +153,9 @@
       this.user = await axios.get(`${process.env.VUE_APP_API_URL}user/${userId}`).then(res => res.data);
 
       // Get room details
-      const room = await axios.get(`${process.env.VUE_APP_API_URL}room/pin/${this.$route.params.pin}`)
+      this.room = await axios.get(`${process.env.VUE_APP_API_URL}room/pin/${this.$route.params.pin}`)
         .then((res) => res.data)
         .catch(() => this.$router.push({ name: 'room.connection' }));
-  
-      // Set team details
-      this.room = room;
     },
     sockets: {
       // New user connected to room
