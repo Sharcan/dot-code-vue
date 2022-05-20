@@ -132,13 +132,16 @@
       },
 
       launchGame() {
+        if(!this.room.teams[0].users?.length || !this.room.teams[1].users?.length) {
+          this.err = "Une équipe est vide :("
+          return;
+        }
+
         this.$socket.client.emit(
           "launchGame",
           { pin: this.$route.params.pin },
           (res) => {
-            if (!res.error) {
-              router.push({ path: `/game/${this.$route.params.pin}` });
-            } else {
+            if (res.error) {
               this.err = res.error;
             }
           }
@@ -166,12 +169,13 @@
       userSendPseudo(room) {
         this.room = room;
       },
+      // User joins a team
       userJoinsTeam(room) {
         this.room = room
       },
       // Game is launching
       launchGame() {
-        router.push({ path: `/game/${this.$route.params.pin}` });
+        router.push({ path: `/room/${this.$route.params.pin}` });
       },
     },
   };
