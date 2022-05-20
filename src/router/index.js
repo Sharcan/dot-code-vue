@@ -61,7 +61,6 @@ const routes = [
     ]
   },
   {
-    path: '/game/:pin',
     path: '/room/:pin/',
     component: Game,
     children: [
