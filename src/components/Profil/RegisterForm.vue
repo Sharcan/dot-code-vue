@@ -107,7 +107,11 @@ export default {
           axios.post(process.env.VUE_APP_API_URL + `auth/register?id=${this.id}`, {
             email: this.email,
             pseudo: this.name,
-            password: this.password
+            password: this.password,
+            socket_id: sessionStorage.getItem('socket_id')
+          }).then(async res => {
+            localStorage.setItem('user', res.data.id);
+            await this.$router.push({name: 'login'});
           });
         },
         getUserGuest() {
