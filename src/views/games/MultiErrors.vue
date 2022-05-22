@@ -11,12 +11,12 @@
 						Le script ci-dessous comporte une erreur cachée. Essaye de la corriger puis appuie sur "Tester" pour voir le résultat et passer à l'exercice suivant. Bonne chance !
 					</p>
 					<div class="progression">
-						<span>Progression: {{ exercice_number }}/10</span>
+						<span>Progression: {{ exercise_number }}/10</span>
 						<div class="progress mt-1">
 							<div
 								class="progress-bar"
 								role="progressbar"
-								:style="'width: ' + (exercice_number * 10) + '%'"
+								:style="'width: ' + (exercise_number * 10) + '%'"
 							/>
 						</div>
 					</div>
@@ -42,12 +42,12 @@
 						Ton adversaire: Player 2
 					</h3>
 					<div class="progression">
-						<span>Progression de ton adversaire: {{ opponent_exercice_number }}/10</span>
+						<span>Progression de ton adversaire: {{ opponent_exercise_number }}/10</span>
 						<div class="progress mt-1">
 							<div
 								class="progress-bar"
 								role="progressbar"
-								:style="'width: ' + (opponent_exercice_number * 10) + '%'"
+								:style="'width: ' + (opponent_exercise_number * 10) + '%'"
 							/>
 						</div>
 					</div>
@@ -339,8 +339,8 @@
                         data: {
                             language: this.language,
                             code: this.userEditor.getModel().getValue(),
-                            expectedResult: exercices[this.exercice_number].expectedResult,
-                            expectedCode: exercices[this.exercice_number].expectedCode
+                            expectedResult: exercices[this.exercise_number].expectedResult,
+                            expectedCode: exercices[this.exercise_number].expectedCode
                         },
                         success: (res) => {
                             if(res.error) {
@@ -355,7 +355,7 @@
 
                                 // Next exercice
                                 setTimeout(() => {
-                                    this.exercice_number++;
+                                    this.exercise_number++;
                                 }, 1500);
                             }
                         }
@@ -378,8 +378,8 @@
 
         sockets: {
             userCursorChange(params) {
-                this.room.users.find(user => user.id == params.user.id).cursor.setPosition(params.position);
-                this.room.users.find(user => user.id == params.user.id).cursor.show();
+                this.room.users.find(user => user.id === params.user.id).cursor.setPosition(params.position);
+                this.room.users.find(user => user.id === params.user.id).cursor.show();
             },
 
             newTextInsert(params) {
