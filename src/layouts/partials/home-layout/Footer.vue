@@ -1,10 +1,10 @@
 <template>
-    <div class="footer">
-        <a href="#">MENTIONS LEGALES</a>
-        <a href="#">DONNEES PERSONNELLES & COOKIES</a>
-        <a href="#">CONDITIONS D'UTILISATION</a>
-        <a href="#">SIGNALER UN PROBLEME</a>
-    </div>
+	<div class="footer">
+		<a href="#">MENTIONS LEGALES</a>
+		<a href="#">DONNEES PERSONNELLES & COOKIES</a>
+		<a href="#">CONDITIONS D'UTILISATION</a>
+		<a href="#">SIGNALER UN PROBLEME</a>
+	</div>
 </template>
 
 <script>

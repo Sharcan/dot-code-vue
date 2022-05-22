@@ -1,32 +1,60 @@
 <template>
-  <div>
-      <div class="main-block">
-            <div class="left-div">
-                <a class="back-link" href="/">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="back-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                  </svg>
-                  Retour dans le cyberspace
-                  </a>
-                <h1 class="main-title geminis">WELCOME <br> all space <br> traveler !</h1>
-            </div>
-            <div class="right-div">
-                <h2 class="geminis sub-title text-center">Creer une partie privée</h2>
-                <div class="main-creation">
-                    <div class="user-info">
-                      <div class="profil-image">
-                        <img src="@/assets/images/meteore.png">
-                      </div>
-                      <div class="profil-text">
-                        <h3 class="geminis">Choisis un Prenom</h3>
-                        <input type="text" placeholder="Username" class="name-input"/>
-                      </div>
-                    </div>
-                    <SpaceButton link="gameMode" class="create" text="Démarer la partie"/>
-                </div>
-            </div>
-        </div>
-  </div>
+	<div>
+		<div class="main-block">
+			<div class="left-div">
+				<a
+					class="back-link"
+					href="/"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="back-icon"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						stroke-width="2"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M15 19l-7-7 7-7"
+						/>
+					</svg>
+					Retour dans le cyberspace
+				</a>
+				<h1 class="main-title geminis">
+					WELCOME <br> all space <br> traveler !
+				</h1>
+			</div>
+			<div class="right-div">
+				<h2 class="geminis sub-title text-center">
+					Creer une partie privée
+				</h2>
+				<div class="main-creation">
+					<div class="user-info">
+						<div class="profil-image">
+							<img src="@/assets/images/meteore.png">
+						</div>
+						<div class="profil-text">
+							<h3 class="geminis">
+								Choisis un Prenom
+							</h3>
+							<input
+								type="text"
+								placeholder="Username"
+								class="name-input"
+							>
+						</div>
+					</div>
+					<SpaceButton
+						link="gameMode"
+						class="create"
+						text="Démarer la partie"
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>

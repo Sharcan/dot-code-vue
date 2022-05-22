@@ -1,20 +1,42 @@
 <template>
-    <div class="topbar">
-        <div class="search">
-            <i class="fa fa-search"></i>
-            <input type="text" class="form-control form-control-sm" placeholder="Recherche de profils">
-        </div>
-        <div class="users">
-            <i class="fa fa-chevron-left"></i>
-            <img src="@/assets/images/games/user01.png" alt="User 1" class="user-image">
-            <img src="@/assets/images/games/user02.png" alt="User 2" class="user-image">
-            <img src="@/assets/images/games/user03.png" alt="User 3" class="user-image">
-            <img src="@/assets/images/games/user04.png" alt="User 4" class="user-image">
-            <!-- <img src="@/assets/images/games/user05.png" alt="User 5" class="user-image"> -->
-            <i class="fa fa-chevron-right"></i>
-        </div>
-        <div class="title geminis">Welcome to your space games !</div>
-    </div>
+	<div class="topbar">
+		<div class="search">
+			<i class="fa fa-search" />
+			<input
+				type="text"
+				class="form-control form-control-sm"
+				placeholder="Recherche de profils"
+			>
+		</div>
+		<div class="users">
+			<i class="fa fa-chevron-left" />
+			<img
+				src="@/assets/images/games/user01.png"
+				alt="User 1"
+				class="user-image"
+			>
+			<img
+				src="@/assets/images/games/user02.png"
+				alt="User 2"
+				class="user-image"
+			>
+			<img
+				src="@/assets/images/games/user03.png"
+				alt="User 3"
+				class="user-image"
+			>
+			<img
+				src="@/assets/images/games/user04.png"
+				alt="User 4"
+				class="user-image"
+			>
+			<!-- <img src="@/assets/images/games/user05.png" alt="User 5" class="user-image"> -->
+			<i class="fa fa-chevron-right" />
+		</div>
+		<div class="title geminis">
+			Welcome to your space games !
+		</div>
+	</div>
 </template>
 
 <script>

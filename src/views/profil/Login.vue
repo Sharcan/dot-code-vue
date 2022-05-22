@@ -1,32 +1,56 @@
 <template>
-  <div id="Login">
-      <div class="top-img">
-          <img src="@/assets/images/SpaceCodeGreenLogo.png">
-        </div>
-        <div class="nav-button">
-            <SpaceButton class="register-button" text="Se créer un compte" link="register"/>
-            <SpaceButton class="game-button" text="Créer une partie privé"/>
-        </div>
-        <div class="main-block">
-            <div class="left-div">
-                <a class="back-link">Retour dans le cyberspace</a>
-                <h1 class="main-title geminis">Welcome<br/>Back</h1>
-                <ul class="links-list">
-                    <li class="link-list"><a href="#">FOLLOW US</a></li>
-                    <li class="link-list link-image"><a href=#><img src="@/assets/images/twitter.png"></a></li>
-                    <li class="link-list"><a href=#><img src="@/assets/images/facebook.png"></a></li>
-                    <li class="link-list"><a href=#><img src="@/assets/images/linkedin.png"></a></li>
-                    <li class="link-list"><a href=#><img src="@/assets/images/discord.png"></a></li>
-                    <li class="link-list"><a href=#><img src="@/assets/images/twitch.png"></a></li>
-                </ul>
-            </div>
-            <div class="right-div">
-                <LoginForm />
-                <ConnexionButton/>
-            </div>
-        </div>
-        <img class="bg-planet" src="@/assets/images/planet-ring.png">
-  </div>
+	<div id="Login">
+		<div class="top-img">
+			<img src="@/assets/images/SpaceCodeGreenLogo.png">
+		</div>
+		<div class="nav-button">
+			<SpaceButton
+				class="register-button"
+				text="Se créer un compte"
+				link="register"
+			/>
+			<SpaceButton
+				class="game-button"
+				text="Créer une partie privé"
+			/>
+		</div>
+		<div class="main-block">
+			<div class="left-div">
+				<a class="back-link">Retour dans le cyberspace</a>
+				<h1 class="main-title geminis">
+					Welcome<br>Back
+				</h1>
+				<ul class="links-list">
+					<li class="link-list">
+						<a href="#">FOLLOW US</a>
+					</li>
+					<li class="link-list link-image">
+						<a href="#"><img src="@/assets/images/twitter.png"></a>
+					</li>
+					<li class="link-list">
+						<a href="#"><img src="@/assets/images/facebook.png"></a>
+					</li>
+					<li class="link-list">
+						<a href="#"><img src="@/assets/images/linkedin.png"></a>
+					</li>
+					<li class="link-list">
+						<a href="#"><img src="@/assets/images/discord.png"></a>
+					</li>
+					<li class="link-list">
+						<a href="#"><img src="@/assets/images/twitch.png"></a>
+					</li>
+				</ul>
+			</div>
+			<div class="right-div">
+				<LoginForm />
+				<ConnexionButton />
+			</div>
+		</div>
+		<img
+			class="bg-planet"
+			src="@/assets/images/planet-ring.png"
+		>
+	</div>
 </template>
 
 <script>
@@ -34,8 +58,8 @@ import LoginForm from "../../components/Profil/LoginForm.vue";
 import SpaceButton from "../../components/SpaceButton.vue";
 import ConnexionButton from "../../components/Profil/ConnexionButton.vue";
 export default {
-  components: { LoginForm, SpaceButton, ConnexionButton },
-    name : "Login"
+    name : "Login",
+  components: { LoginForm, SpaceButton, ConnexionButton }
 }
 </script>
 

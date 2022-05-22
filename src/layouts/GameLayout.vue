@@ -1,17 +1,23 @@
 <template>
-    <div class="body">
-        <div class="game-container">
-            <div class="content-part">
-                <Topbar />
-                <slot name="content"></slot>
-            </div>
-            <div class="sidebar">
-                <img src="@/assets/images/games/halfmoon.png" alt="Lune" class="moon">
-                <h1 class="geminis text-center sidebar-title">Space<br>Code</h1>
-                <slot name="sidebar"></slot>
-            </div>
-        </div>
-    </div>
+	<div class="body">
+		<div class="game-container">
+			<div class="content-part">
+				<Topbar />
+				<slot name="content" />
+			</div>
+			<div class="sidebar">
+				<img
+					src="@/assets/images/games/halfmoon.png"
+					alt="Lune"
+					class="moon"
+				>
+				<h1 class="geminis text-center sidebar-title">
+					Space<br>Code
+				</h1>
+				<slot name="sidebar" />
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>

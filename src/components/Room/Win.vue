@@ -1,24 +1,38 @@
 <template>
-  <div id="win">
-    <a class="back-link" href="">Retour dans le CyberSpace</a>
-    <div class="win-card">
-      <div class="geminis">
-        <h2 class="text-title">Bravo !</h2>
-        <p class="sub-title">
-          Tu as remporté cette <br />
-          bataille intergalactique
-        </p>
-      </div>
-      <div>
-        <p class="text-main">Souhaites-tu repartir à l’assaut ?</p>
-      </div>
-      <img class="win-image" src="@/assets/images/SpaceCode_AstroWin.png" />
-    </div>
-    <div class="buttons">
-      <button class="continue">Evidemment !</button>
-      <button class="finished">Non, j'ai eu ma dose</button>
-    </div>
-  </div>
+	<div id="win">
+		<a
+			class="back-link"
+			href=""
+		>Retour dans le CyberSpace</a>
+		<div class="win-card">
+			<div class="geminis">
+				<h2 class="text-title">
+					Bravo !
+				</h2>
+				<p class="sub-title">
+					Tu as remporté cette <br>
+					bataille intergalactique
+				</p>
+			</div>
+			<div>
+				<p class="text-main">
+					Souhaites-tu repartir à l’assaut ?
+				</p>
+			</div>
+			<img
+				class="win-image"
+				src="@/assets/images/SpaceCode_AstroWin.png"
+			>
+		</div>
+		<div class="buttons">
+			<button class="continue">
+				Evidemment !
+			</button>
+			<button class="finished">
+				Non, j'ai eu ma dose
+			</button>
+		</div>
+	</div>
 </template>
 
 <script>

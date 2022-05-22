@@ -1,9 +1,17 @@
 <template>
-    <div class="navbar">
-        <img class="btn-moon" src="@/assets/images/btn-moon.svg" alt="Moon button">
-        <span class="navbar-title">SpaceCode</span>
-        <img class="btn-astro" src="@/assets/images/btn-astro.svg" alt="Astro button">
-    </div>
+	<div class="navbar">
+		<img
+			class="btn-moon"
+			src="@/assets/images/btn-moon.svg"
+			alt="Moon button"
+		>
+		<span class="navbar-title">SpaceCode</span>
+		<img
+			class="btn-astro"
+			src="@/assets/images/btn-astro.svg"
+			alt="Astro button"
+		>
+	</div>
 </template>
 
 <script>
