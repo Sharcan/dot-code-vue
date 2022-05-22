@@ -110,9 +110,9 @@ export default {
             password: this.password,
             socket_id: sessionStorage.getItem('socket_id')
           }).then(async res => {
-            localStorage.setItem('user', res.data.id);
+            localStorage.setItem('user', res.data.user.id);
             await this.$router.push({name: 'login'});
-          });
+          }).catch(error => console.warn(error.error)); // TODO FAIRE UN TRUC
         },
         getUserGuest() {
           this.id = localStorage.getItem('user')
