@@ -9,9 +9,9 @@
                         Le script ci-dessous comporte une erreur cachée. Essaye de la corriger puis appuie sur "Tester" pour voir le résultat et passer à l'exercice suivant. Bonne chance !
                     </p>
                     <div class="progression">
-                        <span>Progression: {{ exercice_number }}/10</span>
+                        <span>Progression: {{ exercise_number }}/10</span>
                         <div class="progress mt-1">
-                            <div class="progress-bar" role="progressbar" :style="'width: ' + (exercice_number * 10) + '%'"></div>
+                            <div class="progress-bar" role="progressbar" :style="'width: ' + (exercise_number * 10) + '%'"></div>
                         </div>
                     </div>
                     <div id="editor-1" @click="onIdeClick"></div>
@@ -26,9 +26,9 @@
                 <div class="opponent">
                     <h3 class="geminis subtitle">Ton adversaire: Player 2</h3>
                     <div class="progression">
-                        <span>Progression de ton adversaire: {{ opponent_exercice_number }}/10</span>
+                        <span>Progression de ton adversaire: {{ opponent_exercise_number }}/10</span>
                         <div class="progress mt-1">
-                            <div class="progress-bar" role="progressbar" :style="'width: ' + (opponent_exercice_number * 10) + '%'"></div>
+                            <div class="progress-bar" role="progressbar" :style="'width: ' + (opponent_exercise_number * 10) + '%'"></div>
                         </div>
                     </div>
                     <div id="editor-2"></div>
@@ -106,8 +106,8 @@
                 user: null,
                 room: null,
 
-                exercice_number: 0,
-                opponent_exercice_number: 0,
+                exercise_number: 0,
+                opponent_exercise_number: 0,
 
                 /** Variables pour le partage des IDEs */
                 userRemoteCursorManager: null,
@@ -117,29 +117,38 @@
             }
         },
         watch: {
-            exercice_number(newVal) {
-                // Emit exercice number
-                this.$socket.client.emit('nextExercice', {
+            async exercise_number(newVal) {
+
+                await axios.patch(
+                    process.env.VUE_APP_API_URL + `team/${this.user.team.id}/add-point`,
+                    {
+                      points: newVal
+                    }
+                ).then(res => res.data)
+                .catch(error => console.warn('Warning: ', error));
+                
+                // Emit exercise number
+                this.$socket.client.emit('nextExercise', {
                     pin: this.$route.params.pin
                 });
 
                 if(newVal <= 9) {
-                    // Next exercice
+                    // Next exercise
                     this.userEditor.getModel().setValue(exercices[newVal].code);
                     this.output = null;
                     this.loading = false;
                 } else {
                     // Success page
-                    router.push({ path: `/room-win` });
+                    await router.push({path: `/room-win`});
                 }
             },
-            opponent_exercice_number(newVal) {
+            async opponent_exercise_number(newVal) {
                 if(newVal <= 9) {
-                    // Next exercice for opponent
+                    // Next exercise for opponent
                     this.opponentEditor.getModel().setValue(exercices[newVal].code);
                 } else {
                     // Loose page
-                    router.push({ path: `/room-lose` });
+                    await router.push({ path: `/room-lose` });
                 }
             }
         },
@@ -152,8 +161,8 @@
                         data: {
                             language: this.language,
                             code: this.userEditor.getModel().getValue(),
-                            expectedResult: exercices[this.exercice_number].expectedResult,
-                            expectedCode: exercices[this.exercice_number].expectedCode
+                            expectedResult: exercices[this.exercise_number].expectedResult,
+                            expectedCode: exercices[this.exercise_number].expectedCode
                         },
                         success: (res) => {
                             if(res.error) {
@@ -166,9 +175,9 @@
                                 this.output = res.output;
                                 this.loading = true;
 
-                                // Next exercice
+                                // Next exercise
                                 setTimeout(() => {
-                                    this.exercice_number++;
+                                    this.exercise_number++;
                                 }, 1500);
                             }
                         }
@@ -202,8 +211,12 @@
                 .then(res => res.data)
                 .catch(() => this.$router.push({ name: 'room.connection' }));
 
-            const userTeam = this.room.teams.find(team => team.id == this.user.team.id);
-            const opponentTeam = this.room.teams.find(team => team.id != this.user.team.id);
+            const userTeam = this.room.teams.find(team => team.id === this.user.team.id);
+            const opponentTeam = this.room.teams.find(team => team.id !== this.user.team.id);
+
+            // Initialization of the team number, in case of reloading
+            this.exercise_number = userTeam.points;
+            this.opponent_exercise_number = opponentTeam.points;
 
             // Init Monaco
             const monaco = await loader.init()
@@ -251,7 +264,7 @@
                 newCursor.setPosition({column: 1, lineNumber: 1});
 
                 // Add to user
-                this.room.users.find(u => u.id == user.id ).cursor = newCursor;
+                this.room.users.find(u => u.id === user.id ).cursor = newCursor;
             });
 
             opponentTeam.users.forEach(user => {
@@ -264,8 +277,7 @@
                 newCursor.setPosition({column: 1, lineNumber: 1});
 
                 // Add to user
-                console.log(this.room.users.find(u => u.id == user.id ))
-                this.room.users.find(u => u.id == user.id).cursor = newCursor;
+                this.room.users.find(u => u.id === user.id).cursor = newCursor;
             });
 
             // Editor content managers
@@ -345,7 +357,7 @@
             },
 
             opponentSuccess() {
-                this.opponent_exercice_number++;
+                this.opponent_exercise_number++;
             }
         }
     }
